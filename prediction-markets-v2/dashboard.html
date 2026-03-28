@@ -47,47 +47,37 @@
         .context-panel .ctx-text { font-size: 12px; color: #9ca3af; line-height: 1.6; }
         .context-panel .ctx-updated { font-size: 10px; color: #374151; text-align: right; margin-top: 6px; }
 
-        /* ---- MOVES CARDS ---- */
-        .moves-card { background: #111827; border: 1px solid #1c2333; border-radius: 6px; padding: 14px 16px; }
-        .moves-card .mc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .moves-card .mc-title { font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.8px; }
-        .moves-card .mc-count { font-size: 10px; color: #374151; }
-        .moves-card .mc-narrative { font-size: 12px; color: #d1d5db; line-height: 1.6; margin-bottom: 10px; }
-        .moves-card .mc-movers { display: flex; flex-direction: column; gap: 3px; }
-        .mc-mover { display: flex; align-items: center; gap: 8px; font-size: 11px; padding: 3px 0; }
-        .mc-mover .mc-change { font-weight: 700; width: 55px; text-align: right; flex-shrink: 0; }
-        .mc-mover .mc-change.up { color: #4ade80; }
-        .mc-mover .mc-change.down { color: #f87171; }
-        .mc-mover .mc-change.flat { color: #4b5563; }
-        .mc-mover .mc-q { color: #9ca3af; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
-        .mc-mover .mc-price { color: #6b7280; font-weight: 600; width: 40px; text-align: right; flex-shrink: 0; }
-
-        /* ---- INTELLIGENCE SUMMARY ---- */
-        .summary-panel { background: #111827; border: 1px solid #1c2333; border-radius: 6px; padding: 14px 18px; margin-bottom: 12px; display: none; }
-        .summary-panel.visible { display: block; }
-        .summary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .summary-title { font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.8px; }
-        .summary-date { font-size: 10px; color: #374151; }
-        .summary-bullets { display: flex; flex-direction: column; gap: 6px; }
-        .summary-bullet { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; line-height: 1.5; }
-        .summary-bullet .bullet-dot { color: #374151; margin-top: 1px; flex-shrink: 0; }
-        .summary-bullet .bullet-text { color: #d1d5db; flex: 1; }
-        .summary-bullet .conf-badge { flex-shrink: 0; padding: 1px 6px; border-radius: 3px; font-size: 9px; font-weight: 600; margin-top: 2px; }
-        .summary-hint { font-size: 10px; color: #374151; margin-bottom: 8px; transition: opacity 0.3s; }
-        .summary-bullet.clickable { cursor: pointer; padding: 5px 8px; margin: -2px -8px; border-radius: 4px; border-left: 2px solid transparent; transition: all 0.12s; }
-        .summary-bullet.clickable:hover { background: rgba(59,130,246,0.08); border-left-color: #3b82f6; }
-        .summary-bullet.clickable:hover .bullet-arrow { opacity: 1; }
-        .summary-bullet.active { background: rgba(59,130,246,0.12); border-left-color: #3b82f6; }
-        .bullet-arrow { opacity: 0; color: #3b82f6; font-size: 11px; margin-left: 4px; transition: opacity 0.12s; flex-shrink: 0; }
-        .summary-bullet.active .bullet-arrow { opacity: 1; }
-        .market-count-pill { font-size: 9px; color: #4b5563; background: #1c2333; padding: 1px 6px; border-radius: 3px; margin-left: 6px; flex-shrink: 0; white-space: nowrap; }
-        .summary-bullet.clickable:hover .market-count-pill { color: #60a5fa; background: #1e3a5f; }
-        .summary-bullet.active .market-count-pill { color: #60a5fa; background: #1e3a5f; }
+        /* ---- INSIGHT SECTIONS ---- */
+        .insight-section { background: #111827; border: 1px solid #1c2333; border-radius: 8px; padding: 16px 18px; margin-bottom: 12px; }
+        .insight-section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .insight-section-title { font-size: 13px; font-weight: 700; color: #fff; }
+        .insight-section-hint { font-size: 10px; color: #374151; }
+        .changes-period-label { font-size: 10px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; margin-top: 4px; }
+        .changes-divider { border: none; border-top: 1px solid #1c2333; margin: 10px 0; }
+        .insight-bullet { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; line-height: 1.5; cursor: pointer; padding: 5px 8px; margin: 0 -8px; border-radius: 4px; border-left: 2px solid transparent; transition: all 0.12s; }
+        .insight-bullet:hover { background: rgba(59,130,246,0.08); border-left-color: #3b82f6; }
+        .insight-bullet.active { background: rgba(59,130,246,0.12); border-left-color: #3b82f6; }
+        .insight-bullet .ib-dot { color: #374151; margin-top: 1px; flex-shrink: 0; }
+        .insight-bullet .ib-text { color: #d1d5db; flex: 1; }
+        .insight-bullet .ib-badge { flex-shrink: 0; padding: 1px 6px; border-radius: 3px; font-size: 9px; font-weight: 600; margin-top: 2px; }
+        .ib-badge.HIGH { background: #1a3a2a; color: #4ade80; }
+        .ib-badge.MEDIUM { background: #2a2a1a; color: #facc15; }
+        .ib-badge.LOW { background: #1a1a1a; color: #6b7280; }
+        .ib-badge.b24h { background: #1a2a3a; color: #60a5fa; }
+        .ib-badge.b7d { background: #2a1a3a; color: #a78bfa; }
+        .ib-pill { font-size: 9px; color: #4b5563; background: #1c2333; padding: 1px 6px; border-radius: 3px; margin-left: 4px; flex-shrink: 0; white-space: nowrap; }
+        .insight-bullet:hover .ib-pill { color: #60a5fa; background: #1e3a5f; }
+        .insight-bullet.active .ib-pill { color: #60a5fa; background: #1e3a5f; }
+        .ib-arrow { opacity: 0; color: #3b82f6; font-size: 11px; margin-left: 4px; transition: opacity 0.12s; flex-shrink: 0; }
+        .insight-bullet:hover .ib-arrow { opacity: 1; }
+        .insight-bullet.active .ib-arrow { opacity: 1; }
+        .ib-change { font-weight: 700; font-size: 11px; flex-shrink: 0; min-width: 55px; text-align: right; margin-right: 4px; }
+        .ib-change.up { color: #4ade80; }
+        .ib-change.down { color: #f87171; }
+        .ib-change.flat { color: #4b5563; }
+        .ib-price { font-size: 11px; color: #6b7280; font-weight: 600; flex-shrink: 0; min-width: 40px; text-align: right; }
         .clear-bullet-btn { background: none; border: 1px solid #374151; color: #9ca3af; font-size: 10px; padding: 3px 10px; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.12s; }
         .clear-bullet-btn:hover { color: #e1e4e8; border-color: #6b7280; }
-        .conf-badge.HIGH { background: #1a3a2a; color: #4ade80; }
-        .conf-badge.MEDIUM { background: #2a2a1a; color: #facc15; }
-        .conf-badge.LOW { background: #1a1a1a; color: #6b7280; }
 
         /* ---- SUB-FILTERS ---- */
         .sub-filters { display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap; display: none; }
@@ -324,22 +314,26 @@
     <!-- Theme Selector -->
     <div class="theme-selector" id="themeSelector"></div>
 
-    <!-- Moves Cards -->
-    <div id="movesCards" style="display:none;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-            <div class="moves-card" id="moves24hCard"></div>
-            <div class="moves-card" id="moves7dCard"></div>
+    <!-- Theme Insight Panel -->
+    <div id="themeInsightPanel" style="display:none;">
+        <!-- Section 1: Notable Changes -->
+        <div class="insight-section" id="notableChanges">
+            <div class="insight-section-header">
+                <span class="insight-section-title">Notable Changes</span>
+                <span class="insight-section-hint">Click any move to filter markets below</span>
+            </div>
+            <div id="changes24hBlock"></div>
+            <div id="changes7dBlock"></div>
         </div>
-    </div>
 
-    <!-- Intelligence Summary -->
-    <div class="summary-panel" id="summaryPanel">
-        <div class="summary-header">
-            <span class="summary-title" id="summaryTitle">MARKET INTELLIGENCE</span>
-            <span class="summary-date" id="summaryDate"></span>
+        <!-- Section 2: Current Predictions -->
+        <div class="insight-section" id="currentPredictions">
+            <div class="insight-section-header">
+                <span class="insight-section-title">Current Predictions</span>
+                <span class="insight-section-hint">Click any insight to filter markets below</span>
+            </div>
+            <div id="predictionsContent"></div>
         </div>
-        <div class="summary-hint" id="summaryHint">Click any insight to see underlying markets</div>
-        <div class="summary-bullets" id="summaryBullets"></div>
     </div>
 
     <!-- Sub-Filters -->
@@ -720,7 +714,7 @@ function clickBullet(idx) {
     activeBulletQuestions = new Set(sourceQs);
 
     // Highlight active bullet
-    document.querySelectorAll('.summary-bullet').forEach((b, i) => {
+    document.querySelectorAll('.insight-bullet').forEach((b, i) => {
         b.classList.toggle('active', i === idx);
     });
 
@@ -734,88 +728,131 @@ function clickBullet(idx) {
 let themeMoves24h = {};
 let themeMoves7d = {};
 
-function renderMovesCard(containerId, title, movesData) {
-    const el = document.getElementById(containerId);
-    if (!movesData || !movesData.narrative) {
-        el.innerHTML = `<div class="mc-header"><span class="mc-title">${title}</span></div><div style="color:#374151;font-size:11px;">No significant moves</div>`;
+// Track which bullet set is active for click-to-filter
+let activeBulletSource = null;  // 'intelligence', 'moves24h', 'moves7d'
+
+function renderMoveBullets(movers, period, containerEl, startIdx) {
+    if (!movers || movers.length === 0) {
+        containerEl.innerHTML = '<div style="color:#374151;font-size:11px;">No significant moves</div>';
         return;
     }
 
-    const movers = (movesData.movers || []).slice(0, 5);
-    const moversHtml = movers.map(mv => {
+    return movers.slice(0, 5).map((mv, i) => {
         const c = mv.change || 0;
         const cls = c > 0.5 ? 'up' : c < -0.5 ? 'down' : 'flat';
         const sign = c > 0 ? '+' : '';
         const price = mv.price ? (mv.price * 100).toFixed(1) + '%' : '';
-        return `<div class="mc-mover">
-            <span class="mc-change ${cls}">${sign}${c.toFixed(1)}pp</span>
-            <span class="mc-q">${mv.question || ''}</span>
-            <span class="mc-price">${price}</span>
+        const q = mv.question || '';
+        const idx = startIdx + i;
+        return `<div class="insight-bullet" onclick="clickMoveBullet('${period}', ${i}, '${q.replace(/'/g, "\\'")}')">
+            <span class="ib-change ${cls}">${sign}${c.toFixed(1)}pp</span>
+            <span class="ib-text">${q}</span>
+            <span class="ib-price">${price}</span>
+            <span class="ib-arrow">\u2192</span>
         </div>`;
     }).join('');
+}
 
-    el.innerHTML = `<div class="mc-header">
-        <span class="mc-title">${title}</span>
-        <span class="mc-count">${movers.length} movers</span>
-    </div>
-    <div class="mc-narrative">${movesData.narrative}</div>
-    <div class="mc-movers">${moversHtml}</div>`;
+function clickMoveBullet(period, idx, question) {
+    if (activeBulletSource === period && activeBulletIdx === idx) {
+        clearBulletFilter();
+        return;
+    }
+    activeBulletSource = period;
+    activeBulletIdx = idx;
+    activeBulletQuestions = new Set([question]);
+
+    document.querySelectorAll('.insight-bullet').forEach(b => b.classList.remove('active'));
+    // Find and highlight the clicked one
+    const allBullets = document.querySelectorAll('.insight-bullet');
+    allBullets.forEach(b => {
+        if (b.textContent.includes(question.slice(0, 30))) b.classList.add('active');
+    });
+
+    const clearBtn = document.getElementById('clearBulletFilter');
+    if (clearBtn) clearBtn.style.display = 'inline';
+    filterMarkets();
+}
+
+function renderNotableChanges() {
+    if (!lastClickedTheme) return;
+    const m24 = themeMoves24h[lastClickedTheme];
+    const m7d = themeMoves7d[lastClickedTheme];
+    const section = document.getElementById('notableChanges');
+
+    const has24h = m24?.movers?.length > 0;
+    const has7d = m7d?.movers?.length > 0;
+
+    if (!has24h && !has7d) {
+        section.style.display = 'none';
+        return;
+    }
+    section.style.display = 'block';
+
+    let html24 = '';
+    if (has24h) {
+        html24 = `<div class="changes-period-label">Last 24 Hours</div>`;
+        html24 += renderMoveBullets(m24.movers, 'moves24h', null, 0);
+    }
+
+    let html7d = '';
+    if (has7d) {
+        if (has24h) html7d += '<hr class="changes-divider">';
+        html7d += `<div class="changes-period-label">Last 7 Days</div>`;
+        html7d += renderMoveBullets(m7d.movers, 'moves7d', null, 100);
+    }
+
+    let clearHtml = '<button class="clear-bullet-btn" id="clearBulletFilter" style="display:none" onclick="clearBulletFilter()">Clear filter \u00D7</button>';
+
+    document.getElementById('changes24hBlock').innerHTML = html24;
+    document.getElementById('changes7dBlock').innerHTML = html7d + clearHtml;
+}
+
+function renderCurrentPredictions() {
+    if (!lastClickedTheme) return;
+    const summary = themeSummaries[lastClickedTheme];
+    const container = document.getElementById('predictionsContent');
+    const section = document.getElementById('currentPredictions');
+
+    if (!summary || !summary.bullets || summary.bullets.length === 0) {
+        section.style.display = 'none';
+        return;
+    }
+    section.style.display = 'block';
+
+    let html = summary.bullets.slice(0, 8).map((b, i) => {
+        const conf = b.confidence || 'LOW';
+        const sourceCount = (b.source_questions || []).length;
+        const countPill = sourceCount > 0 ? `<span class="ib-pill">${sourceCount} market${sourceCount !== 1 ? 's' : ''}</span>` : '';
+        const arrow = sourceCount > 0 ? '<span class="ib-arrow">\u2192</span>' : '';
+        return `<div class="insight-bullet" onclick="clickBullet(${i})">
+            <span class="ib-dot">\u2022</span>
+            <span class="ib-text">${b.text}</span>
+            <span class="ib-badge ${conf}">${conf}</span>
+            ${countPill}${arrow}
+        </div>`;
+    }).join('');
+    html += '<button class="clear-bullet-btn" id="clearBulletFilter2" style="display:none" onclick="clearBulletFilter()">Clear filter \u00D7</button>';
+    container.innerHTML = html;
 }
 
 function updateContextPanel() {
-    const movesContainer = document.getElementById('movesCards');
-    const summaryPanel = document.getElementById('summaryPanel');
+    const panel = document.getElementById('themeInsightPanel');
 
     if (!lastClickedTheme || !themeContexts[lastClickedTheme]) {
-        movesContainer.style.display = 'none';
-        summaryPanel.classList.remove('visible');
+        panel.style.display = 'none';
         return;
     }
 
-    // Moves cards
-    const m24 = themeMoves24h[lastClickedTheme];
-    const m7d = themeMoves7d[lastClickedTheme];
-    if (m24 || m7d) {
-        renderMovesCard('moves24hCard', '24H MOVES IN ' + lastClickedTheme.toUpperCase(), m24);
-        renderMovesCard('moves7dCard', '7D MOVES IN ' + lastClickedTheme.toUpperCase(), m7d);
-        movesContainer.style.display = 'block';
-    } else {
-        movesContainer.style.display = 'none';
-    }
+    panel.style.display = 'block';
 
     // Clear bullet filter when switching themes
     activeBulletIdx = null;
     activeBulletQuestions = null;
+    activeBulletSource = null;
 
-    // Summary
-    const summary = themeSummaries[lastClickedTheme];
-    if (summary && summary.bullets && summary.bullets.length > 0) {
-        document.getElementById('summaryTitle').textContent = 'MARKET INTELLIGENCE IN ' + lastClickedTheme.toUpperCase();
-        document.getElementById('summaryDate').textContent = summary.generated_at ? 'Generated ' + summary.generated_at.slice(0, 10) : '';
-
-        let bulletsHtml = summary.bullets.slice(0, 8).map((b, i) => {
-            const conf = b.confidence || 'LOW';
-            const sourceCount = (b.source_questions || []).length;
-            const hasSources = sourceCount > 0;
-            const clickable = hasSources ? ` onclick="clickBullet(${i})"` : '';
-            const cls = hasSources ? ' clickable' : '';
-            const countPill = hasSources ? `<span class="market-count-pill">${sourceCount} market${sourceCount !== 1 ? 's' : ''}</span>` : '';
-            const arrow = hasSources ? '<span class="bullet-arrow">\u2192</span>' : '';
-            return `<div class="summary-bullet${cls}"${clickable}>
-                <span class="bullet-dot">\u2022</span>
-                <span class="bullet-text">${b.text}</span>
-                <span class="conf-badge ${conf}">${conf}</span>
-                ${countPill}${arrow}
-            </div>`;
-        }).join('');
-
-        bulletsHtml += '<button class="clear-bullet-btn" id="clearBulletFilter" style="display:none" onclick="clearBulletFilter()">Clear filter &times;</button>';
-
-        document.getElementById('summaryBullets').innerHTML = bulletsHtml;
-        summaryPanel.classList.add('visible');
-    } else {
-        summaryPanel.classList.remove('visible');
-    }
+    renderNotableChanges();
+    renderCurrentPredictions();
 }
 
 function updateSubFilters() {
