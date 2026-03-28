@@ -19,7 +19,7 @@ import time
 import urllib.parse
 import requests
 
-PORT = 8091
+PORT = int(os.environ.get("PORT", 8091))
 ALLIUM_API_KEY = "47lh6ohmjsMWFl8znEqjFXCKP53Qsg0-e9O47Djmk6NCnMcvj52TZPp6h5ljwmUnhkrkRXuV4hp9gCsd9xJmgg"
 ALLIUM_BASE = "https://api.allium.so/api/v1/explorer/queries"
 ALLIUM_HEADERS = {"X-API-Key": ALLIUM_API_KEY, "Content-Type": "application/json"}
@@ -273,7 +273,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 def main():
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    with socketserver.TCPServer(("127.0.0.1", PORT), Handler) as httpd:
+    with socketserver.TCPServer(("0.0.0.0", PORT), Handler) as httpd:
         print(f"Prediction Markets V2 — Server")
         print(f"http://127.0.0.1:{PORT}/dashboard.html")
         print(f"Enrichment API: http://127.0.0.1:{PORT}/api/enrich?question=...&venue=...")

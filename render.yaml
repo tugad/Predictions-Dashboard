@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: predictions-dashboard
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python prediction-markets-v2/serve.py
+    envVars:
+      - key: PORT
+        value: 10000
