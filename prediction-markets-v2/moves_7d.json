@@ -1,262 +1,277 @@
 {
   "Energies": {
-    "narrative": "Prediction markets are pricing a sharp de-escalation in US-Iran military risk, with the probability of US forces entering Iran by March 31 falling 12pp to just 9% on $6.8M volume — the clearest signal that direct conflict is being priced out. The chance of a ceasefire by April 7 fell 21pp to 11.5%, while the May 31 ceasefire probability rose 7pp to 52.5%, suggesting markets expect a longer path to resolution rather than imminent de-escalation. Crude oil price targets have repriced downward in tandem: the odds of CL hitting $120 by end of March fell 9.7pp to 6.9%, and $110 fell 9.8pp to 22.4%, even as spot Brent sits near $120/bbl — markets are fading the spike rather than chasing it.",
     "movers": [
       {
-        "question": "US forces enter Iran by March 31?",
-        "change": -12.0,
-        "price": 0.09,
-        "volume": 6782949
-      },
-      {
-        "question": "US x Iran ceasefire by April 7?",
+        "text": "US-Iran ceasefire by April odds collapse to 12% amid escalating conflict",
         "change": -21.0,
         "price": 0.115,
-        "volume": 496779
+        "question": "US x Iran ceasefire by April 7?"
       },
       {
-        "question": "US x Iran ceasefire by May 31?",
-        "change": 7.0,
-        "price": 0.525,
-        "volume": 420480
+        "text": "US ground forces entering Iran by month-end falls to 9% despite air campaign",
+        "change": -12.0,
+        "price": 0.09,
+        "question": "US forces enter Iran by March 31?"
       },
       {
-        "question": "Will Crude Oil (CL) hit (HIGH) $120 by end of March?",
-        "change": -9.7,
-        "price": 0.069,
-        "volume": 948823
-      },
-      {
-        "question": "Will Crude Oil (CL) hit (HIGH) $110 by end of March?",
+        "text": "Oil $110 by March-end drops to 22% as Hormuz disruption reprices lower",
         "change": -9.8,
         "price": 0.224,
-        "volume": 747945
+        "question": "Will Crude Oil (CL) hit (HIGH) $110 by end of March?"
+      },
+      {
+        "text": "Oil $120 by March-end slides to 7% despite Brent already near that level",
+        "change": -9.7,
+        "price": 0.069,
+        "question": "Will Crude Oil (CL) hit (HIGH) $120 by end of March?"
+      },
+      {
+        "text": "US invasion of Iran by March 31 seen at only 6% after week of selling",
+        "change": -9.1,
+        "price": 0.055,
+        "question": "Will the U.S. invade Iran by March 31?"
       }
     ]
   },
   "Rates": {
-    "narrative": "Rates markets are repricing a higher-for-longer Fed, with the probability of a July 2026 rate hike rising 3.6pp to 8.8% and the probability of the funds rate ceiling reaching 4.0% at year-end rising 3.1pp to 10.8% — both modest in absolute terms but directionally consistent with the oil-shock inflation revision to 2.7%. April 2026 is now a near-certain hold at 96.7% (up 1.9pp), with only 1.8% of the market pricing a hike at that meeting. The market is also now 97.6% confident that March annual inflation will come in at or above 2.8%, up 0.9pp — setting the stage for any Fed pivot to be pushed further out into 2027.",
     "movers": [
       {
-        "question": "Will there be no change in Fed interest rates after the April 2026 meeting?",
+        "text": "April Fed hold near-certain at 97% as stagflation keeps policy frozen",
         "change": 1.9,
         "price": 0.967,
-        "volume": 1647518
+        "question": "Will there be no change in Fed interest rates after the April 2026 meeting?"
       },
       {
-        "question": "Will the Fed increase interest rates by 25 bps after the July 2026 meeting?",
-        "change": 3.6,
-        "price": 0.088,
-        "volume": 963229
-      },
-      {
-        "question": "Will the upper bound of the target federal funds rate be 4.0% at the end of 2026?",
-        "change": 3.1,
-        "price": 0.108,
-        "volume": 324823
-      },
-      {
-        "question": "Will annual inflation increase by ≥2.8% in March?",
+        "text": "March inflation at or above 2.8% near-certain at 98% amid oil shock",
         "change": 0.9,
         "price": 0.976,
-        "volume": 334478
+        "question": "Will annual inflation increase by \u22652.8% in March?"
+      },
+      {
+        "text": "July Fed hike probability ticks up to 9% as stagflation risk accumulates",
+        "change": 3.6,
+        "price": 0.088,
+        "question": "Will the Fed increase interest rates by 25 bps after the July 2026 meeting?"
+      },
+      {
+        "text": "Fed funds at 4% by year-end climbs to 11% on persistent inflation fears",
+        "change": 3.1,
+        "price": 0.108,
+        "question": "Will the upper bound of the target federal funds rate be 4.0% at the end of 2026"
+      },
+      {
+        "text": "April rate hike probability falls to 2% — market rules out near-term tightening",
+        "change": -1.7,
+        "price": 0.018,
+        "question": "Will the Fed increase interest rates by 25+ bps after the April 2026 meeting?"
       }
     ]
   },
   "Equities": {
-    "narrative": "NVIDIA's near-term ranking dominance is being repriced lower, with the probability of it holding second-largest market cap falling 6.5pp to 7.0%, and third-largest dropping 7.8pp to 1.8% — paradoxically as its first-place probability ticked up 1.1pp to 99.8%, suggesting the market sees NVIDIA consolidating at the top while mega-cap peers pull farther away. The AI competitive landscape is also shifting: the probability that DeepSeek holds the best AI model at end of April fell 3.7pp to 1.7%, indicating reduced conviction in the Chinese open-source challenger. These moves together reflect a narrowing of the mega-cap AI leadership trade, with less dispersion expected across the top tiers.",
     "movers": [
       {
-        "question": "Will NVIDIA be the largest company in the world by market cap on March?",
+        "text": "NVIDIA holding largest market cap through March remains near-certain at 99.8%",
         "change": 1.1,
         "price": 0.998,
-        "volume": 373803
+        "question": "Will NVIDIA be the largest company in the world by market cap on March 31?"
       },
       {
-        "question": "Will NVIDIA be the second-largest company in the world by market cap on March?",
-        "change": -6.5,
-        "price": 0.07,
-        "volume": 245215
-      },
-      {
-        "question": "Will NVIDIA be the third-largest company in the world by market cap on March?",
+        "text": "NVIDIA falling to third-largest by April 30 collapses to 2% on megacap resilience",
         "change": -7.8,
         "price": 0.018,
-        "volume": 303952
+        "question": "Will NVIDIA be the third-largest company in the world by market cap on April 30?"
       },
       {
-        "question": "Will DeepSeek have the best AI model at the end of April 2026?",
+        "text": "NVIDIA dropping to second place by April 30 falls to 7% amid tech leadership debate",
+        "change": -6.5,
+        "price": 0.07,
+        "question": "Will NVIDIA be the second-largest company in the world by market cap on April 30"
+      },
+      {
+        "text": "DeepSeek leading AI by April now just 2% as US models retain competitive edge",
         "change": -3.7,
         "price": 0.017,
-        "volume": 713950
+        "question": "Will DeepSeek have the best AI model at the end of April 2026?"
       }
     ]
   },
   "Crypto": {
-    "narrative": "Bitcoin prediction markets are pricing a notable compression of the upside distribution, with the probability of BTC reaching $80K in March falling 10.2pp to just 0.4% on $1.5M volume, while the $65K downside scenario rose in salience — sitting at 46.2% (down 6pp but still near coin-flip). Ethereum's March range has collapsed in both directions: the $2,400 upside fell 18.6pp to 1.9%, and the $1,800 downside fell 10.2pp to 6.8%, implying markets see ETH settling in a tight mid-range. Across the board, the asymmetry has shifted bearish: both upside price targets and the probability of ETH recovery have repriced down faster than the downside scenarios, consistent with accelerating spot ETF outflows and risk-off rotation.",
     "movers": [
       {
-        "question": "Will Bitcoin reach $80,000 in March?",
-        "change": -10.2,
-        "price": 0.004,
-        "volume": 1534280
-      },
-      {
-        "question": "Will Bitcoin dip to $65,000 in March?",
-        "change": -6.0,
-        "price": 0.462,
-        "volume": 1580882
-      },
-      {
-        "question": "Will Ethereum reach $2,400 in March?",
+        "text": "Ethereum reaching $2,400 in March collapses to 2% as risk-off selling accelerates",
         "change": -18.6,
         "price": 0.019,
-        "volume": 267383
+        "question": "Will Ethereum reach $2,400 in March?"
       },
       {
-        "question": "Will Ethereum dip to $1,800 in March?",
+        "text": "EdgeX launch hitting $1B FDV drops to 11% as token launch enthusiasm fades",
+        "change": -15.0,
+        "price": 0.105,
+        "question": "EdgeX FDV above $1B one day after launch?"
+      },
+      {
+        "text": "Bitcoin hitting $80K in March now essentially zero at 0.4% as BTC slides",
+        "change": -10.2,
+        "price": 0.004,
+        "question": "Will Bitcoin reach $80,000 in March?"
+      },
+      {
+        "text": "Ethereum dipping to $1,800 in March falls to 7% despite ETF outflow pressure",
         "change": -10.2,
         "price": 0.068,
-        "volume": 301337
+        "question": "Will Ethereum dip to $1,800 in March?"
       },
       {
-        "question": "Will Bitcoin dip to $60,000 in March?",
-        "change": -9.4,
-        "price": 0.061,
-        "volume": 1068207
+        "text": "Bitcoin dipping to $65K in March at 46% — median bear case gaining traction",
+        "change": -6.0,
+        "price": 0.462,
+        "question": "Will Bitcoin dip to $65,000 in March?"
       }
     ]
   },
   "Geopolitics": {
-    "narrative": "The most dramatic moves this week are in daily-resolution Israel conflict markets, which show Israel acting in Lebanon (now 100%, up 73.1pp) while Iran failed to retaliate against Israel on March 23 (now 0.9%, down 84.5pp) — indicating the conflict front has shifted geographically without triggering Iranian counter-escalation. The broader Iran escalation complex is repricing toward de-escalation: US forces entering Iran by March 31 fell 12pp to 9%, a near-term ceasefire by April 7 dropped 21pp to 11.5%, and regime change by March 31 is near zero at 3.4% (down 10.1pp). One notable counter-move: the probability of a Trump China visit by May 31 surged 27pp to 79%, signaling markets are beginning to price diplomatic engagement with Beijing as the Iran conflict consumes US attention.",
     "movers": [
       {
-        "question": "US forces enter Iran by March 31?",
-        "change": -12.0,
-        "price": 0.09,
-        "volume": 6782949
+        "text": "Iran retaliating against Israel on March 23 crashes to under 1% after no escalation",
+        "change": -84.5,
+        "price": 0.009,
+        "question": "Will Iran conduct a military action against Israel on March 23, 2026?"
       },
       {
-        "question": "US x Iran ceasefire by April 7?",
-        "change": -21.0,
-        "price": 0.115,
-        "volume": 496779
+        "text": "Israel strikes Lebanon on March 20 resolved at 100% — confirmed event",
+        "change": 73.1,
+        "price": 1.0,
+        "question": "Will Israel take military action in Lebanon on March 20, 2026?"
       },
       {
-        "question": "Will Trump visit China by May 31?",
+        "text": "Trump visiting China by May 31 surges to 79% on diplomatic channel opening",
         "change": 27.0,
         "price": 0.79,
-        "volume": 246849
+        "question": "Will Trump visit China by May 31?"
       },
       {
-        "question": "Will another country strike Iran by March 31?",
-        "change": -14.0,
-        "price": 0.065,
-        "volume": 283947
+        "text": "US-Iran ceasefire by April 7 at just 12% as conflict shows no signs of easing",
+        "change": -21.0,
+        "price": 0.115,
+        "question": "US x Iran ceasefire by April 7?"
       },
       {
-        "question": "Iran leadership change by March 31?",
-        "change": -10.1,
-        "price": 0.034,
-        "volume": 314556
+        "text": "US ground entry into Iran by March 31 falls to 9% despite ongoing air campaign",
+        "change": -12.0,
+        "price": 0.09,
+        "question": "US forces enter Iran by March 31?"
       }
     ]
   },
   "Commodities": {
-    "narrative": "Crude oil futures markets are uniformly repricing lower across every price target, even as spot Brent sits around $120/bbl following the Strait of Hormuz closure — the probability of CL hitting $105 by end of March fell 7.8pp to 45.2%, the $100 target dropped 4.5pp to 72.2%, and even the $80 downside (a $40 crash from spot) fell 7.2pp to just 1.8%. The broad decline in both upside and downside tail probabilities suggests markets are collapsing their uncertainty range as end-of-month expiry nears, with the $100–$105 zone becoming the central gravity. The absence of gold or agricultural movers in the top-10 this week indicates that the commodity narrative is entirely Iran/crude-driven, with other safe-haven and food commodity repricing lagging.",
     "movers": [
       {
-        "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?",
+        "text": "Crude oil reaching $100 by March falls to 72% — rally seen losing momentum",
         "change": -4.5,
         "price": 0.722,
-        "volume": 2208436
+        "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?"
       },
       {
-        "question": "Will Crude Oil (CL) hit (HIGH) $105 by end of March?",
+        "text": "Oil $105 by March-end slips to 45% as demand destruction fears offset supply shock",
         "change": -7.8,
         "price": 0.452,
-        "volume": 566223
+        "question": "Will Crude Oil (CL) hit (HIGH) $105 by end of March?"
       },
       {
-        "question": "Will Crude Oil (CL) hit (HIGH) $110 by end of March?",
+        "text": "Oil $110 by March-end down to 22% despite ongoing Hormuz closure",
         "change": -9.8,
         "price": 0.224,
-        "volume": 747945
+        "question": "Will Crude Oil (CL) hit (HIGH) $110 by end of March?"
       },
       {
-        "question": "Will Crude Oil (CL) hit (HIGH) $120 by end of March?",
+        "text": "Oil $120 by March-end at 7% — extreme upside seen as unlikely this month",
         "change": -9.7,
         "price": 0.069,
-        "volume": 948823
+        "question": "Will Crude Oil (CL) hit (HIGH) $120 by end of March?"
+      },
+      {
+        "text": "Oil crashing to $80 by March-end at 2% — deep downside tail essentially ruled out",
+        "change": -7.2,
+        "price": 0.018,
+        "question": "Will Crude Oil (CL) hit (LOW) $80 by end of March?"
       }
     ]
   },
   "Macro": {
-    "narrative": "Macro prediction market activity was thin this week, with only one significant mover: the probability that US annual inflation came in at or above 2.8% in March rose 0.9pp to 97.6% on $334K volume — a near-certainty consistent with the oil shock passing through to CPI. The lack of broader macro market movement despite the scale of the energy disruption suggests that stagflation and recession risk pricing is already baked into positioning from prior weeks, and markets are waiting for hard data catalysts (NFP, Q1 GDP) before repricing the US growth trajectory. The one-sided inflation print creates a challenging setup for the Fed ahead of the April meeting, where a hold is now priced at 96.7%.",
     "movers": [
       {
-        "question": "Will annual inflation increase by ≥2.8% in March?",
+        "text": "March inflation at 2.8% or higher near-certain at 98% amid oil price shock",
         "change": 0.9,
         "price": 0.976,
-        "volume": 334478
+        "question": "Will annual inflation increase by \u22652.8% in March?"
       }
     ]
   },
   "Elections": {
-    "narrative": "The dominant move in elections markets this week is a sharp divergence in Trump-China diplomacy timing: the May 31 visit probability surged 27pp to 79%, while the earlier April 30 deadline fell 9.6pp to 2.9% — markets are firmly pricing a China visit as likely but not imminent, consistent with the Iran conflict commanding near-term diplomatic bandwidth. Iranian regime stability markets have continued their multi-week slide, with the probability of regime fall by April 30 down 5pp to 6.5% and by June 30 down 6pp to 18.5%, suggesting the Iran-Israel war is not translating into internal collapse risk despite the military pressure. On US domestic politics, AfD's 2026 Berlin state election chances rose 4.5pp to 18.5%, and Tom Steyer gained 5.8pp in the California governor race to 12.0%.",
     "movers": [
       {
-        "question": "Will Trump visit China by May 31?",
+        "text": "Trump China visit by May 31 jumps to 79% on emerging diplomatic breakthrough signals",
         "change": 27.0,
         "price": 0.79,
-        "volume": 246849
+        "question": "Will Trump visit China by May 31?"
       },
       {
-        "question": "Will Trump visit China by April 30?",
-        "change": -9.6,
-        "price": 0.029,
-        "volume": 1396206
-      },
-      {
-        "question": "Will the Iranian regime fall by June 30?",
+        "text": "Iranian regime collapse by June 30 drops to 19% as regime shows resilience",
         "change": -6.0,
         "price": 0.185,
-        "volume": 1109427
+        "question": "Will the Iranian regime fall by June 30?"
       },
       {
-        "question": "Will the Iranian regime fall by April 30?",
+        "text": "Iranian regime falling by April 30 falls to 7% — short-horizon collapse unlikely",
         "change": -5.0,
         "price": 0.065,
-        "volume": 1921592
+        "question": "Will the Iranian regime fall by April 30?"
       },
       {
-        "question": "Will AfD win the most seats in the 2026 Berlin state elections?",
-        "change": 4.5,
-        "price": 0.185,
-        "volume": 709511
+        "text": "Tom Steyer California governor odds climb to 12% as Democratic field remains unsettled",
+        "change": 5.8,
+        "price": 0.12,
+        "question": "Will Tom Steyer win the California Governor Election in 2026?"
+      },
+      {
+        "text": "Tulsi Gabbard next Cabinet departure falls to 11% — Trump loyalty holding for now",
+        "change": -6.0,
+        "price": 0.108,
+        "question": "Will Tulsi Gabbard be the next to leave the Trump Cabinet before 2027?"
       }
     ]
   },
   "Sports": {
-    "narrative": "This week's sports markets are almost entirely driven by resolved game outcomes — large probability swings to 0% or 100% represent completed matches, not forward-looking signals. Notable resolved events include a Counter-Strike NAVI victory at BLAST Open Rotterdam (+43.5pp to 100% on $1.2M volume) and Sabalenka defeating Gauff at the Miami Open (now 87.5%, up 17pp). The only forward-looking signal of note is the ongoing March Madness tournament flow, where game-day volumes remain elevated; however, no individual pre-game market in this week's top movers represents an unresolved institutional-grade signal.",
     "movers": [
       {
-        "question": "Counter-Strike: Natus Vincere vs PARIVISION (BO3) - BLAST Open Rotterdam",
+        "text": "Dota 2: Team Yandex eliminated by Tundra — ESL Birmingham odds collapse to near-zero",
+        "change": -53.5,
+        "price": 0.001,
+        "question": "Dota 2: Team Yandex vs Tundra Esports (BO3) - ESL One Birmingham Playoffs"
+      },
+      {
+        "text": "Senators-Lightning over 6.5 goals collapses to near-zero after final score settled",
+        "change": -51.0,
+        "price": 0.001,
+        "question": "Senators vs. Lightning: O/U 6.5"
+      },
+      {
+        "text": "Panthers defeat Islanders — Islanders win odds collapse to near-zero at 0.1%",
+        "change": -50.0,
+        "price": 0.001,
+        "question": "Panthers vs. Islanders"
+      },
+      {
+        "text": "NaVi defeats PARIVISION at BLAST Rotterdam — CS2 market settles at 100%",
         "change": 43.5,
         "price": 1.0,
-        "volume": 1186411
+        "question": "Counter-Strike: Natus Vincere vs PARIVISION (BO3) - BLAST Open Rotterdam Playoff"
       },
       {
-        "question": "Miami Open: Aryna Sabalenka vs Coco Gauff",
-        "change": 17.0,
-        "price": 0.875,
-        "volume": 739114
-      },
-      {
-        "question": "Spurs vs. Bucks",
-        "change": 37.1,
-        "price": 0.996,
-        "volume": 914660
+        "text": "Royal Challengers Bengaluru beat Sunrisers Hyderabad — IPL market resolves at 100%",
+        "change": 45.5,
+        "price": 1.0,
+        "question": "Indian Premier League: Royal Challengers Bengaluru vs Sunrisers Hyderabad"
       }
     ]
   }

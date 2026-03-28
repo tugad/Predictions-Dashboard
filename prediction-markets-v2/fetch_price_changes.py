@@ -2,8 +2,8 @@
 Prediction Markets V2 — Price Change Fetcher
 ==============================================
 Fetches 24h and 7d price history from Polymarket CLOB API
-for top markets by volume. Enriches markets_raw.json with
-price_24h_ago and price_7d_ago fields.
+for ALL Polymarket markets. Uses concurrent threads for speed.
+Enriches markets_raw.json with change_24h and change_7d fields.
 
 Run after fetch_markets.py, before extract_themes.py.
 """
@@ -11,24 +11,41 @@ Run after fetch_markets.py, before extract_themes.py.
 import json
 import requests
 import time
-import sys
+import concurrent.futures
 
 CLOB_BASE = "https://clob.polymarket.com"
-MIN_VOLUME = 50000  # Only fetch for High/Med markets
+MAX_WORKERS = 20
 
 
-def fetch_price_history(token_id, interval="1d", fidelity=60):
-    """Fetch price history from Polymarket CLOB API."""
+def fetch_both_intervals(token_id):
+    """Fetch 24h and 7d price history for a single token. Returns (tid, price_24h_ago, price_7d_ago)."""
+    price_24h_ago = None
+    price_7d_ago = None
     try:
-        resp = requests.get(
+        r1 = requests.get(
             f"{CLOB_BASE}/prices-history",
-            params={"market": token_id, "interval": interval, "fidelity": fidelity},
+            params={"market": token_id, "interval": "1d", "fidelity": 60},
             timeout=10,
         )
-        data = resp.json()
-        return data.get("history", [])
+        h1 = r1.json().get("history", [])
+        if len(h1) >= 2:
+            price_24h_ago = h1[0]["p"]
     except Exception:
-        return []
+        pass
+
+    try:
+        r7 = requests.get(
+            f"{CLOB_BASE}/prices-history",
+            params={"market": token_id, "interval": "1w", "fidelity": 360},
+            timeout=10,
+        )
+        h7 = r7.json().get("history", [])
+        if len(h7) >= 2:
+            price_7d_ago = h7[0]["p"]
+    except Exception:
+        pass
+
+    return token_id, price_24h_ago, price_7d_ago
 
 
 def main():
@@ -39,106 +56,92 @@ def main():
     data = json.load(open("markets_raw.json"))
     markets = data["markets"]
 
-    # Find Polymarket markets with token IDs and sufficient volume
+    # Find ALL Polymarket markets with token IDs
     poly_targets = [
         m for m in markets
         if m.get("venue") == "polymarket"
         and m.get("clob_token_id")
-        and (m.get("volume_7d") or 0) >= MIN_VOLUME
     ]
+    print(f"\n  Polymarket markets to fetch: {len(poly_targets)}")
 
-    # Sort by volume descending, cap at 300
-    poly_targets.sort(key=lambda m: m.get("volume_7d") or 0, reverse=True)
-    poly_targets = poly_targets[:300]
-
-    print(f"\n  Polymarket targets: {len(poly_targets)} markets (vol >= ${MIN_VOLUME:,})")
-
-    # Also handle Kalshi — previous_price already captured in fetch_markets.py
-    kalshi_with_prev = sum(
-        1 for m in markets
-        if m.get("venue") == "kalshi"
-        and m.get("previous_price", 0) > 0
-        and (m.get("volume_7d") or 0) >= MIN_VOLUME
-    )
-    print(f"  Kalshi with previous_price: {kalshi_with_prev}")
-
-    # Compute Kalshi 24h changes immediately
+    # Compute Kalshi 24h changes from previous_price (instant, no API call)
+    kalshi_count = 0
     for m in markets:
         if m.get("venue") == "kalshi" and m.get("previous_price", 0) > 0:
             price = m.get("price") or 0
             prev = m.get("previous_price") or 0
             if price > 0 and prev > 0:
                 m["change_24h"] = round((price - prev) * 100, 2)
+                kalshi_count += 1
             else:
                 m["change_24h"] = None
-            m["change_7d"] = None  # Not available from Kalshi API
+            m["change_7d"] = None
 
-    # Fetch Polymarket price changes
-    print(f"\n  Fetching CLOB price history for {len(poly_targets)} markets...")
-    print(f"  Estimated time: ~{len(poly_targets) * 2 / 10 * 0.3 + len(poly_targets) * 0.2:.0f}s\n")
+    print(f"  Kalshi 24h changes computed: {kalshi_count}")
 
-    # Build token_id → market index mapping
+    # Build token_id → market indices mapping
     tid_to_indices = {}
     for i, m in enumerate(markets):
         tid = m.get("clob_token_id")
         if tid:
             tid_to_indices.setdefault(tid, []).append(i)
 
+    # Deduplicate token IDs (some markets share the same token)
+    unique_tids = list(set(m["clob_token_id"] for m in poly_targets))
+    print(f"  Unique token IDs: {len(unique_tids)}")
+    print(f"  Estimated time: ~{len(unique_tids) * 2 / MAX_WORKERS / 10:.0f}-{len(unique_tids) * 2 / MAX_WORKERS / 5:.0f}s with {MAX_WORKERS} workers\n")
+
+    start_time = time.time()
+    results = {}
     fetched = 0
     errors = 0
-    start_time = time.time()
 
-    # Process in batches of 10
-    batch_size = 10
-    for batch_start in range(0, len(poly_targets), batch_size):
-        batch = poly_targets[batch_start:batch_start + batch_size]
+    # Fetch all in parallel using thread pool
+    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        future_to_tid = {
+            executor.submit(fetch_both_intervals, tid): tid
+            for tid in unique_tids
+        }
 
-        for m in batch:
-            tid = m["clob_token_id"]
-            current_price = m.get("price") or 0
+        for future in concurrent.futures.as_completed(future_to_tid):
+            try:
+                tid, p24, p7d = future.result()
+                results[tid] = (p24, p7d)
+                fetched += 1
+            except Exception:
+                errors += 1
 
-            # Fetch 24h
-            h24 = fetch_price_history(tid, "1d", 60)
-            # Fetch 7d
-            h7d = fetch_price_history(tid, "1w", 360)
-
-            price_24h_ago = h24[0]["p"] if len(h24) >= 2 else None
-            price_7d_ago = h7d[0]["p"] if len(h7d) >= 2 else None
-
-            change_24h = round((current_price - price_24h_ago) * 100, 2) if price_24h_ago is not None and current_price > 0 else None
-            change_7d = round((current_price - price_7d_ago) * 100, 2) if price_7d_ago is not None and current_price > 0 else None
-
-            # Apply to all markets with this token_id
-            for idx in tid_to_indices.get(tid, []):
-                markets[idx]["price_24h_ago"] = price_24h_ago
-                markets[idx]["price_7d_ago"] = price_7d_ago
-                markets[idx]["change_24h"] = change_24h
-                markets[idx]["change_7d"] = change_7d
-
-            fetched += 1
-
-        # Progress
-        elapsed = time.time() - start_time
-        if (batch_start // batch_size) % 5 == 0:
-            print(f"  [{fetched}/{len(poly_targets)}] {elapsed:.0f}s elapsed")
-
-        time.sleep(0.2)  # Small delay between batches
+            if fetched % 500 == 0:
+                elapsed = time.time() - start_time
+                print(f"  [{fetched}/{len(unique_tids)}] {elapsed:.0f}s elapsed")
 
     elapsed = time.time() - start_time
-    print(f"\n  Done: {fetched} fetched, {errors} errors, {elapsed:.0f}s total")
+    print(f"\n  Fetched: {fetched}, errors: {errors}, time: {elapsed:.0f}s")
 
-    # Summary of changes
+    # Apply results to markets
+    applied = 0
+    for tid, (p24, p7d) in results.items():
+        for idx in tid_to_indices.get(tid, []):
+            current_price = markets[idx].get("price") or 0
+            markets[idx]["price_24h_ago"] = p24
+            markets[idx]["price_7d_ago"] = p7d
+            markets[idx]["change_24h"] = round((current_price - p24) * 100, 2) if p24 is not None and current_price > 0 else None
+            markets[idx]["change_7d"] = round((current_price - p7d) * 100, 2) if p7d is not None and current_price > 0 else None
+            applied += 1
+
+    # Summary
     with_24h = sum(1 for m in markets if m.get("change_24h") is not None)
     with_7d = sum(1 for m in markets if m.get("change_7d") is not None)
+    print(f"  Applied to {applied} market entries")
     print(f"  Markets with 24h change: {with_24h}")
     print(f"  Markets with 7d change: {with_7d}")
 
-    # Show biggest movers
-    movers_24h = [(m, m["change_24h"]) for m in markets if m.get("change_24h") is not None]
-    movers_24h.sort(key=lambda x: abs(x[1]), reverse=True)
-    print(f"\n  Top 10 24h movers:")
-    for m, c in movers_24h[:10]:
-        print(f"    {c:>+6.1f}pp  {m['question'][:60]}")
+    # Top movers
+    movers = [(m, m["change_24h"]) for m in markets if m.get("change_24h") is not None and (m.get("volume_7d") or 0) >= 50000]
+    movers.sort(key=lambda x: abs(x[1]), reverse=True)
+    print(f"\n  Top 10 24h movers (vol >= $50K):")
+    for m, c in movers[:10]:
+        print(f"    {c:>+6.1f}pp  ${m.get('volume_7d',0):>10,.0f}  {m['question'][:55]}")
 
     # Save
     with open("markets_raw.json", "w") as f:

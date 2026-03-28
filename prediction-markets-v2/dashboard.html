@@ -52,8 +52,10 @@
         .insight-section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .insight-section-title { font-size: 13px; font-weight: 700; color: #fff; }
         .insight-section-hint { font-size: 10px; color: #374151; }
-        .changes-period-label { font-size: 10px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; margin-top: 4px; }
-        .changes-divider { border: none; border-top: 1px solid #1c2333; margin: 10px 0; }
+        .changes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+        .changes-col { padding-right: 14px; }
+        .changes-col:last-child { padding-right: 0; padding-left: 14px; border-left: 1px solid #1c2333; }
+        .changes-period-label { font-size: 10px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
         .insight-bullet { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; line-height: 1.5; cursor: pointer; padding: 5px 8px; margin: 0 -8px; border-radius: 4px; border-left: 2px solid transparent; transition: all 0.12s; }
         .insight-bullet:hover { background: rgba(59,130,246,0.08); border-left-color: #3b82f6; }
         .insight-bullet.active { background: rgba(59,130,246,0.12); border-left-color: #3b82f6; }
@@ -316,14 +318,23 @@
 
     <!-- Theme Insight Panel -->
     <div id="themeInsightPanel" style="display:none;">
-        <!-- Section 1: Notable Changes -->
+        <!-- Section 1: Notable Changes (side by side) -->
         <div class="insight-section" id="notableChanges">
             <div class="insight-section-header">
                 <span class="insight-section-title">Notable Changes</span>
                 <span class="insight-section-hint">Click any move to filter markets below</span>
             </div>
-            <div id="changes24hBlock"></div>
-            <div id="changes7dBlock"></div>
+            <div class="changes-grid">
+                <div class="changes-col">
+                    <div class="changes-period-label">Last 24 Hours</div>
+                    <div id="changes24hBlock"></div>
+                </div>
+                <div class="changes-col">
+                    <div class="changes-period-label">Last 7 Days</div>
+                    <div id="changes7dBlock"></div>
+                </div>
+            </div>
+            <button class="clear-bullet-btn" id="clearBulletFilter" style="display:none" onclick="clearBulletFilter()">Clear filter &times;</button>
         </div>
 
         <!-- Section 2: Current Predictions -->
@@ -731,23 +742,29 @@ let themeMoves7d = {};
 // Track which bullet set is active for click-to-filter
 let activeBulletSource = null;  // 'intelligence', 'moves24h', 'moves7d'
 
-function renderMoveBullets(movers, period, containerEl, startIdx) {
+function renderMoveBullets(movers, period) {
     if (!movers || movers.length === 0) {
-        containerEl.innerHTML = '<div style="color:#374151;font-size:11px;">No significant moves</div>';
-        return;
+        return '<div style="color:#374151;font-size:11px;">No significant moves</div>';
     }
 
     return movers.slice(0, 5).map((mv, i) => {
         const c = mv.change || 0;
         const cls = c > 0.5 ? 'up' : c < -0.5 ? 'down' : 'flat';
         const sign = c > 0 ? '+' : '';
-        const price = mv.price ? (mv.price * 100).toFixed(1) + '%' : '';
+        const text = mv.text || mv.question || '';
         const q = mv.question || '';
-        const idx = startIdx + i;
+
+        // Confidence based on volume of the underlying market
+        const mkt = explorerData.find(m => m.question === q);
+        const vol = mkt ? (mkt.volume_7d || 0) : 0;
+        let conf = 'LOW', confCls = 'LOW';
+        if (vol >= 500000) { conf = 'HIGH'; confCls = 'HIGH'; }
+        else if (vol >= 100000) { conf = 'MED'; confCls = 'MEDIUM'; }
+
         return `<div class="insight-bullet" onclick="clickMoveBullet('${period}', ${i}, '${q.replace(/'/g, "\\'")}')">
             <span class="ib-change ${cls}">${sign}${c.toFixed(1)}pp</span>
-            <span class="ib-text">${q}</span>
-            <span class="ib-price">${price}</span>
+            <span class="ib-text">${text}</span>
+            <span class="ib-badge ${confCls}">${conf}</span>
             <span class="ib-arrow">\u2192</span>
         </div>`;
     }).join('');
@@ -789,23 +806,13 @@ function renderNotableChanges() {
     }
     section.style.display = 'block';
 
-    let html24 = '';
-    if (has24h) {
-        html24 = `<div class="changes-period-label">Last 24 Hours</div>`;
-        html24 += renderMoveBullets(m24.movers, 'moves24h', null, 0);
-    }
+    document.getElementById('changes24hBlock').innerHTML = has24h
+        ? renderMoveBullets(m24.movers, 'moves24h')
+        : '<div style="color:#374151;font-size:11px;">No significant moves</div>';
 
-    let html7d = '';
-    if (has7d) {
-        if (has24h) html7d += '<hr class="changes-divider">';
-        html7d += `<div class="changes-period-label">Last 7 Days</div>`;
-        html7d += renderMoveBullets(m7d.movers, 'moves7d', null, 100);
-    }
-
-    let clearHtml = '<button class="clear-bullet-btn" id="clearBulletFilter" style="display:none" onclick="clearBulletFilter()">Clear filter \u00D7</button>';
-
-    document.getElementById('changes24hBlock').innerHTML = html24;
-    document.getElementById('changes7dBlock').innerHTML = html7d + clearHtml;
+    document.getElementById('changes7dBlock').innerHTML = has7d
+        ? renderMoveBullets(m7d.movers, 'moves7d')
+        : '<div style="color:#374151;font-size:11px;">No significant moves</div>';
 }
 
 function renderCurrentPredictions() {

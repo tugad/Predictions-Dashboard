@@ -1,298 +1,295 @@
 {
   "Energies": {
-    "narrative": "Crude oil markets shifted decisively overnight, with the $100/bbl by end-of-March contract falling 10.7pp to 72.2% on $2.2M volume — the largest liquid energy move of the session. Natural gas probability structure repriced sharply across the board: the $4.00 threshold contract dropped 12pp to 55%, while the $4.04 level fell 14pp to 19%, suggesting the market is compressing its near-term nat gas price distribution lower despite the European storage crisis. The Iran intervention probability also slid 7.5pp to 9% on nearly $6.8M in volume, indicating reduced near-term risk of a ground escalation even as the Strait of Hormuz remains closed.",
     "movers": [
       {
-        "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?",
-        "change": -10.7,
-        "price": 0.722,
-        "volume": 2208436
-      },
-      {
-        "question": "US forces enter Iran by March 31?",
-        "change": -7.5,
-        "price": 0.09,
-        "volume": 6782949
-      },
-      {
-        "question": "Will average gas prices be above $4.00?",
+        "text": "Gas above $4.00 drops to 55% — near-term price ceiling in question",
         "change": -12.0,
         "price": 0.55,
-        "volume": 101571
+        "question": "Will average **gas prices** be above $4.00?"
       },
       {
-        "question": "Will average gas prices be above $4.04?",
-        "change": -14.0,
-        "price": 0.19,
-        "volume": 11254
+        "text": "Crude Oil $100 by March drops to 72% as Hormuz-driven rally stalls",
+        "change": -10.7,
+        "price": 0.722,
+        "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?"
       },
       {
-        "question": "Will average gas prices be above $3.96?",
-        "change": 8.0,
-        "price": 0.95,
-        "volume": 47434
+        "text": "US forces entering Iran by March 31 falls to 9% — ground war seen unlikely",
+        "change": -7.5,
+        "price": 0.09,
+        "question": "US forces enter Iran by March 31?"
+      },
+      {
+        "text": "US invasion of Iran by March 31 drops to 5.5% — market discounting escalation",
+        "change": -6.0,
+        "price": 0.055,
+        "question": "Will the U.S. invade Iran by March 31?"
+      },
+      {
+        "text": "Kharg Island seizure by March 31 falls to 3.6% — control shift unlikely near-term",
+        "change": -3.9,
+        "price": 0.036,
+        "question": "Kharg Island no longer under Iranian control by March 31?"
       }
     ]
   },
   "Rates": {
-    "narrative": "Rates markets registered modest but directionally consistent moves. Powell's tenure odds gained 12pp to 36% on $28K volume, reflecting renewed speculation about a leadership change at the Fed as stagflation risk rises. The June 2026 25bps cut probability ticked up 4pp to 12%, signaling very limited near-term easing expectations despite the oil shock. An inflation surge in 2026 contract trades near parity at 54.8% (up 4.8pp), consistent with the upward inflation revision to 2.7% and the market's reluctance to price in dovish Fed pivot.",
     "movers": [
       {
-        "question": "Will Jerome Powell be Chair of the Federal Open Market Committee (including through end of his current term)?",
-        "change": 12.0,
-        "price": 0.36,
-        "volume": 27951
+        "text": "Fed hike by July 2026 ticks up to 8.8% as stagflation risk nudges rate-hike odds",
+        "change": 1.4,
+        "price": 0.088,
+        "question": "Will the Fed increase interest rates by 25 bps after the July 2026 meeting?"
       },
       {
-        "question": "Will the Federal Reserve Cut rates by 25bps at their June 2026 meeting?",
-        "change": 4.0,
-        "price": 0.12,
-        "volume": 4749
+        "text": "Unemployment 10%+ and S&P decline rises to 29% — stagflation scenario gaining traction",
+        "change": 1.3,
+        "price": 0.292,
+        "question": "Will the number of unemployment rate exceeds 10% (monthly BLS); S&P 500 declines"
       },
       {
-        "question": "Inflation surge in 2026?",
-        "change": 4.8,
-        "price": 0.548,
-        "volume": 3867
-      },
-      {
-        "question": "PPI YoY exceed CPI YoY for 3+ consecutive months in 2026?",
-        "change": -5.0,
-        "price": 0.86,
-        "volume": 1385
+        "text": "Fed funds at 4% end-2026 climbs to 10.8% — elevated rates priced longer",
+        "change": 0.6,
+        "price": 0.108,
+        "question": "Will the upper bound of the target federal funds rate be 4.0% at the end of 2026"
       }
     ]
   },
   "Equities": {
-    "narrative": "Equities prediction markets showed thin liquidity with mixed signals. The SpaceX IPO probability dropped 10pp to 22% on $28.5K volume, suggesting the market is pushing out IPO timing expectations amid the uncertain macro environment. The S&P 500 sub-6000 by Jan 2027 contract gained 7pp to 80%, reinforcing the bearish near-term equity narrative consistent with the index being down 8% from February highs. H100 GPU compute pricing odds moved up 17pp to 19% on thin volume ($1.3K), a potential early signal of AI infrastructure demand repricing.",
     "movers": [
       {
-        "question": "When will SpaceX IPO?",
-        "change": -10.0,
-        "price": 0.22,
-        "volume": 28512
+        "text": "Nvidia 2nd largest by market cap April 30 rises to 7% — recovery hopes tentative",
+        "change": 2.9,
+        "price": 0.07,
+        "question": "Will NVIDIA be the second-largest company in the world by market cap on April 30"
       },
       {
-        "question": "Will the minimum SP500 value reach below 6000.01 by Jan 1, 2027?",
-        "change": 7.0,
-        "price": 0.80,
-        "volume": 14918
+        "text": "Unemployment 10%+ and S&P decline rises to 29% — recession risk weighing on equities",
+        "change": 1.3,
+        "price": 0.292,
+        "question": "Will the number of unemployment rate exceeds 10% (monthly BLS); S&P 500 declines"
       },
       {
-        "question": "Who will IPO before 2027?",
-        "change": -8.0,
-        "price": 0.62,
-        "volume": 7252
+        "text": "Tesla quarterly deliveries above upper threshold rises to 82% on strong spring data",
+        "change": 1.0,
+        "price": 0.82,
+        "question": "How many Tesla deliveries will there be this quarter? (above threshold)"
       },
       {
-        "question": "Who will IPO before 2027?",
-        "change": 9.0,
-        "price": 0.39,
-        "volume": 7224
+        "text": "Tesla quarterly deliveries above lower threshold slips to 72% on mixed signals",
+        "change": -1.0,
+        "price": 0.72,
+        "question": "How many Tesla deliveries will there be this quarter? (lower threshold)"
       },
       {
-        "question": "Will The Boeing Company report above 140 Commercial Deliveries in Q1 2026?",
-        "change": -12.0,
-        "price": 0.31,
-        "volume": 1725
+        "text": "Nvidia 3rd largest by market cap falls to 1.8% — ranking slide widely priced in",
+        "change": -0.8,
+        "price": 0.018,
+        "question": "Will NVIDIA be the third-largest company in the world by market cap on April 30?"
       }
     ]
   },
   "Crypto": {
-    "narrative": "Crypto markets staged a notable risk-off reversal with BTC downside protection rapidly repricing off highs. The BTC dip to $65K in March contract collapsed 27.5pp to 46.2% on $1.58M volume — the single largest liquid crypto move — as BTC held above that level. The $65K trimmed mean by March 31 contract similarly fell 25pp to 49%, while the more extreme $62.5K level dropped 17pp to 20%, suggesting markets are pricing out the tail scenario of a sharp end-of-month breakdown. SOL downside odds also eased, with the sub-$80 trimmed mean contract falling 20pp to 53%.",
     "movers": [
       {
-        "question": "Will Bitcoin dip to $65,000 in March?",
+        "text": "Trump mentions Crypto/Bitcoin before Mar 30 near-certain at 99% after statement",
+        "change": 46.0,
+        "price": 0.99,
+        "question": "Will Trump say \"Crypto / Bitcoin\" before Mar 30, 2026?"
+      },
+      {
+        "text": "Bitcoin dips to $65K in March falls to 46% — BTC holding above key support",
         "change": -27.5,
         "price": 0.462,
-        "volume": 1580882
+        "question": "Will Bitcoin dip to $65,000 in March?"
       },
       {
-        "question": "Will BTC trimmed mean be below $65000.00 by 11:59 PM ET on Mar 31, 2026?",
+        "text": "BTC below $65K by March 31 drops to 49% — downside risk receding",
         "change": -25.0,
         "price": 0.49,
-        "volume": 119868
+        "question": "Will BTC trimmed mean be below $65000.00 by 11:59 PM ET on Mar 31, 2026?"
       },
       {
-        "question": "Will BTC trimmed mean be below $62500.00 by 11:59 PM ET on Mar 31, 2026?",
-        "change": -17.0,
-        "price": 0.20,
-        "volume": 5984
+        "text": "Ethereum dips to $1,800 in March falls to 6.8% — ETH floor holding",
+        "change": -9.1,
+        "price": 0.068,
+        "question": "Will Ethereum dip to $1,800 in March?"
       },
       {
-        "question": "Will SOL trimmed mean be below $80.00 by 11:59 PM ET on Mar 31, 2026?",
-        "change": -20.0,
-        "price": 0.53,
-        "volume": 4823
-      },
-      {
-        "question": "Will XRP trimmed mean be below $1.30 by 11:59 PM ET on Mar 31, 2026?",
-        "change": -12.0,
-        "price": 0.55,
-        "volume": 3738
+        "text": "Bitcoin dips to $60K in March falls to 6.1% — deep-crash scenario fading",
+        "change": -5.8,
+        "price": 0.061,
+        "question": "Will Bitcoin dip to $60,000 in March?"
       }
     ]
   },
   "Geopolitics": {
-    "narrative": "The Iran conflict resolution odds saw the sharpest move of the session: the probability of an Iranian military action against Israel on March 23 collapsed 28.1pp to just 0.9% on $315K volume, likely resolving as the date passed without incident. US ground forces entering Iran by March 31 fell 7.5pp to 9% on the largest geopolitical market by volume ($6.8M), signaling reduced near-term escalation risk. Concurrently, Trump visiting China by May 31 gained 7pp to 79% on $247K volume, and a Trump-Xi meeting before April 1 rose 12pp to 28% — markets are increasingly pricing a diplomatic track alongside the military posturing.",
     "movers": [
       {
-        "question": "Will Iran conduct a military action against Israel on March 23, 2026?",
+        "text": "Iran military strike on Israel March 23 collapses to under 1% — date passed",
         "change": -28.1,
         "price": 0.009,
-        "volume": 314978
+        "question": "Will Iran conduct a military action against Israel on March 23, 2026?"
       },
       {
-        "question": "US forces enter Iran by March 31?",
+        "text": "US ground forces entering Iran by March 31 falls to 9% — de-escalation signals",
         "change": -7.5,
         "price": 0.09,
-        "volume": 6782949
+        "question": "US forces enter Iran by March 31?"
       },
       {
-        "question": "Will Trump visit China by May 31?",
+        "text": "Trump visits China by May 31 rises to 79% — diplomatic engagement accelerating",
         "change": 7.0,
         "price": 0.79,
-        "volume": 246849
+        "question": "Will Trump visit China by May 31?"
       },
       {
-        "question": "Will the U.S. invade Iran by March 31?",
+        "text": "US invasion of Iran by March 31 drops to 5.5% — ground invasion widely dismissed",
         "change": -6.0,
         "price": 0.055,
-        "volume": 850216
+        "question": "Will the U.S. invade Iran by March 31?"
       },
       {
-        "question": "Donald Trump and Xi Jinping meet before Apr 1, 2026?",
-        "change": 12.0,
-        "price": 0.28,
-        "volume": 9420
+        "text": "Hormuz traffic returns by end of April falls to 24.5% — prolonged closure expected",
+        "change": -3.0,
+        "price": 0.245,
+        "question": "Strait of Hormuz traffic returns to normal by end of April?"
       }
     ]
   },
   "Commodities": {
-    "narrative": "Crude oil probability structure shifted meaningfully with the $100/bbl by end-of-March contract falling 10.7pp to 72.2% on $2.2M volume, suggesting market participants are trimming the probability of an imminent $100 print despite Brent already at $120 and the Hormuz closure. The $110 level fell only 1.8pp to 22.4%, while $105 rose 1.7pp to 45.2%, indicating the distribution is compressing around the $100-$110 range. A U.S. credit rating downgrade contract spiked 14.9pp to 50% on $10.6K volume — a commodities-adjacent macro risk that could further accelerate safe-haven gold flows.",
     "movers": [
       {
-        "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?",
+        "text": "Crude Oil $100 by March drops to 72% despite sustained Hormuz closure",
         "change": -10.7,
         "price": 0.722,
-        "volume": 2208436
+        "question": "Will Crude Oil (CL) hit (HIGH) $100 by end of March?"
       },
       {
-        "question": "Will Crude Oil (CL) hit (HIGH) $110 by end of March?",
+        "text": "Crude Oil $110 by March falls to 22% as extreme upside bets cool",
         "change": -1.8,
         "price": 0.224,
-        "volume": 747945
+        "question": "Will Crude Oil (CL) hit (HIGH) $110 by end of March?"
       },
       {
-        "question": "Will Crude Oil (CL) hit (HIGH) $105 by end of March?",
+        "text": "Crude Oil $105 by March holds at 45% as Brent stays elevated at $120",
         "change": 1.7,
         "price": 0.452,
-        "volume": 566223
+        "question": "Will Crude Oil (CL) hit (HIGH) $105 by end of March?"
       },
       {
-        "question": "Will the U.S. credit rating be downgraded by December 31, 2026?",
-        "change": 14.9,
-        "price": 0.50,
-        "volume": 10584
+        "text": "Crude Oil crash to $80 near-zero at 1.8% — downside floor firmly intact",
+        "change": -0.7,
+        "price": 0.018,
+        "question": "Will Crude Oil (CL) hit (LOW) $80 by end of March?"
+      },
+      {
+        "text": "Crude Oil hitting $130 by March fades to 2.6% — extreme upside scenario discounted",
+        "change": -0.6,
+        "price": 0.026,
+        "question": "Will Crude Oil (CL) hit (HIGH) $130 by end of March?"
       }
     ]
   },
   "Macro": {
-    "narrative": "Gas price markets dominated macro movers with a broad downward reprice across near-term thresholds: the $4.00 average gas price contract fell 12pp to 55% on $101K volume, and $4.04 dropped 14pp to 19% on $11K. The $3.96 floor contract rose 8pp to 95%, compressing the probability distribution toward a $3.96-$4.00 range for near-term average gas prices. Japan's unemployment rate contract for February 2026 saw a 15pp upward move to 50% on $1.6K volume — thin but directionally consistent with global labor market softening concerns as the oil shock propagates through supply chains.",
     "movers": [
       {
-        "question": "Will average gas prices be above $4.00?",
+        "text": "Gas above $4.00 drops to 55% — energy inflation ceiling increasingly in doubt",
         "change": -12.0,
         "price": 0.55,
-        "volume": 101571
+        "question": "Will average **gas prices** be above $4.00?"
       },
       {
-        "question": "Will average gas prices be above $4.04?",
-        "change": -14.0,
-        "price": 0.19,
-        "volume": 11254
+        "text": "Gas above $3.98 rises to 78% — broad energy inflation floor still firm",
+        "change": 5.0,
+        "price": 0.78,
+        "question": "Will average **gas prices** be above $3.98?"
       },
       {
-        "question": "Will average gas prices be above $3.96?",
-        "change": 8.0,
-        "price": 0.95,
-        "volume": 47434
+        "text": "Unemployment 10%+ and S&P decline rises to 29% — stagflation tail risk growing",
+        "change": 1.3,
+        "price": 0.292,
+        "question": "Will the number of unemployment rate exceeds 10% (monthly BLS); S&P 500 declines"
       },
       {
-        "question": "Will average gas prices be above $4.02?",
-        "change": -8.0,
-        "price": 0.33,
-        "volume": 32354
+        "text": "Gas above $3.90 near-certain at 99% — lower inflation thresholds fully priced",
+        "change": 1.0,
+        "price": 0.99,
+        "question": "Will average **gas prices** be above $3.90?"
       },
       {
-        "question": "Japan unemployment rate in Feb 2026?",
-        "change": 15.0,
-        "price": 0.50,
-        "volume": 1652
+        "text": "Gas above $3.96 at 99% — energy inflation entrenched at current elevated levels",
+        "change": 1.0,
+        "price": 0.99,
+        "question": "Will average **gas prices** be above $3.960?"
       }
     ]
   },
   "Elections": {
-    "narrative": "US government shutdown markets saw the most significant liquid moves: the probability of a shutdown lasting at least 70 days (from Feb 7) surged 29pp to 66% on $120K volume, while DHS funding becoming law before April 1 collapsed 30pp to 1% on $21.7K volume — together signaling near-certainty of a prolonged funding gap. The DoE elimination legislation contract fell 43pp to 6% on $39K volume, suggesting a key administration priority is losing Congressional support. Immigration enforcement disclosure legislation rose sharply, with two related contracts moving to 78% and 91% respectively, reflecting active legislative momentum on that front.",
     "movers": [
       {
-        "question": "Will the US government be shut down for at least 70 days between Feb 7 and the next funding resolution?",
+        "text": "Trump says Nobel before March 30 surges to near-certain 99%",
+        "change": 86.0,
+        "price": 0.99,
+        "question": "Will Trump say \"Nobel\" before Mar 30, 2026?"
+      },
+      {
+        "text": "Trump says Gulf of America before April 1 hits 99% — phrase use confirmed",
+        "change": 71.0,
+        "price": 0.99,
+        "question": "Will Trump say \"Gulf of America\" before Apr 1, 2026?"
+      },
+      {
+        "text": "Government shutdown reaching 70 days jumps to 66% — extended impasse priced in",
         "change": 29.0,
         "price": 0.66,
-        "volume": 120037
+        "question": "Will the US government be shut down for at least 70 days between Feb 7, 2026 and"
       },
       {
-        "question": "Will DHS funding bill become law before Apr 1, 2026?",
-        "change": -30.0,
-        "price": 0.01,
-        "volume": 21712
-      },
-      {
-        "question": "Will legislation that, upon becoming law, results in the Department of Energy being eliminated become law?",
-        "change": -43.0,
-        "price": 0.06,
-        "volume": 39135
-      },
-      {
-        "question": "Will legislation that, upon becoming law, results in the Department of Education being eliminated become law?",
+        "text": "DHS abolition legislation collapses to 22% — Congressional path now blocked",
         "change": -26.0,
         "price": 0.22,
-        "volume": 134527
+        "question": "Will legislation that, upon becoming law, results in the Department of Homeland"
       },
       {
-        "question": "Will legislation that requires immigration enforcement officers to disclose their agency become law?",
-        "change": 41.0,
-        "price": 0.78,
-        "volume": 1622
+        "text": "DHS funding bill before May 1 drops to 56% — fiscal standoff deepening",
+        "change": -25.0,
+        "price": 0.56,
+        "question": "Will DHS funding bill become law before May 1, 2026?"
       }
     ]
   },
   "Sports": {
-    "narrative": "Sports markets were dominated by in-progress or recently resolved events. The most notable liquid mover with genuine informational content was the Texas Children's Houston Open, where Sudarshan Yellamaraju and Nicolai Hojgaard both saw their top-20/top-5 finish probabilities surge 59pp on volumes of $35K and $3.5K respectively, consistent with strong tournament positioning. The Counter-Strike BLAST Open Rotterdam contract (Natus Vincere vs PARIVISION) moved to near-certainty at 100% on $1.19M volume, suggesting a decisive series result. NCAA March Madness brackets are resolving with Providence vs Marquette and Notre Dame vs Virginia showing clean winner resolutions.",
     "movers": [
       {
-        "question": "Counter-Strike: Natus Vincere vs PARIVISION (BO3) - BLAST Open Rotterdam",
+        "text": "Brad Pauls wins boxing over Thompson surges to 98% in live market",
+        "change": 73.0,
+        "price": 0.98,
+        "question": "Brad Pauls vs Shakiel Thompson Winner?"
+      },
+      {
+        "text": "NaVi wins CS2 BLAST Open Rotterdam playoff match — resolved at 100%",
         "change": 69.0,
         "price": 1.00,
-        "volume": 1186411
+        "question": "Counter-Strike: Natus Vincere vs PARIVISION (BO3) - BLAST Open Rotterdam Playoff"
       },
       {
-        "question": "Texas Children's Houston Open: Will Sudarshan Yellamaraju finish top 20?",
-        "change": 59.0,
-        "price": 0.83,
-        "volume": 35249
+        "text": "Cleveland vs Seattle announcer prop surges to 98% — event outcome confirmed",
+        "change": 68.0,
+        "price": 0.98,
+        "question": "What will the announcers say during Cleveland vs Seattle Professional Baseball G"
       },
       {
-        "question": "Texas Children's Houston Open: Will Nicolai Hojgaard finish top 5?",
-        "change": 59.0,
-        "price": 0.83,
-        "volume": 3469
+        "text": "Dota 2 Team Yandex collapses to 0.1% — eliminated from ESL One Birmingham",
+        "change": -49.5,
+        "price": 0.001,
+        "question": "Dota 2: Team Yandex vs Tundra Esports (BO3) - ESL One Birmingham Playoffs"
       },
       {
-        "question": "Texas Children's Houston Open: Will Nicolai Hojgaard finish top 10?",
-        "change": 53.0,
-        "price": 0.92,
-        "volume": 10890
+        "text": "Tampa Bay vs St. Louis winner falls to 3% — outcome resolved against Tampa Bay",
+        "change": -48.0,
+        "price": 0.03,
+        "question": "Tampa Bay vs St. Louis Winner?"
       }
     ]
   }
