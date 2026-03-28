@@ -1,0 +1,101 @@
+{
+  "updated_at": "2026-03-27",
+  "themes": {
+    "Energies": {
+      "context": "Iran-Israel war closed Strait of Hormuz on March 4, stranding 20% of global oil supply. Brent at $120/bbl, largest supply disruption in IEA history. Qatar LNG force majeure. Venezuela US strikes threatening additional supply. European gas storage critically low at 46bcm vs 60bcm last year. Natural gas prices spiking in Europe and Asia.",
+      "sub_filters": ["Oil", "Natural Gas", "Nuclear", "Shipping", "Renewables"],
+      "sub_keywords": {
+        "Oil": ["oil", "crude", "brent", "wti", "opec", "petroleum", "barrel", "refinery"],
+        "Natural Gas": ["natural gas", "lng", "gas storage", "gas prices", "pipeline"],
+        "Nuclear": ["nuclear", "uranium", "reactor", "atomic"],
+        "Shipping": ["shipping", "freight", "tanker", "strait", "hormuz", "route", "port"],
+        "Renewables": ["solar", "wind", "renewable", "clean energy", "ev", "battery"]
+      }
+    },
+    "Rates": {
+      "context": "Fed held at 3.5-3.75% on March 18. Inflation revised up to 2.7% on oil shock. Dot plot shows one cut this year, one in 2027. Stagflation risk rising. ECB pausing amid energy cost uncertainty. BOJ holding. Treasury yields elevated. Credit spreads widening.",
+      "sub_filters": ["Fed/FOMC", "Inflation/CPI", "Treasuries", "Central Banks"],
+      "sub_keywords": {
+        "Fed/FOMC": ["fed", "fomc", "federal reserve", "powell", "rate cut", "rate hike", "funds rate"],
+        "Inflation/CPI": ["inflation", "cpi", "ppi", "deflation", "prices", "cost of living"],
+        "Treasuries": ["treasury", "bond", "yield", "note", "t-bill", "fixed income", "credit spread"],
+        "Central Banks": ["ecb", "boj", "boe", "rba", "central bank", "monetary policy", "pboc", "rbnz"]
+      }
+    },
+    "Equities": {
+      "context": "S&P down ~8% from February highs on war uncertainty. AI capex shifting from buildout to adoption — ROI pressure on Big Tech. Liftoff Mobile IPO upcoming. Energy stocks rallying, tech and consumer discretionary selling off. Earnings season approaching. Small-cap underperformance. Market leadership broadening away from mega-caps.",
+      "sub_filters": ["Tech/AI", "IPOs", "Indices", "Single Stocks"],
+      "sub_keywords": {
+        "Tech/AI": ["ai", "artificial intelligence", "gpt", "openai", "nvidia", "semiconductor", "chip", "data center", "cloud", "deepseek"],
+        "IPOs": ["ipo", "listing", "public offering", "debut", "direct listing"],
+        "Indices": ["s&p", "sp500", "nasdaq", "dow", "russell", "index", "indices"],
+        "Single Stocks": ["tesla", "tsla", "meta", "apple", "aapl", "amazon", "amzn", "google", "googl", "microsoft", "msft", "nvidia", "nvda", "netflix", "nflx", "palantir", "pltr", "opendoor", "open", "coinbase", "coin"]
+      }
+    },
+    "Crypto": {
+      "context": "BTC at $68K, down from $75K. $15B options expiry this week. Spot ETF outflows accelerating on risk-off sentiment. Trump crypto capital gains tax proposal in play. Stablecoin regulation expected. MegaETH launch imminent. Ethena and DeFi protocol tokens under pressure.",
+      "sub_filters": ["BTC", "ETH", "SOL", "DeFi/Tokens", "Stablecoins", "Regulation"],
+      "sub_keywords": {
+        "BTC": ["bitcoin", "btc"],
+        "ETH": ["ethereum", "eth"],
+        "SOL": ["solana", "sol"],
+        "DeFi/Tokens": ["defi", "token", "airdrop", "nft", "protocol", "dex", "uniswap", "megaeth", "ethena", "xrp", "dogecoin", "memecoin", "altcoin", "cardano", "bnb", "hype"],
+        "Stablecoins": ["stablecoin", "usdt", "usdc", "tether", "circle", "dai"],
+        "Regulation": ["crypto regulation", "sec crypto", "capital gains tax crypto", "crypto ban", "crypto policy"]
+      }
+    },
+    "Geopolitics": {
+      "context": "US-Israel strikes on Iran ongoing. Strait of Hormuz closed. Russia-Ukraine peace referendum and ceasefire discussions. US military strikes on Venezuela and Colombia. NATO cohesion under pressure — Hormuz deployment discussed. Israel-Hamas ceasefire fragile. Israel-Syria normalization talks. Vietnam leadership succession. China-Taiwan tensions.",
+      "sub_filters": ["Iran/Middle East", "Russia/Ukraine", "NATO", "China/Taiwan", "Latin America"],
+      "sub_keywords": {
+        "Iran/Middle East": ["iran", "israel", "hamas", "hezbollah", "gaza", "syria", "hormuz", "lebanon", "middle east", "ceasefire", "netanyahu", "khamenei"],
+        "Russia/Ukraine": ["russia", "ukraine", "putin", "zelenskyy", "crimea", "donbas", "lyman", "kupiansk", "prymorske", "dobropillia", "stepnohirsk"],
+        "NATO": ["nato", "alliance", "article 5"],
+        "China/Taiwan": ["china", "taiwan", "xi", "beijing", "south china sea"],
+        "Latin America": ["venezuela", "maduro", "colombia", "brazil", "mexico", "machado", "flores"]
+      }
+    },
+    "Commodities": {
+      "context": "Gold rallying as safe haven amid war and stagflation fears. Silver following gold. Agricultural commodities disrupted by shipping route changes around Horn of Africa. Critical minerals in focus — JD Vance Critical Minerals Ministerial. Base metals mixed on China demand uncertainty.",
+      "sub_filters": ["Gold", "Silver", "Agriculture", "Critical Minerals"],
+      "sub_keywords": {
+        "Gold": ["gold", "bullion", "xau", "comex gold"],
+        "Silver": ["silver", "xag", "comex silver"],
+        "Agriculture": ["agriculture", "wheat", "corn", "soybean", "crop", "food", "grain", "fertilizer", "coffee", "sugar"],
+        "Critical Minerals": ["lithium", "cobalt", "rare earth", "critical mineral", "nickel", "copper", "mining"]
+      }
+    },
+    "Macro": {
+      "context": "China GDP growth uncertain — wide range of outcomes being priced from sub-1% to 6%+. US unemployment expected to rise, watched as Fed reaction function input. Global recession risk elevated from oil shock + tariffs. Stagflation narrative dominant. US fiscal deficit concerns. Dollar strengthening on risk-off. IMF revising global growth downward.",
+      "sub_filters": ["GDP", "Unemployment/Jobs", "Recession", "Fiscal/Dollar"],
+      "sub_keywords": {
+        "GDP": ["gdp", "growth", "economic growth", "output"],
+        "Unemployment/Jobs": ["unemployment", "jobs", "nonfarm", "labor", "employment", "jobless", "jobs report"],
+        "Recession": ["recession", "downturn", "slowdown", "contraction", "stagflation"],
+        "Fiscal/Dollar": ["fiscal", "deficit", "debt", "dollar", "dxy", "budget", "spending", "forex", "exchange rate", "trade deficit"]
+      }
+    },
+    "Elections": {
+      "context": "US 2026 midterm positioning underway — gubernatorial, Senate, and House primaries active. 2028 presidential field forming: Newsom leads Dem side at 24%, GOP field wide open. Hungary election upcoming. State-level races gaining attention. Texas Senate race with Paxton at 71%. Global elections: Vietnam succession, Guinea-Bissau, Central African Republic.",
+      "sub_filters": ["US Presidential", "US Midterms", "US State", "Global Elections"],
+      "sub_keywords": {
+        "US Presidential": ["president", "presidential", "2028", "nominee", "nomination", "white house", "democratic nominee", "republican nominee"],
+        "US Midterms": ["midterm", "congress", "senate race", "house race", "congressional"],
+        "US State": ["governor", "primary", "state election", "ballot", "attorney general", "mayor"],
+        "Global Elections": ["election", "vote", "referendum", "parliament", "prime minister", "coalition", "hungary", "brazil", "india", "peru"]
+      }
+    },
+    "Sports": {
+      "context": "March Madness (NCAA basketball) in full swing — Michigan favored for championship. NBA regular season approaching playoffs. MLB spring training underway. Premier League and Champions League active. UFC and boxing events drawing prediction market volume. Esports (Counter-Strike 2, League of Legends) markets growing.",
+      "sub_filters": ["Basketball", "Football/Soccer", "Baseball", "Combat Sports", "Esports", "Other Sports"],
+      "sub_keywords": {
+        "Basketball": ["nba", "ncaa", "basketball", "march madness", "celtics", "lakers", "warriors", "nuggets", "cavaliers", "bucks", "suns", "clippers", "hawks", "heat", "pacers", "pistons", "magic", "hornets", "knicks", "nets", "raptors", "bulls", "duke", "uconn", "michigan", "purdue", "houston", "gonzaga", "alabama", "tennessee", "iowa"],
+        "Football/Soccer": ["soccer", "football", "premier league", "la liga", "bundesliga", "serie a", "ligue 1", "champions league", "mls", "epl", "fc", "united", "real madrid", "arsenal", "manchester", "liverpool", "tottenham", "chelsea"],
+        "Baseball": ["mlb", "baseball", "world series", "yankees", "dodgers", "red sox", "astros", "braves", "mets"],
+        "Combat Sports": ["ufc", "boxing", "mma", "fight", "bout"],
+        "Esports": ["esports", "counter-strike", "league of legends", "valorant", "dota", "overwatch", "cs2"],
+        "Other Sports": ["nfl", "nhl", "hockey", "tennis", "golf", "pga", "f1", "formula 1", "rugby", "cricket", "atp", "wta", "racing"]
+      }
+    }
+  }
+}

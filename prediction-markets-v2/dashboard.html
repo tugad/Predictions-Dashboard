@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allium — Prediction Markets Intelligence</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0e17; color: #e1e4e8; min-height: 100vh; overflow-x: hidden; }
+
+        /* ---- HEADER ---- */
+        .top-header { padding: 12px 24px; border-bottom: 1px solid #1c2333; display: flex; align-items: center; gap: 14px; }
+        .top-header h1 { font-size: 16px; font-weight: 600; color: #fff; white-space: nowrap; }
+        .top-header .badge { background: #1a3a2a; color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+        .top-header .nav { display: flex; gap: 2px; margin-left: 32px; }
+        .top-header .nav-btn { padding: 6px 18px; border-radius: 5px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid transparent; background: transparent; color: #6b7280; transition: all 0.15s; }
+        .top-header .nav-btn:hover { color: #e1e4e8; }
+        .top-header .nav-btn.active { background: #1c2333; color: #fff; border-color: #374151; }
+        .top-header .price-tag { margin-left: auto; font-size: 18px; font-weight: 700; color: #fff; }
+        .top-header .change { font-size: 12px; margin-left: 6px; }
+        .top-header .change.down { color: #f87171; }
+        .top-header .change.up { color: #4ade80; }
+
+        /* ---- PAGES ---- */
+        .page { display: none; padding: 16px 24px; max-width: 100%; }
+        .page.active { display: block; }
+
+        /* ---- THEME SELECTOR ---- */
+        .theme-selector { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+        .theme-card { padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid #1c2333; background: #111827; color: #9ca3af; transition: all 0.15s; user-select: none; }
+        .theme-card:hover { border-color: #374151; color: #e1e4e8; }
+        .theme-card.active { background: #1e3a5f; border-color: #3b82f6; color: #60a5fa; }
+        .theme-card.disabled { opacity: 0.4; cursor: default; }
+        .theme-card .theme-icon { font-size: 14px; margin-right: 2px; }
+        .theme-card .count { font-weight: 400; color: #4b5563; margin-left: 4px; font-size: 10px; }
+        .theme-card.active .count { color: #3b82f6; }
+        .theme-sep { width: 1px; height: 28px; background: #1c2333; margin: 0 4px; }
+        .other-toggle { padding: 6px 12px; border-radius: 5px; font-size: 11px; cursor: pointer; border: 1px solid #1c2333; background: transparent; color: #4b5563; transition: all 0.12s; }
+        .other-toggle:hover { color: #9ca3af; border-color: #374151; }
+        .other-toggle.active { background: #1c2333; color: #9ca3af; border-color: #374151; }
+
+        /* ---- CONTEXT PANEL ---- */
+        .context-panel { background: #0d1117; border: 1px solid #1c2333; border-radius: 6px; padding: 12px 16px; margin-bottom: 12px; display: none; }
+        .context-panel.visible { display: block; }
+        .context-panel .ctx-label { font-size: 10px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .context-panel .ctx-text { font-size: 12px; color: #9ca3af; line-height: 1.6; }
+        .context-panel .ctx-updated { font-size: 10px; color: #374151; text-align: right; margin-top: 6px; }
+
+        /* ---- INTELLIGENCE SUMMARY ---- */
+        .summary-panel { background: #111827; border: 1px solid #1c2333; border-radius: 6px; padding: 14px 18px; margin-bottom: 12px; display: none; }
+        .summary-panel.visible { display: block; }
+        .summary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .summary-title { font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.8px; }
+        .summary-date { font-size: 10px; color: #374151; }
+        .summary-bullets { display: flex; flex-direction: column; gap: 6px; }
+        .summary-bullet { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; line-height: 1.5; }
+        .summary-bullet .bullet-dot { color: #374151; margin-top: 1px; flex-shrink: 0; }
+        .summary-bullet .bullet-text { color: #d1d5db; flex: 1; }
+        .summary-bullet .conf-badge { flex-shrink: 0; padding: 1px 6px; border-radius: 3px; font-size: 9px; font-weight: 600; margin-top: 2px; }
+        .summary-hint { font-size: 10px; color: #374151; margin-bottom: 8px; transition: opacity 0.3s; }
+        .summary-bullet.clickable { cursor: pointer; padding: 5px 8px; margin: -2px -8px; border-radius: 4px; border-left: 2px solid transparent; transition: all 0.12s; }
+        .summary-bullet.clickable:hover { background: rgba(59,130,246,0.08); border-left-color: #3b82f6; }
+        .summary-bullet.clickable:hover .bullet-arrow { opacity: 1; }
+        .summary-bullet.active { background: rgba(59,130,246,0.12); border-left-color: #3b82f6; }
+        .bullet-arrow { opacity: 0; color: #3b82f6; font-size: 11px; margin-left: 4px; transition: opacity 0.12s; flex-shrink: 0; }
+        .summary-bullet.active .bullet-arrow { opacity: 1; }
+        .market-count-pill { font-size: 9px; color: #4b5563; background: #1c2333; padding: 1px 6px; border-radius: 3px; margin-left: 6px; flex-shrink: 0; white-space: nowrap; }
+        .summary-bullet.clickable:hover .market-count-pill { color: #60a5fa; background: #1e3a5f; }
+        .summary-bullet.active .market-count-pill { color: #60a5fa; background: #1e3a5f; }
+        .clear-bullet-btn { background: none; border: 1px solid #374151; color: #9ca3af; font-size: 10px; padding: 3px 10px; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.12s; }
+        .clear-bullet-btn:hover { color: #e1e4e8; border-color: #6b7280; }
+        .conf-badge.HIGH { background: #1a3a2a; color: #4ade80; }
+        .conf-badge.MEDIUM { background: #2a2a1a; color: #facc15; }
+        .conf-badge.LOW { background: #1a1a1a; color: #6b7280; }
+
+        /* ---- SUB-FILTERS ---- */
+        .sub-filters { display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap; display: none; }
+        .sub-filters.visible { display: flex; }
+        .sub-btn { padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 500; cursor: pointer; border: 1px solid #1c2333; background: transparent; color: #6b7280; transition: all 0.12s; }
+        .sub-btn:hover { border-color: #374151; color: #e1e4e8; }
+        .sub-btn.active { background: #1c2333; color: #e1e4e8; border-color: #374151; }
+
+        /* ---- STANDARD FILTERS ---- */
+        .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
+        .filter-label { font-size: 10px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.5px; min-width: fit-content; }
+        .filter-group { display: flex; gap: 3px; }
+        .filter-btn { padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 500; cursor: pointer; border: 1px solid #1c2333; background: #111827; color: #6b7280; transition: all 0.12s; }
+        .filter-btn:hover { border-color: #374151; color: #e1e4e8; }
+        .filter-btn.active { background: #1e3a5f; border-color: #3b82f6; color: #60a5fa; }
+        .filter-sep { width: 1px; height: 24px; background: #1c2333; margin: 0 6px; }
+        .search-box { background: #111827; border: 1px solid #1c2333; border-radius: 5px; padding: 5px 12px; font-size: 12px; color: #e1e4e8; width: 260px; outline: none; }
+        .search-box:focus { border-color: #3b82f6; }
+        .search-box::placeholder { color: #4b5563; }
+        .market-count { font-size: 11px; color: #6b7280; margin-left: auto; }
+
+        /* ---- MARKET TABLE ---- */
+        .market-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .market-table th { text-align: left; padding: 8px 10px; font-size: 10px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #1c2333; cursor: pointer; user-select: none; white-space: nowrap; }
+        .market-table th:hover { color: #e1e4e8; }
+        .market-table td { padding: 8px 10px; border-bottom: 1px solid #0d1117; }
+        .market-table tr { cursor: pointer; }
+        .market-table tr:hover { background: #111827; }
+        .market-table .q-text { color: #e1e4e8; font-weight: 500; max-width: 480px; }
+        .market-table .q-tags { margin-top: 3px; }
+        .venue-badge { padding: 2px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+        .venue-badge.polymarket { background: #2d1b69; color: #a78bfa; }
+        .venue-badge.kalshi { background: #1b3d69; color: #7bb8fa; }
+        .theme-tag { display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 9px; font-weight: 500; margin-right: 2px; background: #1c2333; color: #6b7280; }
+        .insight-badge { display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 9px; font-weight: 600; margin-right: 3px; }
+        .insight-badge.contested { background: #2a2a1a; color: #facc15; }
+        .insight-badge.high-conf { background: #1a3a2a; color: #4ade80; }
+        .insight-badge.inactive-badge { background: #1a1a1a; color: #6b7280; }
+        .insight-badge.urgent { background: #3a1a2a; color: #f472b6; }
+        .quality-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+        .quality-dot.high { background: #4ade80; }
+        .quality-dot.med { background: #facc15; }
+        .quality-dot.thin { background: #f97316; }
+        .quality-dot.inactive { background: #6b7280; }
+        .prob-cell { font-weight: 700; }
+        .prob-bar { display: inline-block; height: 4px; border-radius: 2px; background: #3b82f6; vertical-align: middle; margin-right: 6px; }
+        .consensus-price { font-weight: 700; color: #60a5fa; font-size: 12px; cursor: help; }
+        .price-delta { font-size: 11px; font-weight: 600; margin-left: 4px; }
+        .price-delta.up { color: #4ade80; }
+        .price-delta.down { color: #f87171; }
+        .market-link { color: #4b5563; text-decoration: none; font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 4px; border: 1px solid #1c2333; transition: all 0.12s; white-space: nowrap; }
+        .market-link:hover { color: #60a5fa; border-color: #3b82f6; background: #1e3a5f; }
+        .resolve-days { font-weight: 600; }
+        .resolve-days.soon { color: #f472b6; }
+        .resolve-days.near { color: #facc15; }
+        .resolve-days.normal { color: #9ca3af; }
+
+        /* ---- ENRICHMENT PANEL ---- */
+        .enrich-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; display: none; }
+        .enrich-overlay.visible { display: block; }
+        .enrich-panel { position: fixed; top: 0; right: -670px; width: 650px; height: 100vh; background: #0d1117; border-left: 1px solid #1c2333; z-index: 201; transition: right 0.25s ease; overflow-y: auto; }
+        .enrich-panel.visible { right: 0; }
+        .enrich-header { padding: 16px 20px; border-bottom: 1px solid #1c2333; display: flex; justify-content: space-between; align-items: flex-start; position: sticky; top: 0; background: #0d1117; z-index: 1; }
+        .enrich-question { font-size: 15px; font-weight: 600; color: #fff; line-height: 1.4; max-width: 560px; }
+        .enrich-meta { font-size: 11px; color: #6b7280; margin-top: 4px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .enrich-meta a { color: #60a5fa; text-decoration: none; }
+        .enrich-meta a:hover { text-decoration: underline; }
+        .enrich-close { background: none; border: none; color: #6b7280; font-size: 22px; cursor: pointer; padding: 0 4px; line-height: 1; }
+        .enrich-close:hover { color: #e1e4e8; }
+        .enrich-body { padding: 0 20px 20px; }
+        .enrich-tier { border-bottom: 1px solid #1c2333; padding: 16px 0; }
+        .enrich-tier:last-child { border-bottom: none; }
+        .enrich-tier-label { font-size: 9px; color: #374151; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .enrich-section { margin-bottom: 14px; }
+        .enrich-section:last-child { margin-bottom: 0; }
+        .enrich-section-title { font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .enrich-section-title .data-source { font-weight: 400; font-size: 9px; color: #374151; text-transform: none; letter-spacing: 0; }
+        .enrich-context { font-size: 12px; color: #9ca3af; line-height: 1.6; background: #111827; border: 1px solid #1c2333; border-radius: 6px; padding: 10px 12px; }
+        .enrich-context .res-source { margin-top: 6px; font-size: 10px; color: #4b5563; }
+        .enrich-context .res-source a { color: #60a5fa; }
+        .enrich-loading { text-align: center; padding: 20px 0; color: #6b7280; font-size: 12px; }
+        .enrich-spinner { width: 20px; height: 20px; border: 2px solid #1c2333; border-top-color: #3b82f6; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .enrich-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .enrich-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .enrich-stat { background: #111827; border: 1px solid #1c2333; border-radius: 6px; padding: 10px 12px; }
+        .enrich-stat .stat-label { font-size: 10px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+        .enrich-stat .stat-value { font-size: 18px; font-weight: 700; color: #fff; margin-top: 2px; }
+        .enrich-stat .stat-sub { font-size: 10px; color: #4b5563; margin-top: 1px; }
+        .enrich-stat .stat-change { font-size: 11px; font-weight: 600; }
+        .enrich-stat .stat-change.up { color: #4ade80; }
+        .enrich-stat .stat-change.down { color: #f87171; }
+        .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .price-card { background: #111827; border: 1px solid #1c2333; border-radius: 6px; padding: 12px; text-align: center; }
+        .price-card .pc-label { font-size: 10px; color: #6b7280; text-transform: uppercase; margin-bottom: 4px; }
+        .price-card .pc-price { font-size: 24px; font-weight: 700; }
+        .price-card .pc-price.yes { color: #4ade80; }
+        .price-card .pc-price.no { color: #f87171; }
+        .price-card .pc-detail { font-size: 10px; color: #4b5563; margin-top: 4px; }
+        .price-card .pc-change { font-size: 11px; font-weight: 600; margin-top: 2px; }
+        .ob-row { display: flex; align-items: center; font-size: 10px; height: 18px; gap: 4px; }
+        .ob-bar { height: 14px; border-radius: 2px; min-width: 2px; }
+        .ob-bar.bid { background: rgba(74,222,128,0.3); }
+        .ob-bar.ask { background: rgba(248,113,113,0.3); }
+        .ob-price { width: 36px; text-align: right; color: #6b7280; font-family: monospace; }
+        .ob-size { color: #4b5563; font-size: 9px; width: 50px; }
+        .ob-mid { display: flex; justify-content: center; }
+        .activity-bar { height: 6px; border-radius: 3px; background: #1c2333; overflow: hidden; margin: 6px 0; }
+        .activity-bar .fill { height: 100%; border-radius: 3px; background: #3b82f6; }
+        .activity-bar .fill.hot { background: #f59e0b; }
+        .pos-bar { height: 8px; border-radius: 4px; background: #1c2333; overflow: hidden; margin: 8px 0; display: flex; }
+        .pos-bar .pos-yes { background: #4ade80; height: 100%; }
+        .pos-bar .pos-no { background: #f87171; height: 100%; }
+        .pos-labels { display: flex; justify-content: space-between; font-size: 11px; }
+        .pos-labels .yes-label { color: #4ade80; }
+        .pos-labels .no-label { color: #f87171; }
+        .enrich-wallet { background: #111827; border: 1px solid #1c2333; border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; font-size: 11px; }
+        .enrich-wallet .ew-header { display: flex; justify-content: space-between; align-items: center; }
+        .enrich-wallet .ew-addr { font-family: monospace; color: #60a5fa; font-size: 11px; }
+        .enrich-wallet .ew-vol { font-weight: 700; color: #fff; }
+        .enrich-wallet .ew-meta { color: #6b7280; margin-top: 3px; }
+        .ew-side { font-weight: 600; }
+        .ew-side.YES { color: #4ade80; }
+        .ew-side.NO { color: #f87171; }
+        .enrich-trade { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #111827; font-size: 11px; color: #9ca3af; }
+        .enrich-trade .et-time { color: #6b7280; }
+        .enrich-trade .et-side { font-weight: 600; }
+        .enrich-trade .et-side.Yes { color: #4ade80; }
+        .enrich-trade .et-side.No { color: #f87171; }
+        .enrich-trade .et-amount { color: #fff; font-weight: 600; }
+        .enrich-chart-container { height: 140px; background: #111827; border: 1px solid #1c2333; border-radius: 6px; padding: 8px; }
+        .enrich-unavailable { color: #374151; font-size: 11px; font-style: italic; }
+        .sample-badge { display: inline-block; font-size: 8px; font-weight: 700; color: #f59e0b; background: #2a2a1a; padding: 1px 5px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; margin-left: 6px; }
+        .fetch-btn { background: #1e3a5f; border: 1px solid #3b82f6; color: #60a5fa; font-size: 11px; font-weight: 600; padding: 6px 16px; border-radius: 5px; cursor: pointer; transition: all 0.12s; display: flex; align-items: center; gap: 6px; }
+        .fetch-btn:hover { background: #2a4a6f; color: #93c5fd; }
+        .fetch-btn:disabled { opacity: 0.5; cursor: default; }
+        .fetch-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
+        .fetch-ts { font-size: 10px; color: #374151; }
+        .related-market { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; background: #111827; border: 1px solid #1c2333; border-radius: 5px; margin-bottom: 4px; font-size: 11px; cursor: pointer; transition: border-color 0.12s; }
+        .related-market:hover { border-color: #374151; }
+        .related-market .rm-q { color: #d1d5db; max-width: 380px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .related-market .rm-prob { color: #fff; font-weight: 600; }
+        .related-market .rm-tag { font-size: 9px; color: #4b5563; }
+
+        /* ---- PAGE 2: PRICE PREDICTIONS ---- */
+        .asset-summary { display: flex; gap: 12px; margin-bottom: 16px; }
+        .asset-card { flex: 1; background: #111827; border: 1px solid #1c2333; border-radius: 8px; padding: 14px 18px; cursor: pointer; transition: all 0.15s; }
+        .asset-card:hover { border-color: #374151; }
+        .asset-card.active { border-color: #3b82f6; background: #1e3a5f; }
+        .asset-card .ac-icon { font-size: 20px; margin-right: 6px; }
+        .asset-card .ac-name { font-size: 13px; font-weight: 600; color: #fff; }
+        .asset-card .ac-price { font-size: 22px; font-weight: 700; color: #fff; margin-top: 4px; }
+        .asset-card .ac-change { font-size: 12px; font-weight: 600; margin-left: 6px; }
+        .asset-card .ac-change.up { color: #4ade80; }
+        .asset-card .ac-change.down { color: #f87171; }
+        .asset-card .ac-markets { font-size: 10px; color: #6b7280; margin-top: 4px; }
+        .asset-tabs { display: none; }
+        .tenor-card { background: #111827; border: 1px solid #1c2333; border-radius: 8px; padding: 18px 20px; margin-bottom: 12px; cursor: pointer; transition: border-color 0.15s; }
+        .tenor-card:hover { border-color: #374151; }
+        .tenor-card.selected { border-color: #3b82f6; }
+        .tenor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .tenor-date { font-size: 15px; font-weight: 700; color: #fff; }
+        .tenor-meta { font-size: 11px; color: #6b7280; }
+        .tenor-stats { display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+        .tenor-stat { background: #0d1117; border: 1px solid #1c2333; border-radius: 6px; padding: 8px 12px; min-width: 120px; }
+        .tenor-stat .ts-label { font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tenor-stat .ts-value { font-size: 18px; font-weight: 700; margin-top: 2px; }
+        .tenor-stat .ts-value.up { color: #4ade80; }
+        .tenor-stat .ts-value.down { color: #f87171; }
+        .tenor-stat .ts-value.neutral { color: #fff; }
+        .tenor-stat .ts-sub { font-size: 10px; color: #4b5563; }
+        .tenor-narrative { font-size: 12px; color: #d1d5db; line-height: 1.6; margin-bottom: 12px; padding: 10px 12px; background: #0d1117; border-radius: 6px; border-left: 2px solid #3b82f6; }
+        .tenor-levels { display: flex; gap: 6px; flex-wrap: wrap; }
+        .tenor-level { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: #0d1117; border: 1px solid #1c2333; border-radius: 4px; font-size: 11px; }
+        .tenor-level .tl-dir { font-size: 10px; }
+        .tenor-level .tl-dir.above { color: #4ade80; }
+        .tenor-level .tl-dir.below { color: #f87171; }
+        .tenor-level .tl-price { color: #e1e4e8; font-weight: 600; }
+        .tenor-level .tl-prob { color: #6b7280; }
+        .tenor-level .tl-prob.strong { color: #4ade80; font-weight: 600; }
+        .tenor-level .tl-prob.mid { color: #facc15; }
+        .tenor-level .tl-prob.weak { color: #f87171; }
+
+        /* ---- SHARED CARD STYLES ---- */
+        .section-title { font-size: 13px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .section-heading { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 12px; }
+        .card { background: #111827; border: 1px solid #1c2333; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+        .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        canvas.chart { display: block; background: #0d1117; border-radius: 6px; width: 100%; }
+        .date-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
+        .date-tab { padding: 4px 12px; border-radius: 4px; font-size: 11px; cursor: pointer; border: 1px solid #1c2333; background: transparent; color: #6b7280; }
+        .date-tab.active { background: #1c2333; color: #e1e4e8; border-color: #374151; }
+        .band-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .band-table th { text-align: left; padding: 6px 10px; font-size: 10px; font-weight: 600; color: #6b7280; text-transform: uppercase; border-bottom: 1px solid #1c2333; }
+        .band-table td { padding: 5px 10px; border-bottom: 1px solid #0d1117; color: #9ca3af; }
+        .band-table tr:hover { background: #161f2e; }
+        .band-swatch { width: 14px; height: 14px; border-radius: 2px; display: inline-block; vertical-align: middle; margin-right: 6px; }
+        .band-freq { color: #fff; font-weight: 600; }
+        .wallet-card { background: #0d1117; border: 1px solid #1c2333; border-radius: 6px; padding: 12px 14px; margin-bottom: 8px; }
+        .wallet-card .addr { font-family: monospace; font-size: 12px; color: #60a5fa; }
+        .wallet-card .meta { font-size: 11px; color: #6b7280; margin-top: 4px; }
+        .wallet-card .meta span { color: #e1e4e8; font-weight: 600; }
+        .wallet-card .other-markets { margin-top: 8px; font-size: 11px; }
+        .wallet-card .other-markets .om-row { display: flex; justify-content: space-between; padding: 2px 0; color: #9ca3af; border-bottom: 1px solid #111827; }
+        .wallet-card .other-markets .om-row .om-q { max-width: 400px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .wallet-card .other-markets .om-row .om-vol { color: #e1e4e8; font-weight: 500; }
+        .chart-container { position: relative; height: 300px; }
+        .tt { position: absolute; background: rgba(13,17,23,0.95); border: 1px solid #30363d; border-radius: 6px; padding: 10px 14px; font-size: 12px; color: #e1e4e8; pointer-events: none; display: none; z-index: 100; line-height: 1.6; }
+        .tt .t-label { color: #6b7280; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tt .t-val { color: #fff; font-weight: 600; }
+        .loading { text-align: center; padding: 80px; color: #6b7280; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="top-header">
+    <h1>Allium Prediction Markets Intelligence</h1>
+    <span class="badge">PROTOTYPE V2</span>
+    <div class="nav">
+        <button class="nav-btn active" onclick="showPage('explorer')">Market Explorer</button>
+        <button class="nav-btn" onclick="showPage('prices')">Price Predictions</button>
+    </div>
+    <div class="price-tag" id="headerPrice">Loading...</div>
+</div>
+
+<!-- PAGE 1: MARKET EXPLORER -->
+<div class="page active" id="page-explorer">
+    <!-- Theme Selector -->
+    <div class="theme-selector" id="themeSelector"></div>
+
+    <!-- Context Panel -->
+    <div class="context-panel" id="contextPanel">
+        <div class="ctx-label" id="ctxLabel"></div>
+        <div class="ctx-text" id="ctxText"></div>
+        <div class="ctx-updated" id="ctxUpdated"></div>
+    </div>
+
+    <!-- Intelligence Summary -->
+    <div class="summary-panel" id="summaryPanel">
+        <div class="summary-header">
+            <span class="summary-title" id="summaryTitle">MARKET INTELLIGENCE</span>
+            <span class="summary-date" id="summaryDate"></span>
+        </div>
+        <div class="summary-hint" id="summaryHint">Click any insight to see underlying markets</div>
+        <div class="summary-bullets" id="summaryBullets"></div>
+    </div>
+
+    <!-- Sub-Filters -->
+    <div class="sub-filters" id="subFilters"></div>
+
+    <!-- Standard Filters -->
+    <div class="filters">
+        <span class="filter-label">Prob</span>
+        <div class="filter-group" id="probFilters"></div>
+        <div class="filter-sep"></div>
+        <span class="filter-label">Volume</span>
+        <div class="filter-group" id="volumeFilters"></div>
+        <div class="filter-sep"></div>
+        <span class="filter-label">Quality</span>
+        <div class="filter-group" id="qualityFilters"></div>
+        <div class="filter-sep"></div>
+        <span class="filter-label">Venue</span>
+        <div class="filter-group" id="venueFilters"></div>
+        <div class="filter-sep"></div>
+        <input class="search-box" id="searchBox" placeholder="Search markets..." oninput="filterMarkets()">
+        <div class="market-count" id="marketCount"></div>
+    </div>
+
+    <!-- Table -->
+    <table class="market-table">
+        <thead>
+            <tr>
+                <th onclick="sortBy('question')">Market</th>
+                <th onclick="sortBy('price')">Prob / Price</th>
+                <th onclick="sortBy('volume_7d')">7d Volume</th>
+                <th onclick="sortBy('_quality')">Quality</th>
+                <th onclick="sortBy('_daysLeft')">Resolves</th>
+                <th onclick="sortBy('venue')">Venue</th>
+                <th>Insights</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="explorerBody"></tbody>
+    </table>
+    <div class="loading" id="explorerLoading">Loading markets...</div>
+
+
+</div>
+
+<!-- Enrichment Side Panel (global, outside pages) -->
+<div class="enrich-overlay" id="enrichOverlay" onclick="closeEnrichPanel()"></div>
+<div class="enrich-panel" id="enrichPanel">
+    <div class="enrich-header">
+        <div>
+            <div class="enrich-question" id="enrichQuestion"></div>
+            <div class="enrich-meta" id="enrichMeta"></div>
+        </div>
+        <button class="enrich-close" onclick="closeEnrichPanel()">&times;</button>
+    </div>
+    <div class="enrich-body" id="enrichBody">
+        <div class="enrich-loading" id="enrichLoading">
+            <div class="enrich-spinner"></div>
+            Loading enrichment data from Allium...
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 2: PRICE PREDICTIONS -->
+<div class="page" id="page-prices">
+    <!-- Cross-Asset Summary -->
+    <div class="asset-summary" id="assetSummary"></div>
+
+    <!-- Asset Tabs -->
+    <div class="asset-tabs" id="assetTabs"></div>
+
+    <!-- Asset Content -->
+    <div id="assetContent">
+        <!-- Hero Chart: Spot + Distributions -->
+        <div class="card">
+            <div class="section-title" id="spotTitle">Spot Price</div>
+            <div class="section-heading" id="spotHeading"></div>
+            <div style="position:relative;">
+                <canvas id="heroCanvas" class="chart" height="450"></canvas>
+                <div class="tt" id="heroTooltip"></div>
+            </div>
+        </div>
+
+        <!-- Tenor Summary Cards -->
+        <div id="tenorCards"></div>
+
+        <!-- Market Detail -->
+        <div class="card">
+            <div class="section-title">Underlying Markets</div>
+            <div class="section-heading" id="marketsHeading"></div>
+            <table class="market-table" style="font-size:11px;">
+                <thead>
+                    <tr>
+                        <th>Market</th>
+                        <th>Prob</th>
+                        <th>7d Volume</th>
+                        <th>Venue</th>
+                    </tr>
+                </thead>
+                <tbody id="priceMarketsBody"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="loading" id="pricesLoading">Loading price prediction data...</div>
+</div>
+
+<script>
+// ============ NAVIGATION ============
+function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    event.target.classList.add('active');
+    if (page === 'prices' && priceData) {
+        setTimeout(() => renderAssetPage(selectedAsset), 50);
+    }
+}
+
+// ============ PAGE 1: MARKET EXPLORER ============
+let explorerData = [];
+let themeContexts = {};
+let currentSort = { key: 'volume_7d', asc: false };
+let activeThemes = new Set();
+let activeSubFilters = new Set();
+let showOther = false;
+
+// Filter state
+let activeProbs = new Set();
+let activeVolumes = new Set();
+let activeQualities = new Set();
+let activeVenues = new Set();
+
+const THEME_ORDER = ['Energies', 'Rates', 'Equities', 'Crypto', 'Geopolitics', 'Commodities', 'Macro', 'Elections', 'Sports'];
+const THEME_ICONS = {
+    'Energies': '\u26A1', 'Rates': '\uD83C\uDFE6', 'Equities': '\uD83D\uDCC8',
+    'Crypto': '\u20BF', 'Geopolitics': '\uD83C\uDF0D', 'Commodities': '\uD83E\uDD47',
+    'Macro': '\uD83D\uDCCA', 'Elections': '\uD83D\uDDF3\uFE0F', 'Sports': '\uD83C\uDFC6',
+};
+
+const PROB_FILTERS = [
+    { label: '< 20%', test: m => (m.price || 0) < 0.2 && !m.is_price_market },
+    { label: '20-40%', test: m => (m.price || 0) >= 0.2 && (m.price || 0) < 0.4 },
+    { label: '40-60%', test: m => (m.price || 0) >= 0.4 && (m.price || 0) <= 0.6 },
+    { label: '60-80%', test: m => (m.price || 0) > 0.6 && (m.price || 0) <= 0.8 },
+    { label: '> 80%', test: m => (m.price || 0) > 0.8 },
+];
+const VOL_FILTERS = [
+    { label: '> $1M', test: m => (m.volume_7d || 0) >= 1000000 },
+    { label: '$100K+', test: m => (m.volume_7d || 0) >= 100000 },
+    { label: '$10K+', test: m => (m.volume_7d || 0) >= 10000 },
+    { label: '< $10K', test: m => (m.volume_7d || 0) < 10000 },
+];
+const QUALITY_FILTERS = [
+    { label: 'High', test: m => (m.volume_7d || 0) >= 100000 },
+    { label: 'Med', test: m => { const v = m.volume_7d || 0; return v >= 50000 && v < 100000; } },
+    { label: 'Thin', test: m => { const v = m.volume_7d || 0; return v >= 10000 && v < 50000; } },
+    { label: 'Inactive', test: m => (m.volume_7d || 0) < 10000 },
+];
+const VENUES = ['polymarket', 'kalshi'];
+
+function initExplorer(data) {
+    explorerData = data.markets;
+    document.getElementById('explorerLoading').style.display = 'none';
+
+    // Precompute fields
+    const now = new Date();
+    explorerData.forEach(m => {
+        const ed = new Date(m.end_date + 'T23:59:59Z');
+        m._daysLeft = Math.max(0, Math.ceil((ed - now) / 86400000));
+        // Quality tier (volume-only since no trader data pre-enrichment)
+        const v = m.volume_7d || 0;
+        if (v >= 100000) m._quality = 3;
+        else if (v >= 50000) m._quality = 2;
+        else if (v >= 10000) m._quality = 1;
+        else m._quality = 0;
+    });
+
+    // Count markets per theme
+    const themeCounts = {};
+    THEME_ORDER.forEach(t => themeCounts[t] = 0);
+    themeCounts['Other'] = 0;
+    explorerData.forEach(m => {
+        (m.themes || []).forEach(t => {
+            themeCounts[t] = (themeCounts[t] || 0) + 1;
+        });
+    });
+
+    // Build theme selector
+    const sel = document.getElementById('themeSelector');
+    const allCount = explorerData.filter(m => !(m.themes || []).includes('Other')).length;
+    let html = '';
+
+    THEME_ORDER.forEach(t => {
+        const c = themeCounts[t] || 0;
+        const icon = THEME_ICONS[t] || '';
+        const cls = c === 0 ? ' disabled' : '';
+        html += `<button class="theme-card${cls}" data-theme="${t}" ${c > 0 ? `onclick="toggleTheme(this, '${t}')"` : ''}><span class="theme-icon">${icon}</span> ${t}<span class="count">(${c})</span></button>`;
+    });
+
+    html += '<div class="theme-sep"></div>';
+    html += `<button class="other-toggle active" data-theme="all" onclick="toggleTheme(this, 'all')">All (${allCount})</button>`;
+    html += `<button class="other-toggle" id="otherToggle" onclick="toggleOther(this)">+ Other (${themeCounts['Other'] || 0})</button>`;
+    sel.innerHTML = html;
+
+    // Build standard filters
+    buildFilterGroup('probFilters', PROB_FILTERS, activeProbs);
+    buildFilterGroup('volumeFilters', VOL_FILTERS, activeVolumes);
+    buildFilterGroup('qualityFilters', QUALITY_FILTERS, activeQualities);
+
+    // Venue filters
+    const vf = document.getElementById('venueFilters');
+    vf.innerHTML = '<button class="filter-btn active" data-val="all">All</button>';
+    VENUES.forEach(v => {
+        const c = explorerData.filter(m => m.venue === v).length;
+        if (c > 0) vf.innerHTML += `<button class="filter-btn" data-val="${v}">${v.charAt(0).toUpperCase() + v.slice(1)} (${c})</button>`;
+    });
+    vf.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const val = btn.dataset.val;
+            if (val === 'all') {
+                activeVenues.clear();
+                vf.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            } else {
+                vf.querySelector('[data-val="all"]').classList.remove('active');
+                btn.classList.toggle('active');
+                if (btn.classList.contains('active')) activeVenues.add(val);
+                else activeVenues.delete(val);
+                if (activeVenues.size === 0) vf.querySelector('[data-val="all"]').classList.add('active');
+            }
+            filterMarkets();
+        });
+    });
+
+    sortBy('volume_7d');
+}
+
+function buildFilterGroup(containerId, items, stateSet) {
+    const el = document.getElementById(containerId);
+    el.innerHTML = '<button class="filter-btn active" data-val="all">All</button>';
+    items.forEach((item, i) => {
+        el.innerHTML += `<button class="filter-btn" data-val="${i}">${item.label}</button>`;
+    });
+    el.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const val = btn.dataset.val;
+            if (val === 'all') {
+                stateSet.clear();
+                el.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            } else {
+                el.querySelector('[data-val="all"]').classList.remove('active');
+                btn.classList.toggle('active');
+                if (btn.classList.contains('active')) stateSet.add(parseInt(val));
+                else stateSet.delete(parseInt(val));
+                if (stateSet.size === 0) el.querySelector('[data-val="all"]').classList.add('active');
+            }
+            filterMarkets();
+        });
+    });
+}
+
+// ---- Theme interaction ----
+let lastClickedTheme = null;
+
+function toggleTheme(el, theme) {
+    const qualityEl = document.getElementById('qualityFilters');
+
+    const allBtn = document.querySelector('.other-toggle[data-theme="all"]');
+
+    if (theme === 'all') {
+        activeThemes.clear();
+        lastClickedTheme = null;
+        showOther = false;
+        document.querySelectorAll('.theme-card').forEach(b => b.classList.remove('active'));
+        document.getElementById('otherToggle').classList.remove('active');
+        allBtn.classList.add('active');
+        // Reset quality filters and sort to defaults
+        activeQualities.clear();
+        qualityEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        qualityEl.querySelector('[data-val="all"]').classList.add('active');
+        currentSort = { key: 'volume_7d', asc: false };
+    } else {
+        // Single-select: deselect all themes, All, and Other
+        activeThemes.clear();
+        showOther = false;
+        document.querySelectorAll('.theme-card').forEach(b => b.classList.remove('active'));
+        document.getElementById('otherToggle').classList.remove('active');
+        allBtn.classList.remove('active');
+
+        if (lastClickedTheme === theme) {
+            // Clicking same theme again → deselect, go back to All
+            lastClickedTheme = null;
+            allBtn.classList.add('active');
+            activeQualities.clear();
+            qualityEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            qualityEl.querySelector('[data-val="all"]').classList.add('active');
+            currentSort = { key: 'volume_7d', asc: false };
+        } else {
+            // Select this theme
+            activeThemes.add(theme);
+            lastClickedTheme = theme;
+            el.classList.add('active');
+            // Set default quality to High + Med, sort by quality desc
+            activeQualities.clear();
+            activeQualities.add(0); // High
+            activeQualities.add(1); // Med
+            qualityEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            qualityEl.querySelector('[data-val="0"]').classList.add('active');
+            qualityEl.querySelector('[data-val="1"]').classList.add('active');
+            currentSort = { key: '_quality', asc: false };
+        }
+    }
+    updateContextPanel();
+    updateSubFilters();
+    activeSubFilters.clear();
+    filterMarkets();
+}
+
+function toggleOther(el) {
+    const allBtn = document.querySelector('.other-toggle[data-theme="all"]');
+    const qualityEl = document.getElementById('qualityFilters');
+
+    showOther = !showOther;
+
+    if (showOther) {
+        // Deselect all themes and All
+        activeThemes.clear();
+        lastClickedTheme = null;
+        document.querySelectorAll('.theme-card').forEach(b => b.classList.remove('active'));
+        allBtn.classList.remove('active');
+        el.classList.add('active');
+        // Reset quality + sort
+        activeQualities.clear();
+        qualityEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        qualityEl.querySelector('[data-val="all"]').classList.add('active');
+        currentSort = { key: 'volume_7d', asc: false };
+    } else {
+        // Turning off Other → go back to All
+        el.classList.remove('active');
+        allBtn.classList.add('active');
+        currentSort = { key: 'volume_7d', asc: false };
+    }
+
+    activeSubFilters.clear();
+    updateContextPanel();
+    updateSubFilters();
+    filterMarkets();
+}
+
+let themeSummaries = {};
+let activeBulletIdx = null;  // Index of currently selected bullet
+let activeBulletQuestions = null;  // Set of source questions for active bullet
+
+function clearBulletFilter() {
+    activeBulletIdx = null;
+    activeBulletQuestions = null;
+    document.querySelectorAll('.summary-bullet').forEach(b => b.classList.remove('active'));
+    const clearBtn = document.getElementById('clearBulletFilter');
+    if (clearBtn) clearBtn.style.display = 'none';
+    filterMarkets();
+}
+
+function clickBullet(idx) {
+    if (activeBulletIdx === idx) {
+        clearBulletFilter();
+        return;
+    }
+
+    const summary = themeSummaries[lastClickedTheme];
+    if (!summary || !summary.bullets[idx]) return;
+
+    const bullet = summary.bullets[idx];
+    const sourceQs = bullet.source_questions || [];
+
+    activeBulletIdx = idx;
+    activeBulletQuestions = new Set(sourceQs);
+
+    // Highlight active bullet
+    document.querySelectorAll('.summary-bullet').forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+    });
+
+    // Show clear button
+    const clearBtn = document.getElementById('clearBulletFilter');
+    if (clearBtn) clearBtn.style.display = 'inline';
+
+    filterMarkets();
+}
+
+function updateContextPanel() {
+    const panel = document.getElementById('contextPanel');
+    const summaryPanel = document.getElementById('summaryPanel');
+
+    if (!lastClickedTheme || !themeContexts[lastClickedTheme]) {
+        panel.classList.remove('visible');
+        summaryPanel.classList.remove('visible');
+        return;
+    }
+
+    // Context
+    const ctx = themeContexts[lastClickedTheme];
+    document.getElementById('ctxLabel').textContent = 'Current Events in ' + lastClickedTheme;
+    document.getElementById('ctxText').textContent = ctx.context;
+    document.getElementById('ctxUpdated').textContent = 'Updated ' + (themeContextsDate || '');
+    panel.classList.add('visible');
+
+    // Clear bullet filter when switching themes
+    activeBulletIdx = null;
+    activeBulletQuestions = null;
+
+    // Summary
+    const summary = themeSummaries[lastClickedTheme];
+    if (summary && summary.bullets && summary.bullets.length > 0) {
+        document.getElementById('summaryTitle').textContent = 'MARKET INTELLIGENCE IN ' + lastClickedTheme.toUpperCase();
+        document.getElementById('summaryDate').textContent = summary.generated_at ? 'Generated ' + summary.generated_at.slice(0, 10) : '';
+
+        let bulletsHtml = summary.bullets.slice(0, 8).map((b, i) => {
+            const conf = b.confidence || 'LOW';
+            const sourceCount = (b.source_questions || []).length;
+            const hasSources = sourceCount > 0;
+            const clickable = hasSources ? ` onclick="clickBullet(${i})"` : '';
+            const cls = hasSources ? ' clickable' : '';
+            const countPill = hasSources ? `<span class="market-count-pill">${sourceCount} market${sourceCount !== 1 ? 's' : ''}</span>` : '';
+            const arrow = hasSources ? '<span class="bullet-arrow">\u2192</span>' : '';
+            return `<div class="summary-bullet${cls}"${clickable}>
+                <span class="bullet-dot">\u2022</span>
+                <span class="bullet-text">${b.text}</span>
+                <span class="conf-badge ${conf}">${conf}</span>
+                ${countPill}${arrow}
+            </div>`;
+        }).join('');
+
+        bulletsHtml += '<button class="clear-bullet-btn" id="clearBulletFilter" style="display:none" onclick="clearBulletFilter()">Clear filter &times;</button>';
+
+        document.getElementById('summaryBullets').innerHTML = bulletsHtml;
+        summaryPanel.classList.add('visible');
+    } else {
+        summaryPanel.classList.remove('visible');
+    }
+}
+
+function updateSubFilters() {
+    const container = document.getElementById('subFilters');
+    if (!lastClickedTheme || !themeContexts[lastClickedTheme]) {
+        container.classList.remove('visible');
+        return;
+    }
+    const subs = themeContexts[lastClickedTheme].sub_filters || [];
+    if (subs.length === 0) {
+        container.classList.remove('visible');
+        return;
+    }
+    let html = '<button class="sub-btn active" data-sub="all" onclick="toggleSub(this, \'all\')">All</button>';
+    subs.forEach(s => {
+        html += `<button class="sub-btn" data-sub="${s}" onclick="toggleSub(this, '${s}')">${s}</button>`;
+    });
+    container.innerHTML = html;
+    container.classList.add('visible');
+}
+
+function toggleSub(el, sub) {
+    if (sub === 'all') {
+        activeSubFilters.clear();
+        document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+    } else {
+        document.querySelector('.sub-btn[data-sub="all"]').classList.remove('active');
+        el.classList.toggle('active');
+        if (el.classList.contains('active')) activeSubFilters.add(sub);
+        else activeSubFilters.delete(sub);
+        if (activeSubFilters.size === 0) document.querySelector('.sub-btn[data-sub="all"]').classList.add('active');
+    }
+    filterMarkets();
+}
+
+// ---- Filtering ----
+function applySetFilter(filtered, stateSet, filterDefs) {
+    if (stateSet.size === 0) return filtered;
+    return filtered.filter(m => [...stateSet].some(i => filterDefs[i].test(m)));
+}
+
+function matchesSubFilter(market) {
+    if (activeSubFilters.size === 0) return true;
+    if (!lastClickedTheme || !themeContexts[lastClickedTheme]) return true;
+    const subKw = themeContexts[lastClickedTheme].sub_keywords || {};
+    const ql = market.question.toLowerCase();
+    for (const sub of activeSubFilters) {
+        const keywords = subKw[sub] || [];
+        for (const kw of keywords) {
+            if (ql.includes(kw.toLowerCase())) return true;
+        }
+    }
+    return false;
+}
+
+function filterMarkets() {
+    const query = document.getElementById('searchBox').value.toLowerCase();
+    let filtered = explorerData;
+
+    // Theme filter
+    const allBtn = document.querySelector('.other-toggle[data-theme="all"]');
+    const allActive = allBtn && allBtn.classList.contains('active');
+
+    if (activeThemes.size > 0) {
+        // A specific theme is selected
+        filtered = filtered.filter(m => (m.themes || []).some(t => activeThemes.has(t)));
+        // If Other is also toggled, add Other markets
+        if (showOther) {
+            const otherMarkets = explorerData.filter(m => (m.themes || []).every(t => t === 'Other'));
+            filtered = [...new Set([...filtered, ...otherMarkets])];
+        }
+    } else if (showOther && !allActive) {
+        // Only "Other" is selected — show only Other markets
+        filtered = filtered.filter(m => (m.themes || []).every(t => t === 'Other'));
+    } else if (allActive && showOther) {
+        // "All" + "Other" — show everything
+    } else {
+        // "All" mode — exclude Other
+        filtered = filtered.filter(m => !(m.themes || []).every(t => t === 'Other'));
+    }
+
+    // Bullet filter (from clicking a summary insight)
+    if (activeBulletQuestions && activeBulletQuestions.size > 0) {
+        filtered = filtered.filter(m => activeBulletQuestions.has(m.question));
+    }
+
+    // Sub-filters
+    filtered = filtered.filter(matchesSubFilter);
+
+    // Standard filters
+    if (activeVenues.size > 0) filtered = filtered.filter(m => activeVenues.has(m.venue));
+    if (query) filtered = filtered.filter(m => m.question.toLowerCase().includes(query));
+    filtered = applySetFilter(filtered, activeProbs, PROB_FILTERS);
+    filtered = applySetFilter(filtered, activeVolumes, VOL_FILTERS);
+    filtered = applySetFilter(filtered, activeQualities, QUALITY_FILTERS);
+
+    // Sort
+    filtered.sort((a, b) => {
+        let va = a[currentSort.key], vb = b[currentSort.key];
+        if (va == null) va = -Infinity;
+        if (vb == null) vb = -Infinity;
+        if (typeof va === 'string') { va = va.toLowerCase(); vb = (vb || '').toLowerCase(); }
+        if (va < vb) return currentSort.asc ? -1 : 1;
+        if (va > vb) return currentSort.asc ? 1 : -1;
+        return 0;
+    });
+
+    renderExplorer(filtered);
+}
+
+function sortBy(key) {
+    if (currentSort.key === key) currentSort.asc = !currentSort.asc;
+    else { currentSort.key = key; currentSort.asc = key === 'question' || key === 'end_date'; }
+    filterMarkets();
+}
+
+// ---- Rendering ----
+function fmtVol(v) {
+    if (!v || v <= 0) return '-';
+    if (v >= 1e6) return '$' + (v / 1e6).toFixed(1) + 'M';
+    if (v >= 1e3) return '$' + (v / 1e3).toFixed(0) + 'K';
+    return '$' + v.toFixed(0);
+}
+
+function renderExplorer(markets) {
+    const tbody = document.getElementById('explorerBody');
+    const show = markets.slice(0, 200);
+    document.getElementById('marketCount').textContent = `${markets.length} markets${markets.length > 200 ? ' (showing 200)' : ''}`;
+
+    tbody.innerHTML = show.map(m => {
+        const prob = m.price || 0;
+        const barW = Math.max(2, prob * 100);
+        const vol = m.volume_7d || 0;
+
+        // Theme tags
+        const tags = (m.themes || []).filter(t => t !== 'Other').map(t => `<span class="theme-tag">${t}</span>`).join('');
+
+        // Quality
+        let qClass, qLabel;
+        if (vol >= 100000) { qClass = 'high'; qLabel = 'High'; }
+        else if (vol >= 50000) { qClass = 'med'; qLabel = 'Med'; }
+        else if (vol >= 10000) { qClass = 'thin'; qLabel = 'Thin'; }
+        else { qClass = 'inactive'; qLabel = 'Inactive'; }
+
+        // Days to resolution
+        const daysLeft = m._daysLeft || 0;
+        let dClass, dStr;
+        if (daysLeft <= 1) { dClass = 'soon'; dStr = daysLeft === 0 ? 'Today' : '1d'; }
+        else if (daysLeft <= 3) { dClass = 'near'; dStr = daysLeft + 'd'; }
+        else { dClass = 'normal'; dStr = daysLeft + 'd'; }
+
+        // Insights
+        const insights = [];
+        if (prob >= 0.40 && prob <= 0.60 && !m.is_price_market) insights.push('<span class="insight-badge contested">Contested</span>');
+        if (qClass === 'high') insights.push('<span class="insight-badge high-conf">High Signal</span>');
+        if (qClass === 'inactive') insights.push('<span class="insight-badge inactive-badge">Inactive</span>');
+        if (daysLeft <= 2 && vol >= 5000) insights.push('<span class="insight-badge urgent">Resolving Soon</span>');
+
+        // Price/Prob display
+        let probDisplay;
+        if (m.is_price_market && m.consensus_price) {
+            const cp = m.consensus_price;
+            const priceStr = cp >= 1000 ? '$' + (cp / 1000).toFixed(1) + 'K' : '$' + cp.toFixed(0);
+            let deltaHtml = '';
+            if (m.spot_price) {
+                const pctDelta = ((cp - m.spot_price) / m.spot_price) * 100;
+                const sign = pctDelta >= 0 ? '+' : '';
+                const cls = pctDelta >= 0 ? 'up' : 'down';
+                deltaHtml = ` <span class="price-delta ${cls}">${sign}${pctDelta.toFixed(1)}%</span>`;
+            }
+            probDisplay = `<span class="consensus-price" title="Peak: $${m.peak_band >= 1000 ? (m.peak_band/1000).toFixed(1)+'K' : m.peak_band} (${(m.peak_prob*100).toFixed(0)}%)">${priceStr}</span>${deltaHtml}`;
+        } else if (prob > 0) {
+            probDisplay = `<span class="prob-bar" style="width:${barW}px"></span>${(prob * 100).toFixed(1)}%`;
+        } else {
+            probDisplay = '<span style="color:#4b5563">-</span>';
+        }
+
+        // Market link
+        let linkHtml = '';
+        if (m.venue === 'polymarket' && m.slug) {
+            linkHtml = `<a href="https://polymarket.com/market/${m.slug}" target="_blank" rel="noopener" class="market-link" title="View on Polymarket">View \u2197</a>`;
+        } else if (m.venue === 'kalshi' && m.event_ticker) {
+            // Kalshi URL: /markets/{series_ticker_lower}
+            // Series ticker = everything before the first -2X (year code like -26, -25)
+            const evt = m.event_ticker.toLowerCase();
+            const series = evt.replace(/-2[0-9].*$/, '');
+            linkHtml = `<a href="https://kalshi.com/markets/${series}" target="_blank" rel="noopener" class="market-link" title="View on Kalshi">View \u2197</a>`;
+        }
+
+        // Escape question for JS string
+        const qEsc = m.question.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        const slugEsc = (m.slug || '').replace(/'/g, "\\'");
+        const evtEsc = (m.event_ticker || '').replace(/'/g, "\\'");
+
+        return `<tr onclick="openEnrichPanel('${qEsc}', '${m.venue}', ${prob}, '${m.end_date}', '${slugEsc}', '${evtEsc}')">
+            <td><div class="q-text">${m.question}</div><div class="q-tags">${tags}</div></td>
+            <td class="prob-cell">${probDisplay}</td>
+            <td>${fmtVol(vol)}</td>
+            <td><span class="quality-dot ${qClass}"></span>${qLabel}</td>
+            <td><span class="resolve-days ${dClass}">${dStr}</span></td>
+            <td><span class="venue-badge ${m.venue}">${m.venue}</span></td>
+            <td>${insights.join('')}</td>
+            <td>${linkHtml}</td>
+        </tr>`;
+    }).join('');
+}
+
+// ============ ENRICHMENT PANEL ============
+let enrichChartInstance = null;
+let currentEnrichMarket = null;
+
+// Mock data generator for Allium sections
+function generateMockAllium(question, venue) {
+    const isPolymarket = venue === 'polymarket';
+    const mockHours = [];
+    let p = 0.15 + Math.random() * 0.3;
+    for (let h = 0; h < 168; h++) {
+        p += (Math.random() - 0.5) * 0.015;
+        p = Math.max(0.01, Math.min(0.99, p));
+        mockHours.push({ hour: `2026-03-${21 + Math.floor(h/24)}T${String(h%24).padStart(2,'0')}:00`, price: +p.toFixed(4), volume: Math.floor(Math.random() * 20000), trades: Math.floor(Math.random() * 100), wallets: Math.floor(Math.random() * 30) });
+    }
+    const yVol = Math.floor(Math.random() * 3000000);
+    const nVol = Math.floor(Math.random() * 5000000);
+    const total = yVol + nVol;
+    const mockWallets = isPolymarket ? Array.from({length: 5}, (_, i) => ({
+        short: `0x${Math.random().toString(16).slice(2,8)}..${Math.random().toString(16).slice(2,6)}`,
+        volume: Math.floor(Math.random() * 500000 / (i+1)),
+        pct: +(Math.random() * 6 / (i+1)).toFixed(1),
+        trades: Math.floor(Math.random() * 1000 / (i+1)),
+        side: Math.random() > 0.4 ? 'NO' : 'YES',
+        first_trade: '2026-03-01', last_trade: '2026-03-27',
+    })) : [];
+    const mockTrades = isPolymarket ? Array.from({length: 8}, () => ({
+        time: `2026-03-${26 + Math.floor(Math.random()*2)}T${String(Math.floor(Math.random()*24)).padStart(2,'0')}:${String(Math.floor(Math.random()*60)).padStart(2,'0')}`,
+        side: Math.random() > 0.4 ? 'No' : 'Yes',
+        amount: Math.floor(500 + Math.random() * 50000),
+        wallet: `0x${Math.random().toString(16).slice(2,8)}..${Math.random().toString(16).slice(2,6)}`,
+    })).sort((a,b) => b.amount - a.amount) : [];
+    return {
+        price_history: mockHours,
+        positioning: { yes_volume: yVol, no_volume: nVol, yes_pct: +(yVol/total*100).toFixed(1), no_pct: +(nVol/total*100).toFixed(1), total_volume_7d: total, total_trades_7d: Math.floor(Math.random()*30000), unique_wallets_7d: Math.floor(Math.random()*3000) },
+        wallets: { total_unique: Math.floor(Math.random()*5000), top5_concentration: +(Math.random()*20).toFixed(1), top_wallets: mockWallets, smart_money_signal: mockWallets[0]?.side || null, top5_same_side: mockWallets.length >= 5 && new Set(mockWallets.slice(0,5).map(w=>w.side)).size === 1 },
+        large_trades: mockTrades,
+    };
+}
+
+// Find related markets by theme overlap
+function findRelatedMarkets(question, themes) {
+    if (!themes || themes.length === 0) return [];
+    return explorerData.filter(m => m.question !== question && (m.themes || []).some(t => themes.includes(t)) && (m.volume_7d || 0) >= 50000)
+        .sort((a,b) => (b.volume_7d || 0) - (a.volume_7d || 0)).slice(0, 6);
+}
+
+function openEnrichPanel(question, venue, price, endDate, slug, eventTicker) {
+    const panel = document.getElementById('enrichPanel');
+    const overlay = document.getElementById('enrichOverlay');
+    currentEnrichMarket = { question, venue, price, endDate, slug, eventTicker };
+
+    // Find the full market object
+    const mkt = explorerData.find(m => m.question === question && m.venue === venue) || {};
+
+    // Header
+    document.getElementById('enrichQuestion').textContent = question;
+    let metaHtml = `<span class="venue-badge ${venue}">${venue}</span>`;
+    if (price > 0) metaHtml += ` <span>&middot; ${(price * 100).toFixed(1)}%</span>`;
+    if (endDate) metaHtml += ` <span>&middot; Resolves ${endDate}</span>`;
+    if (venue === 'polymarket' && slug) {
+        metaHtml += ` <span>&middot;</span> <a href="https://polymarket.com/market/${slug}" target="_blank">View on Polymarket \u2197</a>`;
+    } else if (venue === 'kalshi' && eventTicker) {
+        const series = eventTicker.toLowerCase().replace(/-2[0-9].*$/, '');
+        metaHtml += ` <span>&middot;</span> <a href="https://kalshi.com/markets/${series}" target="_blank">View on Kalshi \u2197</a>`;
+    }
+    document.getElementById('enrichMeta').innerHTML = metaHtml;
+
+    panel.classList.add('visible');
+    overlay.classList.add('visible');
+
+    // Check localStorage cache
+    const cacheKey = `enrich_${venue}_${question}`;
+    const cached = localStorage.getItem(cacheKey);
+    let alliumData = null;
+    let fetchTs = null;
+    let isMock = true;
+
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            alliumData = parsed.data;
+            fetchTs = parsed.ts;
+            isMock = false;
+        } catch(e) {}
+    }
+
+    if (!alliumData) {
+        alliumData = generateMockAllium(question, venue);
+    }
+
+    renderFullPanel(mkt, alliumData, isMock, fetchTs);
+
+    // Fetch live venue data (pricing, orderbook) in parallel
+    fetchVenueData(mkt);
+}
+
+function closeEnrichPanel() {
+    document.getElementById('enrichPanel').classList.remove('visible');
+    document.getElementById('enrichOverlay').classList.remove('visible');
+    if (enrichChartInstance) { enrichChartInstance.destroy(); enrichChartInstance = null; }
+    currentEnrichMarket = null;
+}
+
+function fetchLiveAllium() {
+    if (!currentEnrichMarket) return;
+    const { question, venue } = currentEnrichMarket;
+    const btn = document.getElementById('fetchBtn');
+    if (btn) { btn.disabled = true; btn.innerHTML = '<div class="enrich-spinner" style="width:14px;height:14px;margin:0;border-width:2px;"></div> Fetching...'; }
+
+    const params = new URLSearchParams({ question, venue });
+    fetch(`/api/enrich?${params}`)
+        .then(r => r.json())
+        .then(data => {
+            const ts = new Date().toISOString();
+            const cacheKey = `enrich_${venue}_${question}`;
+            localStorage.setItem(cacheKey, JSON.stringify({ data, ts }));
+            const mkt = explorerData.find(m => m.question === question && m.venue === venue) || {};
+            renderFullPanel(mkt, data, false, ts);
+        })
+        .catch(err => {
+            if (btn) { btn.disabled = false; btn.innerHTML = 'Fetch Live Data'; }
+            alert('Failed to fetch: ' + err.message + '. Is serve.py running?');
+        });
+}
+
+function fetchVenueData(mkt) {
+    // TODO: Fetch live pricing + orderbook from venue APIs
+    // For now, venue data comes from what we already have in explorer_data.json
+}
+
+function renderFullPanel(mkt, allium, isMock, fetchTs) {
+    const body = document.getElementById('enrichBody');
+    const venue = mkt.venue || currentEnrichMarket?.venue || 'polymarket';
+    const isPolymarket = venue === 'polymarket';
+    const pos = allium.positioning || {};
+    const wallets = allium.wallets || {};
+    const sampleTag = isMock ? '<span class="sample-badge">Sample Data</span>' : '';
+    const poweredBy = '<span class="data-source">Powered by Allium</span>';
+    let html = '';
+
+    // ═══ CONTEXT ═══
+    if (mkt.description) {
+        html += `<div class="enrich-tier">
+            <div class="enrich-section">
+                <div class="enrich-section-title">Market Context</div>
+                <div class="enrich-context">${mkt.description.slice(0, 400)}${mkt.description.length > 400 ? '...' : ''}</div>
+            </div>
+        </div>`;
+    }
+
+    // ═══ TIER 1: PRICING ═══
+    const vol24 = mkt.volume_24h || 0;
+    const vol7d = mkt.volume_7d || 0;
+    const volRatio = vol7d > 0 ? (vol24 / (vol7d / 7)) : 0;
+    const isHot = volRatio > 2;
+
+    html += `<div class="enrich-tier">
+        <div class="enrich-tier-label">Pricing &amp; Activity <span class="data-source">Venue API</span></div>
+        <div class="enrich-section">
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <div class="pc-label">YES</div>
+                    <div class="pc-price yes">${mkt.price ? (mkt.price * 100).toFixed(1) + '%' : '-'}</div>
+                    <div class="pc-detail">Bid ${mkt.price ? (mkt.price * 100 - 0.5).toFixed(1) : '-'} / Ask ${mkt.price ? (mkt.price * 100 + 0.5).toFixed(1) : '-'}</div>
+                </div>
+                <div class="price-card">
+                    <div class="pc-label">NO</div>
+                    <div class="pc-price no">${mkt.price ? ((1 - mkt.price) * 100).toFixed(1) + '%' : '-'}</div>
+                    <div class="pc-detail">Bid ${mkt.price ? ((1 - mkt.price) * 100 - 0.5).toFixed(1) : '-'} / Ask ${mkt.price ? ((1 - mkt.price) * 100 + 0.5).toFixed(1) : '-'}</div>
+                </div>
+            </div>
+        </div>
+        <div class="enrich-section">
+            <div class="enrich-section-title">24h Activity</div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#9ca3af;margin-bottom:4px;">
+                <span>Vol ${fmtVol(vol24)} ${isHot ? '<span style="color:#f59e0b;font-weight:600;">\u26A1 ' + volRatio.toFixed(1) + 'x avg</span>' : ''}</span>
+                <span>7d Vol ${fmtVol(vol7d)}</span>
+            </div>
+            <div class="activity-bar"><div class="fill ${isHot ? 'hot' : ''}" style="width:${Math.min(100, volRatio * 15)}%"></div></div>
+            <div style="font-size:10px;color:#4b5563;">Liquidity: ${fmtVol(mkt.liquidity || 0)}</div>
+        </div>
+    </div>`;
+
+    // ═══ TIER 2: ANALYSIS ═══
+    html += `<div class="enrich-tier">
+        <div class="enrich-tier-label">Analysis ${poweredBy}</div>`;
+
+    // Fetch button bar
+    html += `<div class="fetch-bar">
+        <button class="fetch-btn" id="fetchBtn" onclick="fetchLiveAllium()">${isMock ? '\uD83D\uDD04 Fetch Live Data' : '\uD83D\uDD04 Refresh'}</button>
+        <span class="fetch-ts">${fetchTs ? 'Last fetched: ' + new Date(fetchTs).toLocaleString() : isMock ? 'Showing sample data' : ''}</span>
+    </div>`;
+
+    // Price History
+    const ph = allium.price_history || [];
+    if (ph.length > 0) {
+        html += `<div class="enrich-section">
+            <div class="enrich-section-title">Price History (7d) ${sampleTag}</div>
+            <div class="enrich-chart-container"><canvas id="enrichPriceChart"></canvas></div>
+        </div>`;
+    }
+
+    // Positioning
+    html += `<div class="enrich-section">
+        <div class="enrich-section-title">Positioning ${sampleTag}</div>
+        <div class="pos-bar">
+            <div class="pos-yes" style="width:${pos.yes_pct || 50}%"></div>
+            <div class="pos-no" style="width:${pos.no_pct || 50}%"></div>
+        </div>
+        <div class="pos-labels">
+            <span class="yes-label">YES ${(pos.yes_pct || 0).toFixed(1)}% &middot; ${fmtVol(pos.yes_volume)}</span>
+            <span class="no-label">${fmtVol(pos.no_volume)} &middot; ${(pos.no_pct || 0).toFixed(1)}% NO</span>
+        </div>
+        ${wallets.top5_same_side ? `<div style="margin-top:6px;font-size:11px;color:#facc15;">Smart money: Top 5 wallets all ${wallets.smart_money_signal}-leaning</div>` : ''}
+    </div>`;
+
+    // Quality stats
+    html += `<div class="enrich-section">
+        <div class="enrich-section-title">Market Quality ${sampleTag}</div>
+        <div class="enrich-stat-grid">
+            <div class="enrich-stat"><div class="stat-label">Unique Traders</div><div class="stat-value">${(pos.unique_wallets_7d || 0).toLocaleString()}</div><div class="stat-sub">7-day</div></div>
+            <div class="enrich-stat"><div class="stat-label">Total Trades</div><div class="stat-value">${(pos.total_trades_7d || 0).toLocaleString()}</div><div class="stat-sub">7-day</div></div>
+            <div class="enrich-stat"><div class="stat-label">Volume</div><div class="stat-value">${fmtVol(pos.total_volume_7d)}</div><div class="stat-sub">7-day (Allium)</div></div>
+            <div class="enrich-stat"><div class="stat-label">Whale Concentration</div><div class="stat-value">${isPolymarket ? (wallets.top5_concentration || 0) + '%' : 'N/A'}</div><div class="stat-sub">${isPolymarket ? 'Top 5 wallets' : 'Kalshi — no wallet data'}</div></div>
+        </div>
+    </div>`;
+
+    // Related markets (from theme overlap — instant, no Allium)
+    const related = findRelatedMarkets(mkt.question, mkt.themes);
+    if (related.length > 0) {
+        html += `<div class="enrich-section">
+            <div class="enrich-section-title">Related Markets <span class="data-source">Theme overlap</span></div>
+            ${related.map(r => {
+                const rp = r.price ? (r.price * 100).toFixed(1) + '%' : '-';
+                return `<div class="related-market" onclick="closeEnrichPanel(); setTimeout(() => { const m = explorerData.find(x => x.question === '${r.question.replace(/'/g, "\\'")}'); if(m) openEnrichPanel('${r.question.replace(/'/g, "\\'")}','${r.venue}',${r.price||0},'${r.end_date}','${(r.slug||'').replace(/'/g, "\\'")}','${(r.event_ticker||'').replace(/'/g, "\\'")}'); }, 300);">
+                    <span class="rm-q">${r.question}</span>
+                    <span class="rm-prob">${rp}</span>
+                </div>`;
+            }).join('')}
+        </div>`;
+    }
+
+    html += `</div>`; // end tier 2
+
+    // ═══ TIER 3: DEEP DIVE ═══
+    html += `<div class="enrich-tier">
+        <div class="enrich-tier-label">Deep Dive ${poweredBy}</div>`;
+
+    // Top Wallets
+    if (isPolymarket && wallets.top_wallets && wallets.top_wallets.length > 0) {
+        html += `<div class="enrich-section">
+            <div class="enrich-section-title">Top Wallets (30d) ${sampleTag}</div>
+            ${wallets.top_wallets.slice(0, 5).map((w, i) => `
+                <div class="enrich-wallet">
+                    <div class="ew-header">
+                        <span class="ew-addr">#${i+1} ${w.short}</span>
+                        <span class="ew-vol">${fmtVol(w.volume)} (${w.pct}%)</span>
+                    </div>
+                    <div class="ew-meta">
+                        <span class="ew-side ${w.side}">${w.side}</span> &middot;
+                        ${w.trades.toLocaleString()} trades &middot;
+                        ${w.first_trade} \u2013 ${w.last_trade}
+                    </div>
+                </div>
+            `).join('')}
+        </div>`;
+    } else if (!isPolymarket) {
+        html += `<div class="enrich-section">
+            <div class="enrich-section-title">Top Wallets</div>
+            <div class="enrich-unavailable">Wallet data not available — Kalshi is a centralized exchange</div>
+        </div>`;
+    }
+
+    // Large Trades
+    const lt = allium.large_trades || [];
+    if (isPolymarket && lt.length > 0) {
+        html += `<div class="enrich-section">
+            <div class="enrich-section-title">Recent Large Trades (&gt;$500) ${sampleTag}</div>
+            ${lt.slice(0, 10).map(t => `
+                <div class="enrich-trade">
+                    <span class="et-time">${t.time}</span>
+                    <span class="et-side ${t.side}">${t.side}</span>
+                    <span class="et-amount">${fmtVol(t.amount)}</span>
+                    <span style="color:#4b5563;font-family:monospace;font-size:10px;">${t.wallet}</span>
+                </div>
+            `).join('')}
+        </div>`;
+    }
+
+    html += `</div>`; // end tier 3
+
+    body.innerHTML = html;
+
+    // Draw price chart
+    if (ph.length > 0) {
+        const ctx = document.getElementById('enrichPriceChart');
+        if (enrichChartInstance) enrichChartInstance.destroy();
+        enrichChartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ph.map(p => p.hour.slice(5, 16)),
+                datasets: [{
+                    label: 'Price', data: ph.map(p => p.price * 100),
+                    borderColor: isMock ? '#4b5563' : '#3b82f6',
+                    backgroundColor: isMock ? 'rgba(75,85,99,0.05)' : 'rgba(59,130,246,0.1)',
+                    fill: true, tension: 0.3, pointRadius: 0, borderWidth: 1.5,
+                    borderDash: isMock ? [4, 4] : [],
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1a1f2e', borderColor: '#2a3040', borderWidth: 1, titleColor: '#fff', bodyColor: '#e1e4e8', callbacks: { label: ctx => ctx.parsed.y.toFixed(1) + '%' } } },
+                scales: {
+                    x: { display: true, ticks: { color: '#4b5563', font: { size: 9 }, maxTicksLimit: 8 }, grid: { color: '#1c2333' } },
+                    y: { display: true, ticks: { color: '#4b5563', font: { size: 9 }, callback: v => v + '%' }, grid: { color: '#1c2333' } },
+                },
+            },
+        });
+    }
+}
+
+// ============ PAGE 2: PRICE PREDICTIONS ============
+let priceData = null;
+let selectedAsset = 'BTC';
+let selectedTenorDate = null;
+
+const ASSET_ICONS = { BTC: '\u20BF', OIL: '\uD83D\uDEE2\uFE0F', GOLD: '\uD83E\uDD47' };
+const ASSET_COLORS = { BTC: '#f7931a', OIL: '#22d3ee', GOLD: '#facc15' };
+
+function fmtPrice(v, asset) {
+    if (!v) return '-';
+    if (asset === 'BTC') return '$' + v.toLocaleString(undefined, {maximumFractionDigits: 0});
+    if (asset === 'OIL') return '$' + v.toFixed(2);
+    if (asset === 'GOLD') return '$' + v.toLocaleString(undefined, {maximumFractionDigits: 0});
+    return '$' + v.toLocaleString();
+}
+
+function initPrices(data) {
+    priceData = data;
+    document.getElementById('pricesLoading').style.display = 'none';
+
+    // Set header price
+    const btcPrice = data.BTC?.current_price;
+    if (btcPrice) {
+        document.getElementById('headerPrice').innerHTML = `BTC ${fmtPrice(btcPrice, 'BTC')}`;
+    }
+
+    // Build asset summary cards
+    const summary = document.getElementById('assetSummary');
+    summary.innerHTML = ['BTC', 'OIL', 'GOLD'].map(key => {
+        const d = data[key];
+        if (!d) return '';
+        const spots = d.spot_prices || [];
+        const price = d.current_price;
+        const prev = spots.length >= 2 ? spots[spots.length - 2].close : price;
+        const change = prev > 0 ? ((price - prev) / prev * 100) : 0;
+        const cls = change >= 0 ? 'up' : 'down';
+        const sign = change >= 0 ? '+' : '';
+        return `<div class="asset-card ${key === selectedAsset ? 'active' : ''}" onclick="selectAsset('${key}')">
+            <span class="ac-icon">${ASSET_ICONS[key]}</span>
+            <span class="ac-name">${d.label}</span>
+            <div class="ac-price">${fmtPrice(price, key)} <span class="ac-change ${cls}">${sign}${change.toFixed(1)}%</span></div>
+            <div class="ac-markets">${d.market_count} prediction markets</div>
+        </div>`;
+    }).join('');
+
+    renderAssetPage(selectedAsset);
+}
+
+function selectAsset(key) {
+    selectedAsset = key;
+    selectedTenorDate = null;
+    document.querySelectorAll('.asset-card').forEach(c => c.classList.remove('active'));
+    document.querySelector(`.asset-card[onclick*="${key}"]`)?.classList.add('active');
+    renderAssetPage(key);
+}
+
+function drawPriceHeroChart(d, assetKey, accentColor) {
+    const canvas = document.getElementById('heroCanvas');
+    const ctx = canvas.getContext('2d');
+    const tooltip = document.getElementById('heroTooltip');
+
+    const cW = canvas.parentElement.offsetWidth;
+    const cH = 450;
+    canvas.style.width = cW + 'px';
+    canvas.style.height = cH + 'px';
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = cW * dpr;
+    canvas.height = cH * dpr;
+    ctx.scale(dpr, dpr);
+
+    const W = cW, H = cH;
+    const margin = { top: 30, right: 90, bottom: 45, left: 10 };
+    const chartW = W - margin.left - margin.right;
+    const chartH = H - margin.top - margin.bottom;
+
+    const spot = d.current_price;
+    // For BTC, use btc_spot_prices if available (more history)
+    let spots = [...(d.btc_spot_prices || d.spot_prices || [])];
+    const fan = d.fan || {};
+
+    // Append current price as today's data point so the spot line connects to the fan
+    const today = new Date().toISOString().slice(0, 10);
+    const lastSpotEntry = spots.length > 0 ? spots[spots.length - 1] : null;
+    const lastSpotDate = lastSpotEntry ? (typeof lastSpotEntry === 'object' ? lastSpotEntry.date : '') : '';
+    if (lastSpotDate && lastSpotDate < today) {
+        spots.push({ date: today, close: spot, price: spot });
+    } else if (lastSpotEntry && typeof lastSpotEntry === 'object') {
+        // Update the last entry to current price if it's today
+        spots[spots.length - 1] = { ...lastSpotEntry, close: spot, price: spot };
+    }
+
+    // Only show fan dates AFTER the last spot date (no overlap)
+    const finalSpotDate = typeof spots[spots.length-1] === 'object' ? spots[spots.length-1].date : today;
+    const fanDates = Object.keys(fan).sort().filter(d => d > finalSpotDate);
+    const months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    // Compute price range from spots + fan extremes
+    const allPrices = spots.map(s => typeof s === 'object' ? (s.close || s.price) : s);
+    for (const date of fanDates) {
+        const f = fan[date];
+        allPrices.push(f.p10, f.p90);
+    }
+    allPrices.push(spot);
+    const pMin = Math.min(...allPrices) * 0.95;
+    const pMax = Math.max(...allPrices) * 1.05;
+
+    // Date range: first spot to last fan date + padding
+    const firstSpot = spots[0];
+    const firstDate = new Date(typeof firstSpot === 'object' ? (firstSpot.date || firstSpot.date) : '2026-03-01');
+    const lastFanDate = fanDates.length > 0 ? new Date(fanDates[fanDates.length - 1]) : new Date();
+    const endDate = new Date(lastFanDate);
+    endDate.setDate(endDate.getDate() + Math.max(5, (lastFanDate - firstDate) / 86400000 * 0.08));
+    const totalMs = endDate - firstDate;
+
+    const dateToX = d => margin.left + ((new Date(d) - firstDate) / totalMs) * chartW;
+    const priceToY = p => margin.top + chartH - ((p - pMin) / (pMax - pMin)) * chartH;
+
+    // Grid step
+    const range = pMax - pMin;
+    let gridStep = d.band_step || 1;
+    while (range / gridStep > 15) gridStep *= 2;
+    while (range / gridStep < 5) gridStep /= 2;
+
+    // Build fan points for drawing
+    // Points go: spot → p90 top edge forward, then p90 bottom edge backward
+    const fanPoints = fanDates.map(date => ({
+        date,
+        x: dateToX(date),
+        ...fan[date],
+    }));
+
+    // Add today's spot as the starting point of the fan
+    const todayStr = finalSpotDate;
+    const todayX = dateToX(todayStr);
+
+    function drawFanRegion(topKey, botKey, color) {
+        if (fanPoints.length === 0) return;
+        ctx.beginPath();
+        // Start from today's spot price
+        ctx.moveTo(todayX, priceToY(spot));
+        // Top edge forward
+        for (const fp of fanPoints) {
+            ctx.lineTo(fp.x, priceToY(fp[topKey]));
+        }
+        // Bottom edge backward
+        for (let i = fanPoints.length - 1; i >= 0; i--) {
+            ctx.lineTo(fanPoints[i].x, priceToY(fanPoints[i][botKey]));
+        }
+        // Back to start
+        ctx.lineTo(todayX, priceToY(spot));
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(margin.left, 0, chartW, H);
+        ctx.clip();
+
+        // Grid
+        const gridStart = Math.ceil(pMin / gridStep) * gridStep;
+        for (let p = gridStart; p <= pMax; p += gridStep) {
+            const y = priceToY(p);
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(255,255,255,0.035)';
+            ctx.lineWidth = 1;
+            ctx.moveTo(margin.left, y);
+            ctx.lineTo(W - margin.right, y);
+            ctx.stroke();
+        }
+
+        // Fan regions (widest first)
+        drawFanRegion('p90', 'p10', 'rgba(59,130,246,0.06)');  // 10-90th: faintest
+        drawFanRegion('p75', 'p25', 'rgba(59,130,246,0.12)');  // 25-75th: medium
+        // Median line
+        if (fanPoints.length > 0) {
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(59,130,246,0.5)';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([6, 4]);
+            ctx.moveTo(todayX, priceToY(spot));
+            for (const fp of fanPoints) {
+                ctx.lineTo(fp.x, priceToY(fp.p50));
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        // Fan date labels + percentile annotations
+        for (const fp of fanPoints) {
+            const parts = fp.date.split('-');
+            const label = months[parseInt(parts[1])] + ' ' + parseInt(parts[2]);
+
+            // Vertical guide line at tenor date
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+            ctx.lineWidth = 1;
+            ctx.moveTo(fp.x, priceToY(fp.p90));
+            ctx.lineTo(fp.x, priceToY(fp.p10));
+            ctx.stroke();
+
+            // Small tick marks at percentile levels
+            const tickW = 4;
+            for (const pkey of ['p10', 'p25', 'p50', 'p75', 'p90']) {
+                const y = priceToY(fp[pkey]);
+                ctx.beginPath();
+                ctx.strokeStyle = pkey === 'p50' ? 'rgba(59,130,246,0.6)' : 'rgba(255,255,255,0.15)';
+                ctx.lineWidth = pkey === 'p50' ? 2 : 1;
+                ctx.moveTo(fp.x - tickW, y);
+                ctx.lineTo(fp.x + tickW, y);
+                ctx.stroke();
+            }
+
+            // Price labels at 10th and 90th
+            ctx.font = '9px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#4ade80';
+            ctx.fillText(fmtPrice(fp.p90, assetKey), fp.x, priceToY(fp.p90) - 6);
+            ctx.fillStyle = '#f87171';
+            ctx.fillText(fmtPrice(fp.p10, assetKey), fp.x, priceToY(fp.p10) + 14);
+            // Median
+            ctx.fillStyle = '#60a5fa';
+            ctx.fillText(fmtPrice(fp.p50, assetKey), fp.x, priceToY(fp.p50) - 6);
+
+            // Date label at bottom
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.font = '10px -apple-system, sans-serif';
+            ctx.fillText(label, fp.x, H - margin.bottom + 16);
+        }
+
+        // Today divider
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1;
+        ctx.moveTo(todayX, margin.top);
+        ctx.lineTo(todayX, H - margin.bottom);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Spot price line
+        ctx.beginPath();
+        ctx.strokeStyle = accentColor;
+        ctx.lineWidth = 2;
+        ctx.lineJoin = 'round';
+        for (let i = 0; i < spots.length; i++) {
+            const s = spots[i];
+            const date = typeof s === 'object' ? s.date : '';
+            const price = typeof s === 'object' ? (s.close || s.price) : s;
+            if (!date) continue;
+            const x = dateToX(date);
+            const y = priceToY(price);
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        ctx.save();
+        ctx.shadowColor = accentColor;
+        ctx.shadowBlur = 6;
+        ctx.stroke();
+        ctx.restore();
+
+        // Current price dot
+        const sy = priceToY(spot);
+        ctx.beginPath();
+        ctx.arc(todayX, sy, 4, 0, Math.PI * 2);
+        ctx.fillStyle = accentColor;
+        ctx.save();
+        ctx.shadowColor = accentColor;
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.restore();
+
+        // Current price reference line
+        ctx.beginPath();
+        ctx.setLineDash([3, 5]);
+        ctx.strokeStyle = accentColor + '30';
+        ctx.lineWidth = 1;
+        ctx.moveTo(margin.left, sy);
+        ctx.lineTo(W - margin.right, sy);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.restore(); // unclip
+
+        // Y-axis labels
+        ctx.fillStyle = '#4b5563';
+        ctx.font = '10px -apple-system, sans-serif';
+        ctx.textAlign = 'left';
+        for (let p = gridStart; p <= pMax; p += gridStep) {
+            ctx.fillText(fmtPrice(p, assetKey), W - margin.right + 8, priceToY(p) + 4);
+        }
+
+        // Current price tag
+        const tagW = assetKey === 'BTC' ? 80 : 64;
+        const tagH = 18;
+        ctx.fillStyle = accentColor;
+        const tx = W - margin.right + 2, ty = sy - tagH / 2;
+        ctx.beginPath();
+        ctx.moveTo(tx + 3, ty); ctx.lineTo(tx + tagW - 3, ty);
+        ctx.quadraticCurveTo(tx + tagW, ty, tx + tagW, ty + 3);
+        ctx.lineTo(tx + tagW, ty + tagH - 3);
+        ctx.quadraticCurveTo(tx + tagW, ty + tagH, tx + tagW - 3, ty + tagH);
+        ctx.lineTo(tx + 3, ty + tagH);
+        ctx.quadraticCurveTo(tx, ty + tagH, tx, ty + tagH - 3);
+        ctx.lineTo(tx, ty + 3);
+        ctx.quadraticCurveTo(tx, ty, tx + 3, ty);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = '#0d1117';
+        ctx.font = 'bold 10px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(fmtPrice(spot, assetKey), tx + tagW / 2, sy + 3.5);
+
+        // X-axis labels for spot history
+        ctx.textAlign = 'center';
+        ctx.font = '10px -apple-system, sans-serif';
+        ctx.fillStyle = '#4b5563';
+        const labelEvery = Math.max(1, Math.floor(spots.length / 7));
+        for (let i = 0; i < spots.length; i += labelEvery) {
+            const s = spots[i];
+            const date = typeof s === 'object' ? s.date : '';
+            if (!date) continue;
+            const x = dateToX(date);
+            const parts = date.split('-');
+            ctx.fillText(months[parseInt(parts[1])] + ' ' + parseInt(parts[2]), x, H - margin.bottom + 16);
+        }
+
+        // Legend
+        ctx.font = '9px -apple-system, sans-serif';
+        ctx.textAlign = 'left';
+        const lx = margin.left + 8, ly = margin.top + 12;
+        ctx.fillStyle = 'rgba(59,130,246,0.06)';
+        ctx.fillRect(lx, ly, 12, 8);
+        ctx.fillStyle = '#6b7280';
+        ctx.fillText('10th\u201390th percentile', lx + 16, ly + 7);
+        ctx.fillStyle = 'rgba(59,130,246,0.12)';
+        ctx.fillRect(lx, ly + 14, 12, 8);
+        ctx.fillStyle = '#6b7280';
+        ctx.fillText('25th\u201375th percentile', lx + 16, ly + 21);
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(59,130,246,0.5)';
+        ctx.setLineDash([6, 4]);
+        ctx.moveTo(lx, ly + 30);
+        ctx.lineTo(lx + 12, ly + 30);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#6b7280';
+        ctx.fillText('median (50th)', lx + 16, ly + 33);
+    }
+
+    draw();
+
+    // Hover tooltip on fan regions
+    canvas.onmousemove = e => {
+        const cr = canvas.getBoundingClientRect();
+        const mx = e.clientX - cr.left, my = e.clientY - cr.top;
+        let found = false;
+
+        for (const fp of fanPoints) {
+            const hw = 20;
+            if (mx >= fp.x - hw && mx <= fp.x + hw && my >= margin.top && my <= H - margin.bottom) {
+                const hovPrice = pMin + ((margin.top + chartH - my) / chartH) * (pMax - pMin);
+                tooltip.style.display = 'block';
+                tooltip.style.left = Math.min(mx + 20, W - 220) + 'px';
+                tooltip.style.top = (my - 60) + 'px';
+                const parts = fp.date.split('-');
+                tooltip.innerHTML = `<div class="t-label">${months[parseInt(parts[1])]} ${parseInt(parts[2])}, ${parts[0]}</div>
+                    <div style="margin-top:4px;">
+                    <span style="color:#4ade80">90th:</span> <span class="t-val">${fmtPrice(fp.p90, assetKey)}</span><br>
+                    <span style="color:#9ca3af">75th:</span> <span class="t-val">${fmtPrice(fp.p75, assetKey)}</span><br>
+                    <span style="color:#60a5fa">Median:</span> <span class="t-val">${fmtPrice(fp.p50, assetKey)}</span><br>
+                    <span style="color:#9ca3af">25th:</span> <span class="t-val">${fmtPrice(fp.p25, assetKey)}</span><br>
+                    <span style="color:#f87171">10th:</span> <span class="t-val">${fmtPrice(fp.p10, assetKey)}</span>
+                    </div>`;
+                found = true;
+                break;
+            }
+        }
+        if (!found) tooltip.style.display = 'none';
+    };
+    canvas.onmouseleave = () => { tooltip.style.display = 'none'; };
+}
+
+function renderAssetPage(key) {
+    const d = priceData[key];
+    if (!d) return;
+
+    const color = ASSET_COLORS[key];
+
+    // Hero chart
+    document.getElementById('spotTitle').textContent = d.label + ' — Price Outlook';
+    document.getElementById('spotHeading').textContent = `Spot price (Hyperliquid) with prediction market probability distributions at future expiry dates`;
+
+    drawPriceHeroChart(d, key, color);
+
+    // Tenor summary cards
+    const spot = d.current_price;
+    const tenors = d.tenors || [];
+    const months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    document.getElementById('tenorCards').innerHTML = tenors.map(t => {
+        const parts = t.date.split('-');
+        const dateLabel = months[parseInt(parts[1])] + ' ' + parseInt(parts[2]) + ', ' + parts[0];
+        const medianDir = t.median_vs_spot >= 0 ? 'up' : 'down';
+        const medianSign = t.median_vs_spot >= 0 ? '+' : '';
+
+        // Split key levels into terminal vs touch
+        const terminalLevels = t.key_levels.filter(kl => kl.market_type === 'terminal');
+        const touchLevels = t.key_levels.filter(kl => kl.market_type === 'touch');
+
+        function renderLevels(levels) {
+            return levels.sort((a,b) => b.prob - a.prob).map(kl => {
+                const prob = kl.prob;
+                let probCls = 'weak';
+                if (prob >= 0.5) probCls = 'strong';
+                else if (prob >= 0.15) probCls = 'mid';
+                const arrow = kl.direction === 'above' ? '\u2191' : kl.direction === 'below' ? '\u2193' : '\u2194';
+                const dirCls = kl.direction === 'above' ? 'above' : 'below';
+                return `<span class="tenor-level">
+                    <span class="tl-dir ${dirCls}">${arrow}</span>
+                    <span class="tl-price">${kl.price_str}</span>
+                    <span class="tl-prob ${probCls}">${(prob * 100).toFixed(1)}%</span>
+                </span>`;
+            }).join('');
+        }
+
+        let levelsHtml = '';
+        if (terminalLevels.length > 0) {
+            levelsHtml += `<div style="margin-bottom:6px;"><span style="font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;">Settlement Probabilities</span></div>`;
+            levelsHtml += `<div class="tenor-levels" style="margin-bottom:10px;">${renderLevels(terminalLevels)}</div>`;
+        }
+        if (touchLevels.length > 0) {
+            levelsHtml += `<div style="margin-bottom:6px;"><span style="font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;">Price Touch Probabilities</span> <span style="font-size:9px;color:#374151;">(will price reach this level at any point?)</span></div>`;
+            levelsHtml += `<div class="tenor-levels">${renderLevels(touchLevels)}</div>`;
+        }
+
+        // Narrative
+        const narrative = t.narrative
+            ? `<div class="tenor-narrative">${t.narrative}</div>`
+            : '';
+
+        return `<div class="tenor-card ${selectedTenorDate === t.date ? 'selected' : ''}" onclick="selectTenor('${t.date}')">
+            <div class="tenor-header">
+                <span class="tenor-date">${dateLabel}</span>
+                <span class="tenor-meta">${t.market_count} markets &middot; ${fmtVol(t.total_volume)} volume</span>
+            </div>
+            <div class="tenor-stats">
+                <div class="tenor-stat">
+                    <div class="ts-label">Median</div>
+                    <div class="ts-value ${medianDir}">${fmtPrice(t.median, key)}</div>
+                    <div class="ts-sub">${medianSign}${t.median_vs_spot}% from spot</div>
+                </div>
+                <div class="tenor-stat">
+                    <div class="ts-label">25th – 75th</div>
+                    <div class="ts-value neutral">${fmtPrice(t.p25, key)} – ${fmtPrice(t.p75, key)}</div>
+                    <div class="ts-sub">50% confidence</div>
+                </div>
+                <div class="tenor-stat">
+                    <div class="ts-label">10th – 90th</div>
+                    <div class="ts-value neutral">${fmtPrice(t.p10, key)} – ${fmtPrice(t.p90, key)}</div>
+                    <div class="ts-sub">80% confidence</div>
+                </div>
+            </div>
+            ${narrative}
+            <div class="tenor-levels">${levelsHtml}</div>
+        </div>`;
+    }).join('');
+
+    // Underlying markets
+    renderPriceMarkets(d, key);
+}
+
+function selectTenor(date) {
+    if (selectedTenorDate === date) {
+        selectedTenorDate = null;  // Deselect
+    } else {
+        selectedTenorDate = date;
+    }
+    // Re-render tenor cards to update selected state + markets
+    const d = priceData[selectedAsset];
+    if (d) {
+        // Update tenor card selection visuals
+        document.querySelectorAll('.tenor-card').forEach((card, i) => {
+            const tenors = d.tenors || [];
+            if (i < tenors.length) {
+                card.classList.toggle('selected', tenors[i].date === selectedTenorDate);
+            }
+        });
+        renderPriceMarkets(d, selectedAsset);
+    }
+}
+
+function renderPriceMarkets(d, assetKey) {
+    let markets = d.markets || [];
+
+    // Filter by selected tenor date
+    if (selectedTenorDate) {
+        const tenors = d.tenors || [];
+        const tenor = tenors.find(t => t.date === selectedTenorDate);
+        if (tenor) {
+            const tenorQuestions = new Set(tenor.key_levels.map(kl => kl.question));
+            // Also match markets by date pattern in question
+            markets = markets.filter(m => {
+                if (tenorQuestions.has(m.question)) return true;
+                // Match by end_date proximity
+                if (m.end_date && Math.abs(new Date(m.end_date) - new Date(selectedTenorDate)) < 2 * 86400000) return true;
+                // Match by date text in question
+                const parts = selectedTenorDate.split('-');
+                const monthNames = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                const monthShort = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                const month = parseInt(parts[1]);
+                const ql = m.question.toLowerCase();
+                if (ql.includes(monthNames[month].toLowerCase()) || ql.includes(monthShort[month].toLowerCase())) return true;
+                return false;
+            });
+        }
+    }
+
+    const label = selectedTenorDate
+        ? `${markets.length} markets for ${selectedTenorDate} — <a href="#" onclick="selectTenor(null); return false;" style="color:#60a5fa;">show all</a>`
+        : `${d.markets.length} markets across Polymarket and Kalshi`;
+    document.getElementById('marketsHeading').innerHTML = label;
+
+    document.getElementById('priceMarketsBody').innerHTML = markets.slice(0, 40).map(m => {
+        const prob = m.price > 0 ? (m.price * 100).toFixed(1) + '%' : '-';
+        const qEsc = m.question.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        return `<tr style="cursor:pointer;" onclick="openEnrichPanel('${qEsc}', '${m.venue}', ${m.price || 0}, '${m.end_date || ''}', '', '')">
+            <td style="color:#d1d5db;max-width:400px;">${m.question}</td>
+            <td class="prob-cell">${prob}</td>
+            <td>${fmtVol(m.volume_7d)}</td>
+            <td><span class="venue-badge ${m.venue}">${m.venue}</span></td>
+        </tr>`;
+    }).join('');
+}
+
+// ============ LOAD DATA ============
+let themeContextsDate = '';
+
+Promise.all([
+    fetch('explorer_data.json').then(r => r.json()),
+    fetch('price_predictions.json').then(r => r.json()).catch(() => null),
+    fetch('theme_contexts.json').then(r => r.json()),
+]).then(([explorer, prices, contexts]) => {
+    themeContexts = contexts.themes || {};
+    themeContextsDate = contexts.updated_at || '';
+    themeSummaries = explorer.theme_summaries || {};
+
+    initExplorer(explorer);
+    if (prices) initPrices(prices);
+    else {
+        document.getElementById('pricesLoading').textContent = 'Price data not available. Run fetch_price_predictions.py.';
+    }
+}).catch(err => {
+    console.error('Failed to load data:', err);
+    document.querySelectorAll('.loading').forEach(el => el.textContent = 'Failed to load data. Is the server running?');
+});
+</script>
+</body>
+</html>
