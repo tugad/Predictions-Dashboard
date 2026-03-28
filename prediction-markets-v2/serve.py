@@ -241,7 +241,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
 
-        if parsed.path == "/api/enrich":
+        if parsed.path == "/" or parsed.path == "":
+            self.send_response(302)
+            self.send_header("Location", "/dashboard.html")
+            self.end_headers()
+        elif parsed.path == "/api/enrich":
             self.handle_enrich(parsed)
         else:
             super().do_GET()
