@@ -308,7 +308,7 @@
         <button class="nav-btn active" onclick="showPage('explorer')">Market Explorer</button>
         <button class="nav-btn" onclick="showPage('prices')">Price Predictions</button>
     </div>
-    <div class="price-tag" id="headerPrice">Loading...</div>
+    <div class="price-tag" id="headerClock"></div>
 </div>
 
 <!-- PAGE 1: MARKET EXPLORER -->
@@ -453,6 +453,22 @@
 </div>
 
 <script>
+// ============ CLOCK ============
+function startClock() {
+    const el = document.getElementById('headerClock');
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    function tick() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+        el.textContent = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()} ${h}:${m}:${s}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+}
+startClock();
+
 // ============ NAVIGATION ============
 function showPage(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1529,20 +1545,62 @@ function fmtPrice(v, asset) {
     return '$' + v.toLocaleString();
 }
 
-function initPrices(data) {
-    priceData = data;
-    document.getElementById('pricesLoading').style.display = 'none';
+const HYPERLIQUID_COINS = { BTC: 'BTC', OIL: 'xyz:CL', GOLD: 'xyz:GOLD' };
 
-    // Set header price
-    const btcPrice = data.BTC?.current_price;
-    if (btcPrice) {
-        document.getElementById('headerPrice').innerHTML = `BTC ${fmtPrice(btcPrice, 'BTC')}`;
+async function fetchLiveSpotPrices() {
+    const end = Date.now();
+    const start = end - (30 * 24 * 60 * 60 * 1000); // 30 days
+
+    for (const [key, coin] of Object.entries(HYPERLIQUID_COINS)) {
+        if (!priceData[key]) continue;
+        try {
+            const resp = await fetch('https://api.hyperliquid.xyz/info', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: 'candleSnapshot',
+                    req: { coin, interval: '1d', startTime: start, endTime: end }
+                }),
+            });
+            const candles = await resp.json();
+            if (Array.isArray(candles) && candles.length > 0) {
+                const spots = candles.map(c => ({
+                    date: new Date(c.t).toISOString().slice(0, 10),
+                    open: parseFloat(c.o),
+                    high: parseFloat(c.h),
+                    low: parseFloat(c.l),
+                    close: parseFloat(c.c),
+                    volume: parseFloat(c.v),
+                }));
+                const livePrice = spots[spots.length - 1].close;
+                priceData[key].spot_prices = spots;
+                priceData[key].current_price = livePrice;
+                // Also update btc_spot_prices for BTC if it uses that
+                if (key === 'BTC' && priceData[key].btc_spot_prices) {
+                    priceData[key].btc_spot_prices = null; // Use spot_prices instead
+                }
+                console.log(`[Live] ${key}: $${livePrice} (${spots.length} candles)`);
+            }
+        } catch (e) {
+            console.log(`[Live] ${key}: fetch failed`, e);
+        }
     }
 
-    // Build asset summary cards
+    priceData._liveUpdatedAt = Date.now();
+
+    // Summary cards + chart update
+
+    // Re-render summary cards and current page
+    renderAssetSummary();
+    if (document.getElementById('page-prices').classList.contains('active')) {
+        renderAssetPage(selectedAsset);
+    }
+}
+
+function renderAssetSummary() {
     const summary = document.getElementById('assetSummary');
     summary.innerHTML = ['BTC', 'OIL', 'GOLD'].map(key => {
-        const d = data[key];
+        const d = priceData[key];
         if (!d) return '';
         const spots = d.spot_prices || [];
         const price = d.current_price;
@@ -1557,8 +1615,22 @@ function initPrices(data) {
             <div class="ac-markets">${d.market_count} prediction markets</div>
         </div>`;
     }).join('');
+}
 
+function initPrices(data) {
+    priceData = data;
+    document.getElementById('pricesLoading').style.display = 'none';
+
+    // Clock is handled by startClock()
+
+    renderAssetSummary();
     renderAssetPage(selectedAsset);
+
+    // Fetch live spot prices in background — updates charts when ready
+    fetchLiveSpotPrices();
+
+    // Auto-refresh every 30 seconds
+    setInterval(fetchLiveSpotPrices, 30000);
 }
 
 function selectAsset(key) {
@@ -1908,7 +1980,9 @@ function renderAssetPage(key) {
 
     // Hero chart
     document.getElementById('spotTitle').textContent = d.label + ' — Price Outlook';
-    document.getElementById('spotHeading').textContent = `Spot price (Hyperliquid) with prediction market probability distributions at future expiry dates`;
+    const lastUpdate = priceData._liveUpdatedAt ? new Date(priceData._liveUpdatedAt).toLocaleTimeString() : '';
+    const liveTag = lastUpdate ? ` · <span style="color:#4ade80;">Live</span> · Updated ${lastUpdate}` : '';
+    document.getElementById('spotHeading').innerHTML = `Spot price (Hyperliquid) with prediction market probability distributions${liveTag}`;
 
     drawPriceHeroChart(d, key, color);
 
