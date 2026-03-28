@@ -47,6 +47,21 @@
         .context-panel .ctx-text { font-size: 12px; color: #9ca3af; line-height: 1.6; }
         .context-panel .ctx-updated { font-size: 10px; color: #374151; text-align: right; margin-top: 6px; }
 
+        /* ---- MOVES CARDS ---- */
+        .moves-card { background: #111827; border: 1px solid #1c2333; border-radius: 6px; padding: 14px 16px; }
+        .moves-card .mc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .moves-card .mc-title { font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.8px; }
+        .moves-card .mc-count { font-size: 10px; color: #374151; }
+        .moves-card .mc-narrative { font-size: 12px; color: #d1d5db; line-height: 1.6; margin-bottom: 10px; }
+        .moves-card .mc-movers { display: flex; flex-direction: column; gap: 3px; }
+        .mc-mover { display: flex; align-items: center; gap: 8px; font-size: 11px; padding: 3px 0; }
+        .mc-mover .mc-change { font-weight: 700; width: 55px; text-align: right; flex-shrink: 0; }
+        .mc-mover .mc-change.up { color: #4ade80; }
+        .mc-mover .mc-change.down { color: #f87171; }
+        .mc-mover .mc-change.flat { color: #4b5563; }
+        .mc-mover .mc-q { color: #9ca3af; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+        .mc-mover .mc-price { color: #6b7280; font-weight: 600; width: 40px; text-align: right; flex-shrink: 0; }
+
         /* ---- INTELLIGENCE SUMMARY ---- */
         .summary-panel { background: #111827; border: 1px solid #1c2333; border-radius: 6px; padding: 14px 18px; margin-bottom: 12px; display: none; }
         .summary-panel.visible { display: block; }
@@ -125,6 +140,11 @@
         .price-delta.down { color: #f87171; }
         .market-link { color: #4b5563; text-decoration: none; font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 4px; border: 1px solid #1c2333; transition: all 0.12s; white-space: nowrap; }
         .market-link:hover { color: #60a5fa; border-color: #3b82f6; background: #1e3a5f; }
+        .change-cell { font-size: 11px; font-weight: 600; white-space: nowrap; }
+        .change-cell.up { color: #4ade80; }
+        .change-cell.down { color: #f87171; }
+        .change-cell.flat { color: #4b5563; }
+        .change-cell .change-loading { display: inline-block; width: 10px; height: 10px; border: 1.5px solid #1c2333; border-top-color: #374151; border-radius: 50%; animation: spin 0.8s linear infinite; }
         .resolve-days { font-weight: 600; }
         .resolve-days.soon { color: #f472b6; }
         .resolve-days.near { color: #facc15; }
@@ -304,11 +324,12 @@
     <!-- Theme Selector -->
     <div class="theme-selector" id="themeSelector"></div>
 
-    <!-- Context Panel -->
-    <div class="context-panel" id="contextPanel">
-        <div class="ctx-label" id="ctxLabel"></div>
-        <div class="ctx-text" id="ctxText"></div>
-        <div class="ctx-updated" id="ctxUpdated"></div>
+    <!-- Moves Cards -->
+    <div id="movesCards" style="display:none;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+            <div class="moves-card" id="moves24hCard"></div>
+            <div class="moves-card" id="moves7dCard"></div>
+        </div>
     </div>
 
     <!-- Intelligence Summary -->
@@ -348,6 +369,8 @@
             <tr>
                 <th onclick="sortBy('question')">Market</th>
                 <th onclick="sortBy('price')">Prob / Price</th>
+                <th onclick="sortBy('_change24h')">24h</th>
+                <th onclick="sortBy('_change7d')">7d</th>
                 <th onclick="sortBy('volume_7d')">7d Volume</th>
                 <th onclick="sortBy('_quality')">Quality</th>
                 <th onclick="sortBy('_daysLeft')">Resolves</th>
@@ -708,22 +731,57 @@ function clickBullet(idx) {
     filterMarkets();
 }
 
+let themeMoves24h = {};
+let themeMoves7d = {};
+
+function renderMovesCard(containerId, title, movesData) {
+    const el = document.getElementById(containerId);
+    if (!movesData || !movesData.narrative) {
+        el.innerHTML = `<div class="mc-header"><span class="mc-title">${title}</span></div><div style="color:#374151;font-size:11px;">No significant moves</div>`;
+        return;
+    }
+
+    const movers = (movesData.movers || []).slice(0, 5);
+    const moversHtml = movers.map(mv => {
+        const c = mv.change || 0;
+        const cls = c > 0.5 ? 'up' : c < -0.5 ? 'down' : 'flat';
+        const sign = c > 0 ? '+' : '';
+        const price = mv.price ? (mv.price * 100).toFixed(1) + '%' : '';
+        return `<div class="mc-mover">
+            <span class="mc-change ${cls}">${sign}${c.toFixed(1)}pp</span>
+            <span class="mc-q">${mv.question || ''}</span>
+            <span class="mc-price">${price}</span>
+        </div>`;
+    }).join('');
+
+    el.innerHTML = `<div class="mc-header">
+        <span class="mc-title">${title}</span>
+        <span class="mc-count">${movers.length} movers</span>
+    </div>
+    <div class="mc-narrative">${movesData.narrative}</div>
+    <div class="mc-movers">${moversHtml}</div>`;
+}
+
 function updateContextPanel() {
-    const panel = document.getElementById('contextPanel');
+    const movesContainer = document.getElementById('movesCards');
     const summaryPanel = document.getElementById('summaryPanel');
 
     if (!lastClickedTheme || !themeContexts[lastClickedTheme]) {
-        panel.classList.remove('visible');
+        movesContainer.style.display = 'none';
         summaryPanel.classList.remove('visible');
         return;
     }
 
-    // Context
-    const ctx = themeContexts[lastClickedTheme];
-    document.getElementById('ctxLabel').textContent = 'Current Events in ' + lastClickedTheme;
-    document.getElementById('ctxText').textContent = ctx.context;
-    document.getElementById('ctxUpdated').textContent = 'Updated ' + (themeContextsDate || '');
-    panel.classList.add('visible');
+    // Moves cards
+    const m24 = themeMoves24h[lastClickedTheme];
+    const m7d = themeMoves7d[lastClickedTheme];
+    if (m24 || m7d) {
+        renderMovesCard('moves24hCard', '24H MOVES IN ' + lastClickedTheme.toUpperCase(), m24);
+        renderMovesCard('moves7dCard', '7D MOVES IN ' + lastClickedTheme.toUpperCase(), m7d);
+        movesContainer.style.display = 'block';
+    } else {
+        movesContainer.style.display = 'none';
+    }
 
     // Clear bullet filter when switching themes
     activeBulletIdx = null;
@@ -867,6 +925,8 @@ function filterMarkets() {
     });
 
     renderExplorer(filtered);
+    // Async load price changes for visible Polymarket rows
+    setTimeout(loadPriceChanges, 100);
 }
 
 function sortBy(key) {
@@ -953,9 +1013,47 @@ function renderExplorer(markets) {
         const slugEsc = (m.slug || '').replace(/'/g, "\\'");
         const evtEsc = (m.event_ticker || '').replace(/'/g, "\\'");
 
+        // 24h + 7d change — only for High/Med quality markets
+        const isHighMed = vol >= 50000;
+        let change24Html, change7dHtml;
+
+        function fmtChange(delta) {
+            if (delta === null || delta === undefined) return '<span class="change-cell flat">\u2014</span>';
+            const cls = delta > 0.5 ? 'up' : delta < -0.5 ? 'down' : 'flat';
+            const sign = delta > 0 ? '+' : '';
+            return `<span class="change-cell ${cls}">${sign}${delta.toFixed(1)}pp</span>`;
+        }
+
+        if (!isHighMed) {
+            change24Html = '<span class="change-cell flat">\u2014</span>';
+            change7dHtml = '<span class="change-cell flat">\u2014</span>';
+        } else if (m.change_24h !== undefined && m.change_24h !== null) {
+            // Pre-fetched data from pipeline
+            m._change24h = m.change_24h;
+            m._change7d = m.change_7d;
+            change24Html = fmtChange(m.change_24h);
+            change7dHtml = fmtChange(m.change_7d);
+        } else if (m._change24h !== undefined && m._change24h !== null) {
+            // Cached from async fetch
+            change24Html = fmtChange(m._change24h);
+            change7dHtml = fmtChange(m._change7d);
+        } else {
+            // Need async fetch
+            const tid = m.clob_token_id || '';
+            if (tid) {
+                change24Html = `<span class="change-cell" data-tid="${tid}" data-price="${prob}" data-interval="24h"><span class="change-loading"></span></span>`;
+                change7dHtml = `<span class="change-cell" data-tid="${tid}" data-price="${prob}" data-interval="7d"><span class="change-loading"></span></span>`;
+            } else {
+                change24Html = '<span class="change-cell flat">\u2014</span>';
+                change7dHtml = '<span class="change-cell flat">\u2014</span>';
+            }
+        }
+
         return `<tr onclick="openEnrichPanel('${qEsc}', '${m.venue}', ${prob}, '${m.end_date}', '${slugEsc}', '${evtEsc}')">
             <td><div class="q-text">${m.question}</div><div class="q-tags">${tags}</div></td>
             <td class="prob-cell">${probDisplay}</td>
+            <td>${change24Html}</td>
+            <td>${change7dHtml}</td>
             <td>${fmtVol(vol)}</td>
             <td><span class="quality-dot ${qClass}"></span>${qLabel}</td>
             <td><span class="resolve-days ${dClass}">${dStr}</span></td>
@@ -964,6 +1062,90 @@ function renderExplorer(markets) {
             <td>${linkHtml}</td>
         </tr>`;
     }).join('');
+}
+
+// ============ PRICE CHANGE LOADER ============
+let priceChangeCache = {};  // token_id → {change24h, change7d}
+
+function loadPriceChanges() {
+    const cells = document.querySelectorAll('.change-cell[data-tid]');
+    if (cells.length === 0) return;
+
+    // Group cells by token_id (each token has a 24h cell and a 7d cell)
+    const byTid = {};
+    cells.forEach(cell => {
+        const tid = cell.dataset.tid;
+        const interval = cell.dataset.interval;
+        if (!tid) return;
+
+        // If cached, apply immediately
+        if (priceChangeCache[tid]) {
+            const cached = priceChangeCache[tid];
+            const delta = interval === '7d' ? cached.change7d : cached.change24h;
+            applyChangeCell(cell, delta);
+            return;
+        }
+
+        if (!byTid[tid]) byTid[tid] = { currentPrice: parseFloat(cell.dataset.price) || 0, cells: {} };
+        byTid[tid].cells[interval] = cell;
+    });
+
+    const tids = Object.keys(byTid);
+    if (tids.length === 0) return;
+
+    let idx = 0;
+    function fetchBatch() {
+        if (idx >= tids.length) return;
+        const batch = tids.slice(idx, idx + 10);
+        idx += 10;
+
+        batch.forEach(tid => {
+            const info = byTid[tid];
+            const cp = info.currentPrice;
+
+            // Fetch 24h and 7d in parallel
+            Promise.all([
+                fetch(`https://clob.polymarket.com/prices-history?market=${tid}&interval=1d&fidelity=60`).then(r => r.json()).catch(() => ({})),
+                fetch(`https://clob.polymarket.com/prices-history?market=${tid}&interval=1w&fidelity=360`).then(r => r.json()).catch(() => ({})),
+            ]).then(([d1, d7]) => {
+                const h1 = d1.history || [];
+                const h7 = d7.history || [];
+
+                const c24h = h1.length >= 2 ? (cp - h1[0].p) * 100 : null;
+                const c7d = h7.length >= 2 ? (cp - h7[0].p) * 100 : null;
+
+                priceChangeCache[tid] = { change24h: c24h, change7d: c7d };
+
+                // Update cells
+                if (info.cells['24h']) applyChangeCell(info.cells['24h'], c24h);
+                if (info.cells['7d']) applyChangeCell(info.cells['7d'], c7d);
+
+                // Store on market for sorting
+                const mkt = explorerData.find(m => m.clob_token_id === tid);
+                if (mkt) {
+                    if (c24h !== null) mkt._change24h = c24h;
+                    if (c7d !== null) mkt._change7d = c7d;
+                }
+            });
+        });
+
+        setTimeout(fetchBatch, 300);
+    }
+    fetchBatch();
+}
+
+function applyChangeCell(cell, delta) {
+    if (delta === null || delta === undefined) {
+        cell.className = 'change-cell flat';
+        cell.innerHTML = '—';
+    } else {
+        const cls = delta > 0.5 ? 'up' : delta < -0.5 ? 'down' : 'flat';
+        const sign = delta > 0 ? '+' : '';
+        cell.className = `change-cell ${cls}`;
+        cell.innerHTML = `${sign}${delta.toFixed(1)}pp`;
+    }
+    cell.removeAttribute('data-tid');
+    cell.removeAttribute('data-interval');
 }
 
 // ============ ENRICHMENT PANEL ============
@@ -1837,6 +2019,8 @@ Promise.all([
     themeContexts = contexts.themes || {};
     themeContextsDate = contexts.updated_at || '';
     themeSummaries = explorer.theme_summaries || {};
+    themeMoves24h = explorer.theme_moves_24h || {};
+    themeMoves7d = explorer.theme_moves_7d || {};
 
     initExplorer(explorer);
     if (prices) initPrices(prices);
