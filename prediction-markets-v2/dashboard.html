@@ -81,6 +81,29 @@
         .clear-bullet-btn { background: none; border: 1px solid #374151; color: #9ca3af; font-size: 10px; padding: 3px 10px; border-radius: 4px; cursor: pointer; margin-top: 8px; transition: all 0.12s; }
         .clear-bullet-btn:hover { color: #e1e4e8; border-color: #6b7280; }
 
+        /* ---- SECTOR INTELLIGENCE ---- */
+        .sintel-stats { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+        .sintel-stat { background: #0d1117; border: 1px solid #1c2333; border-radius: 6px; padding: 8px 12px; min-width: 100px; }
+        .sintel-stat .ss-label { font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sintel-stat .ss-value { font-size: 16px; font-weight: 700; color: #fff; margin-top: 2px; }
+        .sintel-stat .ss-sub { font-size: 10px; color: #4b5563; }
+        .sintel-subsection { margin-bottom: 12px; }
+        .sintel-subtitle { font-size: 10px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+        .sintel-wallet { display: flex; align-items: center; gap: 8px; font-size: 11px; padding: 4px 0; border-bottom: 1px solid #111827; }
+        .sintel-wallet .sw-addr { font-family: monospace; color: #60a5fa; min-width: 90px; }
+        .sintel-wallet .sw-vol { color: #fff; font-weight: 600; min-width: 60px; }
+        .sintel-wallet .sw-pct { color: #4b5563; min-width: 40px; }
+        .sintel-wallet .sw-side { font-weight: 600; min-width: 30px; }
+        .sintel-wallet .sw-side.YES { color: #4ade80; }
+        .sintel-wallet .sw-side.NO { color: #f87171; }
+        .sintel-wallet .sw-trades { color: #4b5563; }
+        .sintel-cross { font-size: 11px; color: #9ca3af; margin-top: 2px; padding-left: 98px; }
+        .sintel-cross span { color: #6b7280; }
+        .sintel-unusual { display: flex; align-items: center; gap: 8px; font-size: 11px; padding: 4px 8px; background: #111827; border: 1px solid #1c2333; border-radius: 4px; margin-bottom: 4px; border-left: 2px solid #f59e0b; }
+        .sintel-unusual .su-ratio { color: #f59e0b; font-weight: 700; min-width: 35px; }
+        .sintel-unusual .su-q { color: #d1d5db; flex: 1; }
+        .sintel-unusual .su-detail { color: #6b7280; font-size: 10px; }
+
         /* ---- SUB-FILTERS ---- */
         .sub-filters { display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap; display: none; }
         .sub-filters.visible { display: flex; }
@@ -345,6 +368,15 @@
             </div>
             <div id="predictionsContent"></div>
         </div>
+    </div>
+
+    <!-- Sector Intelligence (Allium) -->
+    <div class="insight-section" id="sectorIntelSection" style="display:none;">
+        <div class="insight-section-header">
+            <span class="insight-section-title">Sector Intelligence</span>
+            <span style="font-size:9px;color:#374151;">Powered by Allium</span>
+        </div>
+        <div id="sectorIntelContent"></div>
     </div>
 
     <!-- Sub-Filters -->
@@ -876,6 +908,96 @@ function updateContextPanel() {
 
     renderNotableChanges();
     renderCurrentPredictions();
+    renderSectorIntel();
+}
+
+let sectorIntelData = {};
+
+function renderSectorIntel() {
+    const section = document.getElementById('sectorIntelSection');
+    const container = document.getElementById('sectorIntelContent');
+
+    if (!lastClickedTheme || !sectorIntelData[lastClickedTheme]) {
+        section.style.display = 'none';
+        return;
+    }
+
+    const intel = sectorIntelData[lastClickedTheme];
+    section.style.display = 'block';
+
+    let html = '';
+
+    // Stats row
+    const wc = intel.whale_concentration || {};
+    const pos = intel.positioning || {};
+    html += `<div class="sintel-stats">
+        <div class="sintel-stat">
+            <div class="ss-label">30d Volume</div>
+            <div class="ss-value">${fmtVol(intel.total_volume_30d)}</div>
+            <div class="ss-sub">Polymarket</div>
+        </div>
+        <div class="sintel-stat">
+            <div class="ss-label">Unique Wallets</div>
+            <div class="ss-value">${(intel.unique_wallets || 0).toLocaleString()}</div>
+            <div class="ss-sub">30-day</div>
+        </div>
+        <div class="sintel-stat">
+            <div class="ss-label">Top 5 Concentration</div>
+            <div class="ss-value">${wc.top5_pct || 0}%</div>
+            <div class="ss-sub">${wc.top10_pct || 0}% top 10</div>
+        </div>
+        <div class="sintel-stat">
+            <div class="ss-label">Positioning</div>
+            <div class="ss-value" style="color:${pos.yes_pct > pos.no_pct ? '#4ade80' : '#f87171'};">${pos.yes_pct > pos.no_pct ? 'YES' : 'NO'} ${Math.max(pos.yes_pct || 0, pos.no_pct || 0).toFixed(0)}%</div>
+            <div class="ss-sub">${(pos.yes_pct||0).toFixed(0)}% YES / ${(pos.no_pct||0).toFixed(0)}% NO</div>
+        </div>
+    </div>`;
+
+    // Top wallets
+    const wallets = intel.top_wallets || [];
+    if (wallets.length > 0) {
+        html += `<div class="sintel-subsection">
+            <div class="sintel-subtitle">Top Wallets (30d)</div>`;
+
+        const crossSector = intel.cross_sector || {};
+
+        for (const w of wallets.slice(0, 5)) {
+            html += `<div class="sintel-wallet">
+                <span class="sw-addr">${w.short}</span>
+                <span class="sw-vol">${fmtVol(w.volume)}</span>
+                <span class="sw-pct">${w.pct}%</span>
+                <span class="sw-side ${w.side}">${w.side}</span>
+                <span class="sw-trades">${w.trades.toLocaleString()} trades</span>
+            </div>`;
+
+            // Cross-sector activity
+            const cross = crossSector[w.short];
+            if (cross && cross.length > 0) {
+                const topCross = cross.slice(0, 3).map(c =>
+                    `${fmtVol(c.volume)} in <span style="color:#d1d5db;">${c.question.slice(0, 35)}${c.question.length > 35 ? '...' : ''}</span>`
+                ).join(', ');
+                html += `<div class="sintel-cross">Also trades: ${topCross}</div>`;
+            }
+        }
+        html += `</div>`;
+    }
+
+    // Unusual activity
+    const unusual = intel.unusual_activity || [];
+    if (unusual.length > 0) {
+        html += `<div class="sintel-subsection">
+            <div class="sintel-subtitle">Unusual Activity (24h)</div>`;
+        for (const u of unusual) {
+            html += `<div class="sintel-unusual">
+                <span class="su-ratio">${u.ratio}x</span>
+                <span class="su-q">${u.question.slice(0, 55)}${u.question.length > 55 ? '...' : ''}</span>
+                <span class="su-detail">${u.wallets_24h} wallets (avg ${u.avg_daily_wallets}/day)</span>
+            </div>`;
+        }
+        html += `</div>`;
+    }
+
+    container.innerHTML = html;
 }
 
 function updateSubFilters() {
@@ -2139,6 +2261,7 @@ Promise.all([
     themeSummaries = explorer.theme_summaries || {};
     themeMoves24h = explorer.theme_moves_24h || {};
     themeMoves7d = explorer.theme_moves_7d || {};
+    sectorIntelData = explorer.sector_intel || {};
 
     initExplorer(explorer);
     if (prices) initPrices(prices);
