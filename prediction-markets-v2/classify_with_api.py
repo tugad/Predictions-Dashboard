@@ -61,17 +61,24 @@ def classify_new_markets(explorer_path, contexts_path, overrides_path):
     contexts = json.load(open(contexts_path))
     overrides = json.load(open(overrides_path))
 
-    # Find unclassified markets
+    # Find markets that need classification:
+    # 1. Not in overrides at all
+    # 2. Tagged as "Other" by extract_themes.py (default for new markets)
+    #    but only if they have decent volume (worth classifying)
     new_markets = []
     for m in explorer["markets"]:
-        if m["question"] not in overrides:
+        q = m["question"]
+        if q not in overrides:
+            new_markets.append(m)
+        elif overrides[q] == ["Other"] and (m.get("volume_7d") or 0) >= 10000:
+            # Previously defaulted to Other — reclassify if meaningful volume
             new_markets.append(m)
 
     if not new_markets:
         print("  No new markets to classify")
         return
 
-    print(f"  {len(new_markets)} new markets to classify")
+    print(f"  {len(new_markets)} markets to classify")
 
     # Build context block
     ctx_block = ""
