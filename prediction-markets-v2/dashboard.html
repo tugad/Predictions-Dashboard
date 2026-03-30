@@ -345,7 +345,7 @@
         <div class="insight-section" id="notableChanges">
             <div class="insight-section-header">
                 <span class="insight-section-title">Notable Changes</span>
-                <span class="insight-section-hint">Click any move to filter markets below</span>
+                <span class="insight-section-hint"><span id="notableChangesTs"></span> · Click any move to filter markets below</span>
             </div>
             <div class="changes-grid">
                 <div class="changes-col">
@@ -364,7 +364,7 @@
         <div class="insight-section" id="currentPredictions">
             <div class="insight-section-header">
                 <span class="insight-section-title">Current Predictions</span>
-                <span class="insight-section-hint">Click any insight to filter markets below</span>
+                <span class="insight-section-hint"><span id="currentPredictionsTs"></span> · Click any insight to filter markets below</span>
             </div>
             <div id="predictionsContent"></div>
         </div>
@@ -845,6 +845,10 @@ function renderNotableChanges() {
     }
     section.style.display = 'block';
 
+    // Timestamp from explorer data generation time
+    const genAt = explorerGenAt ? new Date(explorerGenAt).toLocaleString(undefined, {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'}) : '';
+    document.getElementById('notableChangesTs').textContent = genAt ? `Updated ${genAt}` : '';
+
     document.getElementById('changes24hBlock').innerHTML = has24h
         ? renderMoveBullets(m24.movers, 'moves24h')
         : '<div style="color:#374151;font-size:11px;">No significant moves</div>';
@@ -865,6 +869,9 @@ function renderCurrentPredictions() {
         return;
     }
     section.style.display = 'block';
+
+    const sumAt = summary.generated_at ? new Date(summary.generated_at).toLocaleString(undefined, {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'}) : '';
+    document.getElementById('currentPredictionsTs').textContent = sumAt ? `Updated ${sumAt}` : '';
 
     let html = summary.bullets.slice(0, 8).map((b, i) => {
         const conf = b.confidence || 'LOW';
@@ -2241,6 +2248,7 @@ function renderPriceMarkets(d, assetKey) {
 
 // ============ LOAD DATA ============
 let themeContextsDate = '';
+let explorerGenAt = '';
 
 Promise.all([
     fetch('explorer_data.json').then(r => r.json()),
@@ -2253,6 +2261,7 @@ Promise.all([
     themeMoves24h = explorer.theme_moves_24h || {};
     themeMoves7d = explorer.theme_moves_7d || {};
     sectorIntelData = explorer.sector_intel || {};
+    explorerGenAt = explorer.generated_at || '';
 
     initExplorer(explorer);
     if (prices) initPrices(prices);
