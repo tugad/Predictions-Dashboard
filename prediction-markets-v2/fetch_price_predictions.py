@@ -8,6 +8,7 @@ Outputs price_predictions.json.
 """
 
 import json
+import os
 import re
 import requests
 import time
@@ -35,13 +36,19 @@ ASSETS = {
             "settle_over": r"settle over \$(\d[\d,]*)",
         },
         "date_patterns": [
-            (r"end of March", "2026-03-31"),
-            (r"end of April", "2026-04-30"),
-            (r"end of June", "2026-06-30"),
-            (r"end of December|end of 2026|before 2027", "2026-12-31"),
-            (r"March 31|Mar 31", "2026-03-31"),
-            (r"April 30|Apr 30", "2026-04-30"),
-            (r"June 30|Jun 30", "2026-06-30"),
+            (r"on March 28", "2026-03-28"),
+            (r"on March 29", "2026-03-29"),
+            (r"on March 30", "2026-03-30"),
+            (r"on March 31|March 31|Mar 31|end of March|in March", "2026-03-31"),
+            (r"on April 1", "2026-04-01"),
+            (r"on April 2", "2026-04-02"),
+            (r"on April 3", "2026-04-03"),
+            (r"on April 4", "2026-04-04"),
+            (r"end of April|April 30|Apr 30", "2026-04-30"),
+            (r"by May 1|May 1", "2026-05-01"),
+            (r"end of June|June 30|Jun 30|by June 30", "2026-06-30"),
+            (r"by October 1|October 1", "2026-10-01"),
+            (r"end of December|December 31|Dec 31|before 2027|by Jan 1, 2027|by Dec", "2026-12-31"),
         ],
     },
     "OIL": {
@@ -63,10 +70,12 @@ ASSETS = {
             "below": r"below[^\$]*\$(\d[\d,]*)",
         },
         "date_patterns": [
-            (r"end of March|in March", "2026-03-31"),
-            (r"end of April|in April", "2026-04-30"),
-            (r"end of June|in June", "2026-06-30"),
-            (r"end of December|by Dec|before 2027|in 2026", "2026-12-31"),
+            (r"on Mar 30", "2026-03-30"),
+            (r"end of March|in March|on Mar 31|Mar 31", "2026-03-31"),
+            (r"in April|end of April|on Apr 30|Apr 30", "2026-04-30"),
+            (r"end of June|in June|on Jun 30|Jun 30", "2026-06-30"),
+            (r"end of September|in September", "2026-09-30"),
+            (r"end of December|by Dec|before 2027|in 2026|Dec 31", "2026-12-31"),
         ],
     },
     "GOLD": {
@@ -75,7 +84,7 @@ ASSETS = {
         "unit": "$",
         "band_step": 200,
         "band_min": 3000,
-        "band_max": 7000,
+        "band_max": 10000,
         "question_patterns": [
             r"gold", r"\bgc\b", r"\bxau\b",
         ],
@@ -89,10 +98,12 @@ ASSETS = {
             "below": r"below[^\$]*\$(\d[\d,]*)",
         },
         "date_patterns": [
-            (r"end of March|in March|March 2026", "2026-03-31"),
-            (r"end of April|in April", "2026-04-30"),
-            (r"end of June|in June|June 2026", "2026-06-30"),
-            (r"end of December|by Dec|before 2027", "2026-12-31"),
+            (r"on Mar 30", "2026-03-30"),
+            (r"end of March|in March|March 2026|on Mar 31|final.*March", "2026-03-31"),
+            (r"end of April|in April|on Apr 30", "2026-04-30"),
+            (r"end of June|in June|June 2026|on Jun 30", "2026-06-30"),
+            (r"end of September|in September", "2026-09-30"),
+            (r"end of December|by Dec|before 2027|Dec 2026|Dec 31", "2026-12-31"),
         ],
     },
 }
@@ -370,6 +381,61 @@ def main():
 
         d["tenors"] = tenors
         print(f"  {asset_key} tenors: {len(tenors)}")
+
+    # Generate tenor narratives via Anthropic API if available
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if api_key and any(len(output.get(k, {}).get("tenors", [])) > 0 for k in ASSETS):
+        print("\n=== GENERATING TENOR NARRATIVES ===")
+        for asset_key, config in ASSETS.items():
+            d = output.get(asset_key, {})
+            tenors = d.get("tenors", [])
+            if not tenors:
+                continue
+
+            spot = d.get("current_price", 0)
+            tenor_block = ""
+            for t in tenors:
+                tenor_block += f"\n--- {t['date']} ({t['market_count']} markets, ${t['total_volume']:,.0f} volume) ---\n"
+                tenor_block += f"Spot: ${spot:,.2f}\n"
+                tenor_block += f"Median: ${t['median']:,.0f} ({t['median_vs_spot']:+.1f}% from spot)\n"
+                tenor_block += f"Range: 10th=${t['p10']:,.0f}  25th=${t['p25']:,.0f}  75th=${t['p75']:,.0f}  90th=${t['p90']:,.0f}\n"
+
+            prompt = f"""You are writing concise market commentary for institutional portfolio managers about {config['label']} price predictions.
+
+For each tenor below, write 2-3 sentences summarizing what prediction markets are saying. Be specific about probabilities and price levels.
+
+Current spot: ${spot:,.2f}
+
+{tenor_block}
+
+Output a JSON object mapping each date to its narrative string.
+Output ONLY the JSON object."""
+
+            try:
+                resp = requests.post("https://api.anthropic.com/v1/messages", headers={
+                    "x-api-key": api_key,
+                    "anthropic-version": "2023-06-01",
+                    "content-type": "application/json",
+                }, json={
+                    "model": "claude-haiku-4-5-20251001",
+                    "max_tokens": 2048,
+                    "messages": [{"role": "user", "content": prompt}],
+                }, timeout=60)
+
+                if resp.status_code == 200:
+                    text = resp.json()["content"][0]["text"]
+                    # Strip code fences
+                    text = re.sub(r'^```(?:json)?\s*\n?', '', text.strip())
+                    text = re.sub(r'\n?```\s*$', '', text.strip())
+                    narratives = json.loads(text)
+                    for t in tenors:
+                        if t["date"] in narratives:
+                            t["narrative"] = narratives[t["date"]]
+                    print(f"  {asset_key}: {sum(1 for t in tenors if t['narrative'])} narratives")
+                else:
+                    print(f"  {asset_key}: API error {resp.status_code}")
+            except Exception as e:
+                print(f"  {asset_key}: error {e}")
 
     output["generated_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ")
 

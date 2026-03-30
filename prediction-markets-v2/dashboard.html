@@ -1710,7 +1710,10 @@ function drawPriceHeroChart(d, assetKey, accentColor) {
 
     // Only show fan dates AFTER the last spot date (no overlap)
     const finalSpotDate = typeof spots[spots.length-1] === 'object' ? spots[spots.length-1].date : today;
-    const fanDates = Object.keys(fan).sort().filter(d => d > finalSpotDate);
+    // Filter fan dates: after last spot, and only those with volume (from tenors)
+    const tenorVolume = {};
+    (d.tenors || []).forEach(t => { tenorVolume[t.date] = t.total_volume || 0; });
+    const fanDates = Object.keys(fan).sort().filter(d => d > finalSpotDate && (tenorVolume[d] === undefined || tenorVolume[d] > 0));
     const months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     // Compute price range from spots + fan extremes
@@ -1723,15 +1726,34 @@ function drawPriceHeroChart(d, assetKey, accentColor) {
     const pMin = Math.min(...allPrices) * 0.95;
     const pMax = Math.max(...allPrices) * 1.05;
 
-    // Date range: first spot to last fan date + padding
+    // Build x-axis: spot dates use linear time, fan dates get evenly spaced after spot
     const firstSpot = spots[0];
     const firstDate = new Date(typeof firstSpot === 'object' ? (firstSpot.date || firstSpot.date) : '2026-03-01');
-    const lastFanDate = fanDates.length > 0 ? new Date(fanDates[fanDates.length - 1]) : new Date();
-    const endDate = new Date(lastFanDate);
-    endDate.setDate(endDate.getDate() + Math.max(5, (lastFanDate - firstDate) / 86400000 * 0.08));
-    const totalMs = endDate - firstDate;
+    const lastSpotDateObj = new Date(finalSpotDate);
 
-    const dateToX = d => margin.left + ((new Date(d) - firstDate) / totalMs) * chartW;
+    // Allocate 60% of chart width to spot history, 40% to fan dates
+    const spotFraction = fanDates.length > 0 ? 0.6 : 1.0;
+    const fanFraction = 1.0 - spotFraction;
+    const spotWidth = chartW * spotFraction;
+    const fanWidth = chartW * fanFraction;
+    const spotMs = lastSpotDateObj - firstDate;
+
+    const dateToX = d => {
+        const dt = new Date(d);
+        if (dt <= lastSpotDateObj || fanDates.length === 0) {
+            // Spot region: linear time mapping
+            return margin.left + ((dt - firstDate) / (spotMs || 1)) * spotWidth;
+        } else {
+            // Fan region: evenly spaced
+            const idx = fanDates.indexOf(d);
+            if (idx >= 0) {
+                const spacing = fanWidth / (fanDates.length + 1);
+                return margin.left + spotWidth + spacing * (idx + 1);
+            }
+            // Fallback for dates not in fanDates
+            return margin.left + spotWidth + fanWidth * 0.5;
+        }
+    };
     const priceToY = p => margin.top + chartH - ((p - pMin) / (pMax - pMin)) * chartH;
 
     // Grid step
@@ -2020,7 +2042,7 @@ function renderAssetPage(key) {
 
     // Tenor summary cards
     const spot = d.current_price;
-    const tenors = d.tenors || [];
+    const tenors = (d.tenors || []).filter(t => (t.total_volume || 0) > 0);
     const months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     document.getElementById('tenorCards').innerHTML = tenors.map(t => {
