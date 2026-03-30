@@ -215,6 +215,69 @@ def build_scenario_table(markets, asset_config):
     return {"dates": dates, "levels": rows}
 
 
+def compute_fan(asset_markets, config, scenarios):
+    """Compute probability fan (percentile intervals) from CDF-like market data."""
+    date_patterns = config["date_patterns"]
+    price_extractors = config["price_extractors"]
+
+    # Collect CDF points: (price, P(above)) per date
+    cdf_by_date = {}
+    for m in asset_markets:
+        q = m["question"]
+        prob = m.get("price") or 0
+        if prob <= 0:
+            continue
+
+        # Extract date
+        date = extract_date(q, date_patterns)
+        if not date:
+            continue
+
+        ql = q.lower()
+        for mtype, pattern in price_extractors.items():
+            match = re.search(pattern, q, re.IGNORECASE)
+            if not match:
+                continue
+            if mtype in ("hit_high", "above", "settle_over"):
+                price = parse_price(match.group(1))
+                cdf_by_date.setdefault(date, []).append((price, prob))
+            elif mtype in ("hit_low", "below", "settle_under"):
+                price = parse_price(match.group(1))
+                cdf_by_date.setdefault(date, []).append((price, 1 - prob))
+            break
+
+    def percentile_from_cdf(pts, pctl):
+        pts = sorted(pts, key=lambda x: x[0])
+        target = 1 - pctl
+        for i in range(len(pts) - 1):
+            p1, prob1 = pts[i]
+            p2, prob2 = pts[i + 1]
+            if (prob1 >= target >= prob2) or (prob2 >= target >= prob1):
+                if abs(prob1 - prob2) < 0.001:
+                    return (p1 + p2) / 2
+                t = (target - prob1) / (prob2 - prob1)
+                return p1 + t * (p2 - p1)
+        if target >= pts[0][1]:
+            return pts[0][0]
+        return pts[-1][0]
+
+    fan = {}
+    for date, points in sorted(cdf_by_date.items()):
+        if len(points) < 4:
+            continue
+        f = {
+            "p10": round(percentile_from_cdf(points, 0.10), 2),
+            "p25": round(percentile_from_cdf(points, 0.25), 2),
+            "p50": round(percentile_from_cdf(points, 0.50), 2),
+            "p75": round(percentile_from_cdf(points, 0.75), 2),
+            "p90": round(percentile_from_cdf(points, 0.90), 2),
+        }
+        if f["p10"] < f["p50"] < f["p90"]:
+            fan[date] = f
+
+    return fan
+
+
 def main():
     print("=" * 60)
     print("Prediction Markets V2 — Price Predictions Fetcher")
@@ -252,6 +315,10 @@ def main():
         kalshi_markets = [m for m in asset_markets if m["venue"] == "kalshi"]
         print(f"  Polymarket: {len(poly_markets)}, Kalshi: {len(kalshi_markets)}")
 
+        # Compute fan percentiles from CDF data
+        fan = compute_fan(asset_markets, config, scenarios)
+        print(f"  Fan dates: {list(fan.keys())}")
+
         output[asset_key] = {
             "label": config["label"],
             "unit": config["unit"],
@@ -261,6 +328,7 @@ def main():
             "band_min": config["band_min"],
             "band_max": config["band_max"],
             "scenarios": scenarios,
+            "fan": fan,
             "market_count": len(asset_markets),
             "markets": [
                 {
@@ -273,6 +341,35 @@ def main():
                 for m in sorted(asset_markets, key=lambda x: x.get("volume_7d") or 0, reverse=True)
             ],
         }
+
+    # Generate tenor data from fan + scenarios
+    for asset_key, config in ASSETS.items():
+        d = output.get(asset_key, {})
+        fan = d.get("fan", {})
+        spot = d.get("current_price", 0)
+        sc = d.get("scenarios", {})
+        mkts = d.get("markets", [])
+
+        tenors = []
+        for date in sorted(fan.keys()):
+            f = fan[date]
+            # Count markets for this date
+            date_markets = [m for m in mkts if date[:7] in (m.get("end_date") or "")[:7]]
+            total_vol = sum(m.get("volume_7d", 0) for m in date_markets)
+
+            tenors.append({
+                "date": date,
+                "market_count": len(date_markets),
+                "total_volume": round(total_vol, 2),
+                "median": f["p50"],
+                "p10": f["p10"], "p25": f["p25"], "p75": f["p75"], "p90": f["p90"],
+                "median_vs_spot": round((f["p50"] - spot) / spot * 100, 1) if spot > 0 else 0,
+                "key_levels": [],
+                "narrative": "",
+            })
+
+        d["tenors"] = tenors
+        print(f"  {asset_key} tenors: {len(tenors)}")
 
     output["generated_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ")
 
