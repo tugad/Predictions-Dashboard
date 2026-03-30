@@ -41,9 +41,6 @@ jobs:
           data = json.load(open('markets_raw.json'))
           filtered = [m for m in data['markets'] if (m.get('volume_7d') or 0) >= 5000 or m.get('is_price_market')]
           filtered.sort(key=lambda m: m.get('volume_7d') or 0, reverse=True)
-          # Strip descriptions to reduce file size (4MB+ savings)
-          for m in filtered:
-              m['description'] = ''
           data['markets'] = filtered
           with open('markets_raw.json', 'w') as f:
               json.dump(data, f)
