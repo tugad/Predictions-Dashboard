@@ -75,4 +75,5 @@ jobs:
           git add -f prediction-markets-v2/questions_to_classify.json
           # Only commit if there are changes
           git diff --staged --quiet || git commit -m "Daily data refresh $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main
           git push
