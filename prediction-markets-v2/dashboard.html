@@ -906,97 +906,9 @@ function updateContextPanel() {
 
     renderNotableChanges();
     renderCurrentPredictions();
-    renderSectorIntel();
 }
 
-let sectorIntelData = {};
-
-function renderSectorIntel() {
-    const section = document.getElementById('sectorIntelSection');
-    const container = document.getElementById('sectorIntelContent');
-
-    if (!lastClickedTheme || !sectorIntelData[lastClickedTheme]) {
-        section.style.display = 'none';
-        return;
-    }
-
-    const intel = sectorIntelData[lastClickedTheme];
-    section.style.display = 'block';
-
-    let html = '';
-
-    // Stats row
-    const wc = intel.whale_concentration || {};
-    const pos = intel.positioning || {};
-    html += `<div class="sintel-stats">
-        <div class="sintel-stat">
-            <div class="ss-label">30d Volume</div>
-            <div class="ss-value">${fmtVol(intel.total_volume_30d)}</div>
-            <div class="ss-sub">Polymarket</div>
-        </div>
-        <div class="sintel-stat">
-            <div class="ss-label">Unique Wallets</div>
-            <div class="ss-value">${(intel.unique_wallets || 0).toLocaleString()}</div>
-            <div class="ss-sub">30-day</div>
-        </div>
-        <div class="sintel-stat">
-            <div class="ss-label">Top 5 Concentration</div>
-            <div class="ss-value">${wc.top5_pct || 0}%</div>
-            <div class="ss-sub">${wc.top10_pct || 0}% top 10</div>
-        </div>
-        <div class="sintel-stat">
-            <div class="ss-label">Positioning</div>
-            <div class="ss-value" style="color:${pos.yes_pct > pos.no_pct ? '#4ade80' : '#f87171'};">${pos.yes_pct > pos.no_pct ? 'YES' : 'NO'} ${Math.max(pos.yes_pct || 0, pos.no_pct || 0).toFixed(0)}%</div>
-            <div class="ss-sub">${(pos.yes_pct||0).toFixed(0)}% YES / ${(pos.no_pct||0).toFixed(0)}% NO</div>
-        </div>
-    </div>`;
-
-    // Top wallets
-    const wallets = intel.top_wallets || [];
-    if (wallets.length > 0) {
-        html += `<div class="sintel-subsection">
-            <div class="sintel-subtitle">Top Wallets (30d)</div>`;
-
-        const crossSector = intel.cross_sector || {};
-
-        for (const w of wallets.slice(0, 5)) {
-            html += `<div class="sintel-wallet">
-                <span class="sw-addr">${w.short}</span>
-                <span class="sw-vol">${fmtVol(w.volume)}</span>
-                <span class="sw-pct">${w.pct}%</span>
-                <span class="sw-side ${w.side}">${w.side}</span>
-                <span class="sw-trades">${w.trades.toLocaleString()} trades</span>
-            </div>`;
-
-            // Cross-sector activity
-            const cross = crossSector[w.short];
-            if (cross && cross.length > 0) {
-                const topCross = cross.slice(0, 3).map(c =>
-                    `${fmtVol(c.volume)} in <span style="color:#d1d5db;">${c.question.slice(0, 35)}${c.question.length > 35 ? '...' : ''}</span>`
-                ).join(', ');
-                html += `<div class="sintel-cross">Also trades: ${topCross}</div>`;
-            }
-        }
-        html += `</div>`;
-    }
-
-    // Unusual activity
-    const unusual = intel.unusual_activity || [];
-    if (unusual.length > 0) {
-        html += `<div class="sintel-subsection">
-            <div class="sintel-subtitle">Unusual Activity (24h)</div>`;
-        for (const u of unusual) {
-            html += `<div class="sintel-unusual">
-                <span class="su-ratio">${u.ratio}x</span>
-                <span class="su-q">${u.question.slice(0, 55)}${u.question.length > 55 ? '...' : ''}</span>
-                <span class="su-detail">${u.wallets_24h} wallets (avg ${u.avg_daily_wallets}/day)</span>
-            </div>`;
-        }
-        html += `</div>`;
-    }
-
-    container.innerHTML = html;
-}
+// Sector intel removed — will be added in v2 with unrestricted Allium access
 
 function updateSubFilters() {
     const container = document.getElementById('subFilters');
@@ -2260,7 +2172,6 @@ Promise.all([
     themeSummaries = explorer.theme_summaries || {};
     themeMoves24h = explorer.theme_moves_24h || {};
     themeMoves7d = explorer.theme_moves_7d || {};
-    sectorIntelData = explorer.sector_intel || {};
     explorerGenAt = explorer.generated_at || '';
 
     initExplorer(explorer);
