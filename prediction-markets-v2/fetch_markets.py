@@ -380,6 +380,13 @@ def main():
         "markets": all_markets,
     }
 
+    # Sanitize: replace Infinity/NaN with None (not valid JSON)
+    import math
+    for m in all_markets:
+        for k, v in m.items():
+            if isinstance(v, float) and (math.isinf(v) or math.isnan(v)):
+                m[k] = None
+
     with open("markets_raw.json", "w") as f:
         json.dump(output, f, indent=2)
 
