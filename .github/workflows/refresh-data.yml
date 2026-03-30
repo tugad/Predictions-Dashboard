@@ -1,0 +1,72 @@
+name: Daily Data Refresh
+
+on:
+  schedule:
+    # Run daily at 6:00 AM UTC (10 PM PT, 1 AM ET)
+    - cron: '0 6 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch markets from venues
+        working-directory: prediction-markets-v2
+        run: python fetch_markets.py
+
+      - name: Filter to active markets
+        working-directory: prediction-markets-v2
+        run: |
+          python -c "
+          import json
+          data = json.load(open('markets_raw.json'))
+          filtered = [m for m in data['markets'] if (m.get('volume_7d') or 0) >= 1000 or m.get('is_price_market')]
+          filtered.sort(key=lambda m: m.get('volume_7d') or 0, reverse=True)
+          data['markets'] = filtered
+          with open('markets_raw.json', 'w') as f:
+              json.dump(data, f)
+          print(f'Filtered to {len(filtered)} markets')
+          "
+
+      - name: Fetch price changes
+        working-directory: prediction-markets-v2
+        run: python fetch_price_changes.py
+
+      - name: Extract themes (cached overrides)
+        working-directory: prediction-markets-v2
+        run: python extract_themes.py
+
+      - name: Classify + generate insights (Anthropic API)
+        working-directory: prediction-markets-v2
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python classify_with_api.py
+
+      - name: Fetch price predictions
+        working-directory: prediction-markets-v2
+        run: python fetch_price_predictions.py
+
+      - name: Commit and push updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f prediction-markets-v2/explorer_data.json
+          git add -f prediction-markets-v2/price_predictions.json
+          git add -f prediction-markets-v2/theme_overrides.json
+          git add -f prediction-markets-v2/questions_to_classify.json
+          # Only commit if there are changes
+          git diff --staged --quiet || git commit -m "Daily data refresh $(date -u +%Y-%m-%d)"
+          git push
