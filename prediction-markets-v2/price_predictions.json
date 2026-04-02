@@ -2,16 +2,8 @@
   "BTC": {
     "label": "Bitcoin",
     "unit": "$",
-    "current_price": 69135.0,
+    "current_price": 66637.0,
     "spot_prices": [
-      {
-        "date": "2026-03-02",
-        "open": 65734.0,
-        "high": 70067.0,
-        "low": 65250.0,
-        "close": 68774.0,
-        "volume": 51212.95685
-      },
       {
         "date": "2026-03-03",
         "open": 68773.0,
@@ -249,8 +241,16 @@
         "open": 68243.0,
         "high": 69265.0,
         "low": 67553.0,
-        "close": 69135.0,
-        "volume": 9741.54268
+        "close": 68084.0,
+        "volume": 36481.94998
+      },
+      {
+        "date": "2026-04-02",
+        "open": 68083.0,
+        "high": 68624.0,
+        "low": 66179.0,
+        "close": 66637.0,
+        "volume": 16342.88606
       }
     ],
     "band_step": 2000,
@@ -258,53 +258,17 @@
     "band_max": 90000,
     "scenarios": {
       "dates": [
-        "2026-04-01",
         "2026-04-02",
         "2026-04-03",
-        "2026-04-04",
-        "2026-10-01",
-        "2026-12-31"
+        "2026-04-04"
       ],
       "levels": [
-        {
-          "level": 40000.0,
-          "dates": {
-            "2026-12-31": {
-              "prob": 0.32,
-              "vol": 21940.8,
-              "sources": 1,
-              "type": "below"
-            }
-          }
-        },
-        {
-          "level": 45000.0,
-          "dates": {
-            "2026-12-31": {
-              "prob": 0.44,
-              "vol": 70532.0,
-              "sources": 1,
-              "type": "below"
-            }
-          }
-        },
-        {
-          "level": 50000.0,
-          "dates": {
-            "2026-12-31": {
-              "prob": 0.58,
-              "vol": 9597.84,
-              "sources": 1,
-              "type": "below"
-            }
-          }
-        },
         {
           "level": 56000.0,
           "dates": {
             "2026-04-03": {
-              "prob": 0.9955,
-              "vol": 22195.43,
+              "prob": 0.9995,
+              "vol": 147781.59,
               "sources": 1,
               "type": "above"
             }
@@ -314,14 +278,14 @@
           "level": 58000.0,
           "dates": {
             "2026-04-03": {
-              "prob": 0.9955,
-              "vol": 16658.15,
+              "prob": 0.9975,
+              "vol": 65060.84,
               "sources": 1,
               "type": "above"
             },
             "2026-04-04": {
-              "prob": 0.9935,
-              "vol": 18653.96,
+              "prob": 0.9855,
+              "vol": 20844.94,
               "sources": 1,
               "type": "above"
             }
@@ -330,62 +294,44 @@
         {
           "level": 60000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.9995,
-              "vol": 280795.06,
-              "sources": 1,
-              "type": "above"
-            },
             "2026-04-02": {
-              "prob": 0.9965,
-              "vol": 56326.53,
+              "prob": 0.9995,
+              "vol": 319892.11,
               "sources": 1,
               "type": "above"
             },
             "2026-04-03": {
-              "prob": 0.9865,
-              "vol": 39414.72,
+              "prob": 0.991,
+              "vol": 55257.21,
               "sources": 1,
               "type": "above"
             },
             "2026-04-04": {
-              "prob": 0.9835,
-              "vol": 18413.57,
+              "prob": 0.9745,
+              "vol": 23254.17,
               "sources": 1,
               "type": "above"
-            },
-            "2026-12-31": {
-              "prob": 0.78,
-              "vol": 22964.76,
-              "sources": 1,
-              "type": "below"
             }
           }
         },
         {
           "level": 62000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.9995,
-              "vol": 175202.32,
-              "sources": 1,
-              "type": "above"
-            },
             "2026-04-02": {
-              "prob": 0.9935,
-              "vol": 43888.98,
+              "prob": 0.9975,
+              "vol": 207049.14,
               "sources": 1,
               "type": "above"
             },
             "2026-04-03": {
-              "prob": 0.9795,
-              "vol": 16554.32,
+              "prob": 0.966,
+              "vol": 37223.33,
               "sources": 1,
               "type": "above"
             },
             "2026-04-04": {
-              "prob": 0.9715,
-              "vol": 9910.34,
+              "prob": 0.936,
+              "vol": 21901.61,
               "sources": 1,
               "type": "above"
             }
@@ -394,27 +340,21 @@
         {
           "level": 64000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.9965,
-              "vol": 145202.56,
-              "sources": 1,
-              "type": "above"
-            },
             "2026-04-02": {
-              "prob": 0.9745,
-              "vol": 36882.65,
+              "prob": 0.9675,
+              "vol": 148695.22,
               "sources": 1,
               "type": "above"
             },
             "2026-04-03": {
-              "prob": 0.955,
-              "vol": 11071.6,
+              "prob": 0.8825,
+              "vol": 35554.96,
               "sources": 1,
               "type": "above"
             },
             "2026-04-04": {
-              "prob": 0.935,
-              "vol": 10491.69,
+              "prob": 0.835,
+              "vol": 12727.19,
               "sources": 1,
               "type": "above"
             }
@@ -423,21 +363,21 @@
         {
           "level": 66000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.9805,
-              "vol": 112433.13,
-              "sources": 1,
-              "type": "above"
-            },
             "2026-04-02": {
-              "prob": 0.92,
-              "vol": 12447.41,
+              "prob": 0.7525,
+              "vol": 148784.25,
               "sources": 1,
               "type": "above"
             },
             "2026-04-03": {
-              "prob": 0.875,
-              "vol": 15015.84,
+              "prob": 0.625,
+              "vol": 21590.04,
+              "sources": 1,
+              "type": "above"
+            },
+            "2026-04-04": {
+              "prob": 0.605,
+              "vol": 12812.38,
               "sources": 1,
               "type": "above"
             }
@@ -446,27 +386,21 @@
         {
           "level": 68000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.83,
-              "vol": 78890.01,
-              "sources": 1,
-              "type": "above"
-            },
             "2026-04-02": {
-              "prob": 0.695,
-              "vol": 10181.04,
+              "prob": 0.105,
+              "vol": 65513.32,
               "sources": 1,
               "type": "above"
             },
             "2026-04-03": {
-              "prob": 0.67,
-              "vol": 5848.14,
+              "prob": 0.245,
+              "vol": 10589.2,
               "sources": 1,
               "type": "above"
             },
             "2026-04-04": {
-              "prob": 0.65,
-              "vol": 6146.93,
+              "prob": 0.295,
+              "vol": 9172.92,
               "sources": 1,
               "type": "above"
             }
@@ -475,27 +409,21 @@
         {
           "level": 70000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.2535,
-              "vol": 143505.39,
-              "sources": 1,
-              "type": "above"
-            },
             "2026-04-02": {
-              "prob": 0.35,
-              "vol": 11398.12,
+              "prob": 0.0055,
+              "vol": 95540.44,
               "sources": 1,
               "type": "above"
             },
             "2026-04-03": {
-              "prob": 0.39,
-              "vol": 9542.12,
+              "prob": 0.0405,
+              "vol": 33813.33,
               "sources": 1,
               "type": "above"
             },
             "2026-04-04": {
-              "prob": 0.405,
-              "vol": 6488.91,
+              "prob": 0.09,
+              "vol": 7530.12,
               "sources": 1,
               "type": "above"
             }
@@ -504,21 +432,15 @@
         {
           "level": 72000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.0225,
-              "vol": 110832.71,
-              "sources": 1,
-              "type": "above"
-            },
             "2026-04-02": {
-              "prob": 0.0955,
-              "vol": 22727.65,
+              "prob": 0.0015,
+              "vol": 149435.7,
               "sources": 1,
               "type": "above"
             },
             "2026-04-03": {
-              "prob": 0.16,
-              "vol": 6793.17,
+              "prob": 0.0055,
+              "vol": 12800.08,
               "sources": 1,
               "type": "above"
             }
@@ -527,21 +449,15 @@
         {
           "level": 74000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.0015,
-              "vol": 255251.02,
-              "sources": 1,
-              "type": "above"
-            },
             "2026-04-02": {
-              "prob": 0.0315,
-              "vol": 12141.35,
+              "prob": 0.0005,
+              "vol": 238282.39,
               "sources": 1,
               "type": "above"
             },
             "2026-04-03": {
-              "prob": 0.053,
-              "vol": 7335.19,
+              "prob": 0.0025,
+              "vol": 13717.28,
               "sources": 1,
               "type": "above"
             }
@@ -550,15 +466,15 @@
         {
           "level": 76000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.0015,
-              "vol": 192977.91,
+            "2026-04-02": {
+              "prob": 0.0005,
+              "vol": 105550.04,
               "sources": 1,
               "type": "above"
             },
-            "2026-04-02": {
-              "prob": 0.0115,
-              "vol": 7842.42,
+            "2026-04-03": {
+              "prob": 0.0005,
+              "vol": 27352.75,
               "sources": 1,
               "type": "above"
             }
@@ -567,15 +483,9 @@
         {
           "level": 78000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.0005,
-              "vol": 42197.05,
-              "sources": 1,
-              "type": "above"
-            },
             "2026-04-02": {
-              "prob": 0.0015,
-              "vol": 34907.39,
+              "prob": 0.0005,
+              "vol": 102707.49,
               "sources": 1,
               "type": "above"
             }
@@ -584,54 +494,9 @@
         {
           "level": 80000.0,
           "dates": {
-            "2026-04-01": {
-              "prob": 0.0005,
-              "vol": 72013.57,
-              "sources": 1,
-              "type": "above"
-            },
             "2026-04-02": {
               "prob": 0.0005,
-              "vol": 41468.09,
-              "sources": 1,
-              "type": "above"
-            }
-          }
-        },
-        {
-          "level": 99999.0,
-          "dates": {
-            "2026-12-31": {
-              "prob": 0.35,
-              "vol": 8222.2,
-              "sources": 1,
-              "type": "above"
-            }
-          }
-        },
-        {
-          "level": 100000.0,
-          "dates": {
-            "2026-10-01": {
-              "prob": 0.22,
-              "vol": 10966.34,
-              "sources": 1,
-              "type": "above"
-            },
-            "2026-12-31": {
-              "prob": 0.32,
-              "vol": 8599.36,
-              "sources": 1,
-              "type": "above"
-            }
-          }
-        },
-        {
-          "level": 109999.0,
-          "dates": {
-            "2026-12-31": {
-              "prob": 0.24,
-              "vol": 5305.44,
+              "vol": 45572.87,
               "sources": 1,
               "type": "above"
             }
@@ -640,945 +505,652 @@
       ]
     },
     "fan": {
-      "2026-04-01": {
-        "p10": 67069.77,
-        "p25": 68277.54,
-        "p50": 69144.84,
-        "p75": 70030.3,
-        "p90": 71329.0
-      },
       "2026-04-02": {
-        "p10": 66177.78,
-        "p25": 67511.11,
-        "p50": 69130.43,
-        "p75": 70785.85,
-        "p90": 71964.64
+        "p10": 64627.91,
+        "p25": 66007.72,
+        "p50": 66779.92,
+        "p75": 67552.12,
+        "p90": 68100.5
       },
       "2026-04-03": {
-        "p10": 65375.0,
-        "p25": 67219.51,
-        "p50": 69214.29,
-        "p75": 71217.39,
-        "p90": 73121.5
+        "p10": 63580.84,
+        "p25": 65029.13,
+        "p50": 66657.89,
+        "p75": 67973.68,
+        "p90": 69418.09
       },
       "2026-04-04": {
-        "p10": 64491.23,
-        "p25": 66596.49,
-        "p50": 69224.49,
-        "p75": 70000.0,
-        "p90": 70000.0
-      },
-      "2026-12-31": {
-        "p10": 40000.0,
-        "p25": 40000.0,
-        "p50": 47142.86,
-        "p75": 58500.0,
-        "p90": 109999.0
+        "p10": 62712.87,
+        "p25": 64739.13,
+        "p50": 66677.42,
+        "p75": 68439.02,
+        "p90": 69902.44
       }
     },
-    "market_count": 117,
+    "market_count": 82,
     "markets": [
       {
-        "question": "Will Bitcoin reach $80,000 in March?",
-        "price": 0.0005,
-        "volume_7d": 1852986.35,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $100,000 in March?",
-        "price": 0.0005,
-        "volume_7d": 969846.19,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Bitcoin price  on Apr 3, 2026?",
-        "price": 0,
-        "volume_7d": 920164.08,
-        "venue": "kalshi",
-        "end_date": "2026-04-03"
-      },
-      {
-        "question": "Bitcoin price  on Apr 1, 2026?",
-        "price": 0,
-        "volume_7d": 892211.01,
-        "venue": "kalshi",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $105,000 in March?",
-        "price": 0.0005,
-        "volume_7d": 694501.13,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $85,000 in March?",
-        "price": 0.0005,
-        "volume_7d": 685861.52,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $110,000 in March?",
-        "price": 0.0005,
-        "volume_7d": 584402.23,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $150,000 in March?",
-        "price": 0.0005,
-        "volume_7d": 552944.73,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $90,000 in March?",
-        "price": 0.0005,
-        "volume_7d": 544723.96,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $95,000 in March?",
-        "price": 0.0005,
-        "volume_7d": 494402.49,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "BTC price up in next 15 mins?",
-        "price": 0.75,
-        "volume_7d": 422526.46,
-        "venue": "kalshi",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Bitcoin price  on Apr 1, 2026?",
-        "price": 0,
-        "volume_7d": 291788.36,
-        "venue": "kalshi",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $60,000 on April 1?",
-        "price": 0.9995,
-        "volume_7d": 280795.06,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $74,000 on April 1?",
-        "price": 0.0015,
-        "volume_7d": 255251.02,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $76,000 on April 1?",
-        "price": 0.0015,
-        "volume_7d": 192977.91,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $62,000 on April 1?",
-        "price": 0.9995,
-        "volume_7d": 175202.32,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $64,000 on April 1?",
-        "price": 0.9965,
-        "volume_7d": 145202.56,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $70,000 on April 1?",
-        "price": 0.2535,
-        "volume_7d": 143505.39,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "BTC price  on Jan 1, 2027?",
-        "price": 0,
-        "volume_7d": 125441.91,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $66,000 on April 1?",
-        "price": 0.9805,
-        "volume_7d": 112433.13,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $72,000 on April 1?",
-        "price": 0.0225,
-        "volume_7d": 110832.71,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin hit $150k by March 31, 2026?",
-        "price": 0.0005,
-        "volume_7d": 92790.42,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $76,000 March 30-April 5?",
-        "price": 0.0735,
-        "volume_7d": 84889.17,
-        "venue": "polymarket",
-        "end_date": "2026-04-06"
-      },
-      {
-        "question": "Will Bitcoin reach $200,000 by December 31, 2026?",
-        "price": 0.05,
-        "volume_7d": 84323.53,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $68,000 on April 1?",
-        "price": 0.83,
-        "volume_7d": 78890.01,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $500,000 by December 31, 2026?",
-        "price": 0.0205,
-        "volume_7d": 75157.2,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $73,000 on March 31?",
-        "price": 0.0005,
-        "volume_7d": 74195.23,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $80,000 on April 1?",
-        "price": 0.0005,
-        "volume_7d": 72013.57,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin hit $60k or $80k first?",
-        "price": 0.55,
-        "volume_7d": 71326.45,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be below $45000.00 by Jan 1, 2027 at 12:00am ET?",
-        "price": 0.44,
-        "volume_7d": 70532.0,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $69,000 on March 31?",
-        "price": 0.0005,
-        "volume_7d": 66001.42,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $74,000 March 30-April 5?",
-        "price": 0.19,
-        "volume_7d": 63964.22,
-        "venue": "polymarket",
-        "end_date": "2026-04-06"
-      },
-      {
-        "question": "Will Bitcoin reach $250,000 by December 31, 2026?",
-        "price": 0.041,
-        "volume_7d": 59534.83,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
         "question": "Will the price of Bitcoin be above $60,000 on April 2?",
-        "price": 0.9965,
-        "volume_7d": 56326.53,
+        "price": 0.9995,
+        "volume_7d": 319892.11,
         "venue": "polymarket",
         "end_date": "2026-04-02"
       },
       {
-        "question": "Will the price of Bitcoin be less than $62,000 on April 1?",
-        "price": 0.0075,
-        "volume_7d": 55774.8,
+        "question": "Will the price of Bitcoin be above $74,000 on April 2?",
+        "price": 0.0005,
+        "volume_7d": 238282.39,
         "venue": "polymarket",
-        "end_date": "2026-04-01"
+        "end_date": "2026-04-02"
       },
       {
-        "question": "Will Bitcoin reach $1,000,000 by December 31, 2026?",
-        "price": 0.0165,
-        "volume_7d": 55534.12,
+        "question": "Will the price of Bitcoin be above $62,000 on April 2?",
+        "price": 0.9975,
+        "volume_7d": 207049.14,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $72,000 on April 2?",
+        "price": 0.0015,
+        "volume_7d": 149435.7,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $66,000 on April 2?",
+        "price": 0.7525,
+        "volume_7d": 148784.25,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $64,000 on April 2?",
+        "price": 0.9675,
+        "volume_7d": 148695.22,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $56,000 on April 3?",
+        "price": 0.9995,
+        "volume_7d": 147781.59,
+        "venue": "polymarket",
+        "end_date": "2026-04-03"
+      },
+      {
+        "question": "Will Bitcoin reach $76,000 March 30-April 5?",
+        "price": 0.015,
+        "volume_7d": 112297.14,
+        "venue": "polymarket",
+        "end_date": "2026-04-06"
+      },
+      {
+        "question": "Will Bitcoin reach $74,000 March 30-April 5?",
+        "price": 0.036,
+        "volume_7d": 107316.96,
+        "venue": "polymarket",
+        "end_date": "2026-04-06"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $76,000 on April 2?",
+        "price": 0.0005,
+        "volume_7d": 105550.04,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will Bitcoin reach $200,000 by December 31, 2026?",
+        "price": 0.0535,
+        "volume_7d": 104381.89,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
-        "question": "Will Bitcoin reach $72,000 on March 31?",
+        "question": "Will the price of Bitcoin be above $78,000 on April 2?",
         "price": 0.0005,
-        "volume_7d": 53531.05,
+        "volume_7d": 102707.49,
         "venue": "polymarket",
-        "end_date": "2026-04-01"
+        "end_date": "2026-04-02"
       },
       {
-        "question": "Will the price of Bitcoin be between $74,000 and $76,000 on April 1?",
+        "question": "Will the price of Bitcoin be above $70,000 on April 2?",
+        "price": 0.0055,
+        "volume_7d": 95540.44,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will Bitcoin reach $70,000 March 30-April 5?",
+        "price": 0.28,
+        "volume_7d": 85067.15,
+        "venue": "polymarket",
+        "end_date": "2026-04-06"
+      },
+      {
+        "question": "Will Bitcoin reach $1,000,000 by December 31, 2026?",
+        "price": 0.0165,
+        "volume_7d": 84872.9,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin hit $60k or $80k first?",
+        "price": 0.7,
+        "volume_7d": 81260.42,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $82,000 March 30-April 5?",
+        "price": 0.0025,
+        "volume_7d": 72871.51,
+        "venue": "polymarket",
+        "end_date": "2026-04-06"
+      },
+      {
+        "question": "Will Bitcoin reach $500,000 by December 31, 2026?",
+        "price": 0.0215,
+        "volume_7d": 71715.58,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $68,000 on April 2?",
+        "price": 0.105,
+        "volume_7d": 65513.32,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $58,000 on April 3?",
+        "price": 0.9975,
+        "volume_7d": 65060.84,
+        "venue": "polymarket",
+        "end_date": "2026-04-03"
+      },
+      {
+        "question": "Will Bitcoin reach $78,000 March 30-April 5?",
+        "price": 0.004,
+        "volume_7d": 64208.49,
+        "venue": "polymarket",
+        "end_date": "2026-04-06"
+      },
+      {
+        "question": "Will the price of Bitcoin be less than $60,000 on April 2?",
+        "price": 0.0005,
+        "volume_7d": 63823.01,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will Bitcoin reach $250,000 by December 31, 2026?",
+        "price": 0.0405,
+        "volume_7d": 58972.51,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $72,000 March 30-April 5?",
+        "price": 0.075,
+        "volume_7d": 56432.93,
+        "venue": "polymarket",
+        "end_date": "2026-04-06"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $60,000 on April 3?",
+        "price": 0.991,
+        "volume_7d": 55257.21,
+        "venue": "polymarket",
+        "end_date": "2026-04-03"
+      },
+      {
+        "question": "Will Bitcoin reach $80,000 March 30-April 5?",
         "price": 0.0015,
-        "volume_7d": 49412.3,
+        "volume_7d": 52473.26,
         "venue": "polymarket",
-        "end_date": "2026-04-01"
+        "end_date": "2026-04-06"
       },
       {
-        "question": "Will the price of Bitcoin be above $62,000 on April 2?",
-        "price": 0.9935,
-        "volume_7d": 43888.98,
+        "question": "Will the price of Bitcoin be above $80,000 on April 2?",
+        "price": 0.0005,
+        "volume_7d": 45572.87,
         "venue": "polymarket",
         "end_date": "2026-04-02"
       },
       {
         "question": "Will Bitcoin reach $100,000 by December 31, 2026?",
         "price": 0.305,
-        "volume_7d": 42695.29,
+        "volume_7d": 44928.52,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
-        "question": "Will the price of Bitcoin be above $78,000 on April 1?",
-        "price": 0.0005,
-        "volume_7d": 42197.05,
+        "question": "Will Bitcoin reach $80,000 by December 31, 2026?",
+        "price": 0.625,
+        "volume_7d": 37674.26,
         "venue": "polymarket",
-        "end_date": "2026-04-01"
+        "end_date": "2027-01-01"
       },
       {
-        "question": "Will the price of Bitcoin be above $80,000 on April 2?",
-        "price": 0.0005,
-        "volume_7d": 41468.09,
-        "venue": "polymarket",
-        "end_date": "2026-04-02"
-      },
-      {
-        "question": "Will Bitcoin reach $82,000 March 30-April 5?",
-        "price": 0.0115,
-        "volume_7d": 40009.22,
-        "venue": "polymarket",
-        "end_date": "2026-04-06"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $60,000 on April 3?",
-        "price": 0.9865,
-        "volume_7d": 39414.72,
+        "question": "Will the price of Bitcoin be above $62,000 on April 3?",
+        "price": 0.966,
+        "volume_7d": 37223.33,
         "venue": "polymarket",
         "end_date": "2026-04-03"
       },
       {
-        "question": "Will Bitcoin reach $75,000 on March 31?",
-        "price": 0.0005,
-        "volume_7d": 38545.18,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $64,000 on April 2?",
-        "price": 0.9745,
-        "volume_7d": 36882.65,
-        "venue": "polymarket",
-        "end_date": "2026-04-02"
-      },
-      {
-        "question": "Will Bitcoin reach $78,000 March 30-April 5?",
-        "price": 0.044,
-        "volume_7d": 35478.23,
-        "venue": "polymarket",
-        "end_date": "2026-04-06"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $78,000 on April 2?",
-        "price": 0.0015,
-        "volume_7d": 34907.39,
-        "venue": "polymarket",
-        "end_date": "2026-04-02"
-      },
-      {
         "question": "Will bitcoin hit $1m before GTA VI?",
-        "price": 0.4885,
-        "volume_7d": 34025.84,
+        "price": 0.486,
+        "volume_7d": 35633.82,
         "venue": "polymarket",
         "end_date": "2026-07-31"
       },
       {
-        "question": "Will Bitcoin reach $80,000 by December 31, 2026?",
-        "price": 0.66,
-        "volume_7d": 33105.87,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $72,000 March 30-April 5?",
-        "price": 0.44,
-        "volume_7d": 32246.6,
-        "venue": "polymarket",
-        "end_date": "2026-04-06"
-      },
-      {
-        "question": "Will Bitcoin reach $70,000 March 30-April 5?",
-        "price": 0.84,
-        "volume_7d": 30232.27,
-        "venue": "polymarket",
-        "end_date": "2026-04-06"
-      },
-      {
-        "question": "Will the price of Bitcoin be between $66,000 and $68,000 on April 1?",
-        "price": 0.16,
-        "volume_7d": 27859.79,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be between $68,000 and $70,000 on April 1?",
-        "price": 0.575,
-        "volume_7d": 25394.14,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $70,000 on March 31?",
-        "price": 0.0005,
-        "volume_7d": 24725.46,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin be below $60000.00 by Jan 1, 2027 at 12:00am ET?",
-        "price": 0.78,
-        "volume_7d": 22964.76,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $72,000 on April 2?",
-        "price": 0.0955,
-        "volume_7d": 22727.65,
-        "venue": "polymarket",
-        "end_date": "2026-04-02"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $56,000 on April 3?",
-        "price": 0.9955,
-        "volume_7d": 22195.43,
-        "venue": "polymarket",
-        "end_date": "2026-04-03"
-      },
-      {
-        "question": "Will Bitcoin be below $40000.00 by Jan 1, 2027 at 12:00am ET?",
-        "price": 0.32,
-        "volume_7d": 21940.8,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be between $62,000 and $64,000 on April 1?",
-        "price": 0.002,
-        "volume_7d": 21921.93,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $58,000 on April 4?",
-        "price": 0.9935,
-        "volume_7d": 18653.96,
-        "venue": "polymarket",
-        "end_date": "2026-04-04"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $60,000 on April 4?",
-        "price": 0.9835,
-        "volume_7d": 18413.57,
-        "venue": "polymarket",
-        "end_date": "2026-04-04"
-      },
-      {
-        "question": "Will Bitcoin reach $120,000 by December 31, 2026?",
-        "price": 0.175,
-        "volume_7d": 18337.2,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be between $78,000 and $80,000 on April 1?",
-        "price": 0.0005,
-        "volume_7d": 17571.06,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be between $64,000 and $66,000 on April 1?",
-        "price": 0.0135,
-        "volume_7d": 17209.53,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $56,000 on April 5?",
-        "price": 0.993,
-        "volume_7d": 16994.29,
-        "venue": "polymarket",
-        "end_date": "2026-04-05"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $58,000 on April 3?",
-        "price": 0.9955,
-        "volume_7d": 16658.15,
-        "venue": "polymarket",
-        "end_date": "2026-04-03"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $62,000 on April 3?",
-        "price": 0.9795,
-        "volume_7d": 16554.32,
-        "venue": "polymarket",
-        "end_date": "2026-04-03"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $66,000 on April 3?",
-        "price": 0.875,
-        "volume_7d": 15015.84,
-        "venue": "polymarket",
-        "end_date": "2026-04-03"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $60,000 on April 5?",
-        "price": 0.9765,
-        "volume_7d": 14787.8,
-        "venue": "polymarket",
-        "end_date": "2026-04-05"
-      },
-      {
-        "question": "Will the price of Bitcoin be greater than $80,000 on April 1?",
-        "price": 0.0005,
-        "volume_7d": 14746.01,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $80,000 March 30-April 5?",
-        "price": 0.0205,
-        "volume_7d": 14035.95,
-        "venue": "polymarket",
-        "end_date": "2026-04-06"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $58,000 on April 5?",
-        "price": 0.9845,
-        "volume_7d": 13980.83,
-        "venue": "polymarket",
-        "end_date": "2026-04-05"
-      },
-      {
-        "question": "Will Bitcoin reach $150,000 by December 31, 2026?",
-        "price": 0.085,
-        "volume_7d": 13812.04,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $110,000 by December 31, 2026?",
-        "price": 0.215,
-        "volume_7d": 13746.34,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $71,000 on March 31?",
-        "price": 0.0005,
-        "volume_7d": 13154.07,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be between $72,000 and $74,000 on April 1?",
-        "price": 0.0175,
-        "volume_7d": 12896.0,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be between $70,000 and $72,000 on April 1?",
-        "price": 0.2285,
-        "volume_7d": 12744.77,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $130,000 by December 31, 2026?",
-        "price": 0.13,
-        "volume_7d": 12712.73,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $66,000 on April 2?",
-        "price": 0.92,
-        "volume_7d": 12447.41,
-        "venue": "polymarket",
-        "end_date": "2026-04-02"
-      },
-      {
-        "question": "Will the price of Bitcoin be less than $60,000 on April 2?",
-        "price": 0.004,
-        "volume_7d": 12347.24,
-        "venue": "polymarket",
-        "end_date": "2026-04-02"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $74,000 on April 2?",
-        "price": 0.0315,
-        "volume_7d": 12141.35,
-        "venue": "polymarket",
-        "end_date": "2026-04-02"
-      },
-      {
-        "question": "Will Bitcoin reach $160,000 by December 31, 2026?",
-        "price": 0.075,
-        "volume_7d": 12099.08,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $70,000 on April 2?",
-        "price": 0.35,
-        "volume_7d": 11398.12,
-        "venue": "polymarket",
-        "end_date": "2026-04-02"
-      },
-      {
         "question": "Will the price of Bitcoin be above $64,000 on April 3?",
-        "price": 0.955,
-        "volume_7d": 11071.6,
+        "price": 0.8825,
+        "volume_7d": 35554.96,
         "venue": "polymarket",
         "end_date": "2026-04-03"
       },
       {
-        "question": "Will Bitcoin be above $100000 by October 1, 2026 at 12:00AM ET?",
-        "price": 0.22,
-        "volume_7d": 10966.34,
-        "venue": "kalshi",
-        "end_date": "2026-10-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $62,000 on April 5?",
-        "price": 0.9615,
-        "volume_7d": 10642.49,
+        "question": "Will the price of Bitcoin be between $76,000 and $78,000 on April 2?",
+        "price": 0.0005,
+        "volume_7d": 35232.38,
         "venue": "polymarket",
-        "end_date": "2026-04-05"
+        "end_date": "2026-04-02"
       },
       {
-        "question": "Will the price of Bitcoin be above $64,000 on April 4?",
-        "price": 0.935,
-        "volume_7d": 10491.69,
+        "question": "Will the price of Bitcoin be above $70,000 on April 3?",
+        "price": 0.0405,
+        "volume_7d": 33813.33,
         "venue": "polymarket",
-        "end_date": "2026-04-04"
+        "end_date": "2026-04-03"
       },
       {
-        "question": "Will the price of Bitcoin be above $68,000 on April 2?",
-        "price": 0.695,
-        "volume_7d": 10181.04,
+        "question": "Will the price of Bitcoin be between $66,000 and $68,000 on April 2?",
+        "price": 0.615,
+        "volume_7d": 32162.32,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be between $72,000 and $74,000 on April 2?",
+        "price": 0.0055,
+        "volume_7d": 30031.42,
         "venue": "polymarket",
         "end_date": "2026-04-02"
       },
       {
         "question": "Will the price of Bitcoin be greater than $78,000 on April 2?",
         "price": 0.0005,
-        "volume_7d": 10139.57,
+        "volume_7d": 28441.61,
         "venue": "polymarket",
         "end_date": "2026-04-02"
       },
       {
-        "question": "Will the price of Bitcoin be above $62,000 on April 4?",
-        "price": 0.9715,
-        "volume_7d": 9910.34,
+        "question": "Will the price of Bitcoin be above $76,000 on April 3?",
+        "price": 0.0005,
+        "volume_7d": 27352.75,
+        "venue": "polymarket",
+        "end_date": "2026-04-03"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $56,000 on April 5?",
+        "price": 0.993,
+        "volume_7d": 23259.03,
+        "venue": "polymarket",
+        "end_date": "2026-04-05"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $60,000 on April 4?",
+        "price": 0.9745,
+        "volume_7d": 23254.17,
         "venue": "polymarket",
         "end_date": "2026-04-04"
       },
       {
-        "question": "Will Bitcoin reach $74,000 on March 31?",
-        "price": 0.0005,
-        "volume_7d": 9812.24,
-        "venue": "polymarket",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Bitcoin reach $140,000 by December 31, 2026?",
-        "price": 0.095,
-        "volume_7d": 9719.69,
+        "question": "Will Bitcoin reach $110,000 by December 31, 2026?",
+        "price": 0.165,
+        "volume_7d": 22848.13,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
-        "question": "Will the price of Bitcoin be between $76,000 and $78,000 on April 1?",
-        "price": 0.0005,
-        "volume_7d": 9631.28,
+        "question": "Will the price of Bitcoin be above $62,000 on April 4?",
+        "price": 0.936,
+        "volume_7d": 21901.61,
         "venue": "polymarket",
-        "end_date": "2026-04-01"
+        "end_date": "2026-04-04"
       },
       {
-        "question": "Will Bitcoin be below $50000.00 by Jan 1, 2027 at 12:00am ET?",
-        "price": 0.58,
-        "volume_7d": 9597.84,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $70,000 on April 3?",
-        "price": 0.39,
-        "volume_7d": 9542.12,
+        "question": "Will the price of Bitcoin be above $66,000 on April 3?",
+        "price": 0.625,
+        "volume_7d": 21590.04,
         "venue": "polymarket",
         "end_date": "2026-04-03"
       },
       {
-        "question": "Will Bitcoin be above $100000 by June 1, 2026 at 12:00AM ET?",
-        "price": 0.09,
-        "volume_7d": 9432.99,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be above $100000.00 by Jan 1, 2027 at 12:00AM ET?",
-        "price": 0.32,
-        "volume_7d": 8599.36,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be above $99,999.99 by Dec 31, 2026 at 11:59 PM ET?",
-        "price": 0.35,
-        "volume_7d": 8222.2,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $58,000 on April 6?",
-        "price": 0.982,
-        "volume_7d": 7845.77,
+        "question": "Will Bitcoin reach $120,000 by December 31, 2026?",
+        "price": 0.135,
+        "volume_7d": 21206.78,
         "venue": "polymarket",
-        "end_date": "2026-04-06"
+        "end_date": "2027-01-01"
       },
       {
-        "question": "Will the price of Bitcoin be above $76,000 on April 2?",
-        "price": 0.0115,
-        "volume_7d": 7842.42,
+        "question": "Will the price of Bitcoin be between $68,000 and $70,000 on April 2?",
+        "price": 0.115,
+        "volume_7d": 20883.26,
         "venue": "polymarket",
         "end_date": "2026-04-02"
       },
       {
-        "question": "Will the price of Bitcoin be above $60,000 on April 6?",
-        "price": 0.976,
-        "volume_7d": 7598.85,
+        "question": "Will the price of Bitcoin be above $58,000 on April 4?",
+        "price": 0.9855,
+        "volume_7d": 20844.94,
         "venue": "polymarket",
-        "end_date": "2026-04-06"
+        "end_date": "2026-04-04"
+      },
+      {
+        "question": "Will the price of Bitcoin be between $74,000 and $76,000 on April 2?",
+        "price": 0.0005,
+        "volume_7d": 18715.32,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $60,000 on April 5?",
+        "price": 0.9695,
+        "volume_7d": 18374.15,
+        "venue": "polymarket",
+        "end_date": "2026-04-05"
+      },
+      {
+        "question": "Will Bitcoin reach $150,000 by December 31, 2026?",
+        "price": 0.095,
+        "volume_7d": 17929.48,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will the price of Bitcoin be between $60,000 and $62,000 on April 2?",
+        "price": 0.0075,
+        "volume_7d": 16607.6,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be between $64,000 and $66,000 on April 2?",
+        "price": 0.2395,
+        "volume_7d": 15048.64,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $62,000 on April 5?",
+        "price": 0.936,
+        "volume_7d": 14796.98,
+        "venue": "polymarket",
+        "end_date": "2026-04-05"
+      },
+      {
+        "question": "Will the price of Bitcoin be between $70,000 and $72,000 on April 2?",
+        "price": 0.006,
+        "volume_7d": 14275.0,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $58,000 on April 5?",
+        "price": 0.9885,
+        "volume_7d": 14194.17,
+        "venue": "polymarket",
+        "end_date": "2026-04-05"
       },
       {
         "question": "Will the price of Bitcoin be above $74,000 on April 3?",
-        "price": 0.053,
-        "volume_7d": 7335.19,
+        "price": 0.0025,
+        "volume_7d": 13717.28,
         "venue": "polymarket",
         "end_date": "2026-04-03"
       },
       {
+        "question": "Will Bitcoin reach $160,000 by December 31, 2026?",
+        "price": 0.075,
+        "volume_7d": 13250.17,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $66,000 on April 4?",
+        "price": 0.605,
+        "volume_7d": 12812.38,
+        "venue": "polymarket",
+        "end_date": "2026-04-04"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $72,000 on April 3?",
+        "price": 0.0055,
+        "volume_7d": 12800.08,
+        "venue": "polymarket",
+        "end_date": "2026-04-03"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $64,000 on April 4?",
+        "price": 0.835,
+        "volume_7d": 12727.19,
+        "venue": "polymarket",
+        "end_date": "2026-04-04"
+      },
+      {
+        "question": "Will Bitcoin reach $140,000 by December 31, 2026?",
+        "price": 0.105,
+        "volume_7d": 11935.08,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $130,000 by December 31, 2026?",
+        "price": 0.135,
+        "volume_7d": 11653.99,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $60,000 on April 6?",
+        "price": 0.949,
+        "volume_7d": 11403.07,
+        "venue": "polymarket",
+        "end_date": "2026-04-06"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $68,000 on April 3?",
+        "price": 0.245,
+        "volume_7d": 10589.2,
+        "venue": "polymarket",
+        "end_date": "2026-04-03"
+      },
+      {
+        "question": "Will Bitcoin reach $190,000 by December 31, 2026?",
+        "price": 0.055,
+        "volume_7d": 10535.64,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will the price of Bitcoin be greater than $76,000 on April 3?",
+        "price": 0.001,
+        "volume_7d": 10354.06,
+        "venue": "polymarket",
+        "end_date": "2026-04-03"
+      },
+      {
+        "question": "Will the price of Bitcoin be between $62,000 and $64,000 on April 2?",
+        "price": 0.027,
+        "volume_7d": 9840.71,
+        "venue": "polymarket",
+        "end_date": "2026-04-02"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $68,000 on April 4?",
+        "price": 0.295,
+        "volume_7d": 9172.92,
+        "venue": "polymarket",
+        "end_date": "2026-04-04"
+      },
+      {
+        "question": "Will the price of Bitcoin be less than $58,000 on April 5?",
+        "price": 0.01,
+        "volume_7d": 8807.26,
+        "venue": "polymarket",
+        "end_date": "2026-04-05"
+      },
+      {
+        "question": "Will Bitcoin reach $170,000 by December 31, 2026?",
+        "price": 0.075,
+        "volume_7d": 8647.56,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will the price of Bitcoin be less than $58,000 on April 3?",
+        "price": 0.0095,
+        "volume_7d": 8634.96,
+        "venue": "polymarket",
+        "end_date": "2026-04-03"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $60,000 on April 7?",
+        "price": 0.94,
+        "volume_7d": 8548.65,
+        "venue": "polymarket",
+        "end_date": "2026-04-07"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $72,000 on April 5?",
+        "price": 0.032,
+        "volume_7d": 8245.59,
+        "venue": "polymarket",
+        "end_date": "2026-04-05"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $58,000 on April 6?",
+        "price": 0.9795,
+        "volume_7d": 8215.37,
+        "venue": "polymarket",
+        "end_date": "2026-04-06"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $66,000 on April 5?",
+        "price": 0.595,
+        "volume_7d": 8152.26,
+        "venue": "polymarket",
+        "end_date": "2026-04-05"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $76,000 on April 5?",
+        "price": 0.0015,
+        "volume_7d": 7949.24,
+        "venue": "polymarket",
+        "end_date": "2026-04-05"
+      },
+      {
         "question": "Will the price of Bitcoin be above $68,000 on April 5?",
-        "price": 0.645,
-        "volume_7d": 7194.65,
+        "price": 0.335,
+        "volume_7d": 7850.06,
+        "venue": "polymarket",
+        "end_date": "2026-04-05"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $64,000 on April 5?",
+        "price": 0.805,
+        "volume_7d": 7716.36,
+        "venue": "polymarket",
+        "end_date": "2026-04-05"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $70,000 on April 4?",
+        "price": 0.09,
+        "volume_7d": 7530.12,
+        "venue": "polymarket",
+        "end_date": "2026-04-04"
+      },
+      {
+        "question": "Will the price of Bitcoin be above $70,000 on April 5?",
+        "price": 0.12,
+        "volume_7d": 7373.16,
         "venue": "polymarket",
         "end_date": "2026-04-05"
       },
       {
         "question": "Will Bitcoin hit $150k by June 30, 2026?",
         "price": 0.017,
-        "volume_7d": 6998.86,
+        "volume_7d": 6971.01,
         "venue": "polymarket",
         "end_date": "2026-07-01"
       },
       {
-        "question": "Will the price of Bitcoin be above $72,000 on April 3?",
-        "price": 0.16,
-        "volume_7d": 6793.17,
+        "question": "Will the price of Bitcoin be above $56,000 on April 7?",
+        "price": 0.9855,
+        "volume_7d": 6064.66,
         "venue": "polymarket",
-        "end_date": "2026-04-03"
+        "end_date": "2026-04-07"
       },
       {
-        "question": "Will the price of Bitcoin be less than $58,000 on April 5?",
-        "price": 0.0115,
-        "volume_7d": 6643.77,
+        "question": "Will Bitcoin reach $150,000 in April?",
+        "price": 0.0045,
+        "volume_7d": 5993.5,
         "venue": "polymarket",
-        "end_date": "2026-04-05"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $70,000 on April 4?",
-        "price": 0.405,
-        "volume_7d": 6488.91,
-        "venue": "polymarket",
-        "end_date": "2026-04-04"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $64,000 on April 5?",
-        "price": 0.92,
-        "volume_7d": 6186.61,
-        "venue": "polymarket",
-        "end_date": "2026-04-05"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $68,000 on April 4?",
-        "price": 0.65,
-        "volume_7d": 6146.93,
-        "venue": "polymarket",
-        "end_date": "2026-04-04"
-      },
-      {
-        "question": "Will the price of Bitcoin be above $68,000 on April 3?",
-        "price": 0.67,
-        "volume_7d": 5848.14,
-        "venue": "polymarket",
-        "end_date": "2026-04-03"
-      },
-      {
-        "question": "Will Bitcoin reach $170,000 by December 31, 2026?",
-        "price": 0.065,
-        "volume_7d": 5773.38,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be above $109,999.99 by Dec 31, 2026 at 11:59 PM ET?",
-        "price": 0.24,
-        "volume_7d": 5305.44,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $190,000 by December 31, 2026?",
-        "price": 0.055,
-        "volume_7d": 5045.75,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Bitcoin price range  on Apr 3, 2026?",
-        "price": 0,
-        "volume_7d": 3567.9,
-        "venue": "kalshi",
-        "end_date": "2026-04-03"
-      },
-      {
-        "question": "Bitcoin price range  on Apr 1, 2026?",
-        "price": 0,
-        "volume_7d": 2000.64,
-        "venue": "kalshi",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Bitcoin price range  on Apr 1, 2026?",
-        "price": 0,
-        "volume_7d": 293.81,
-        "venue": "kalshi",
-        "end_date": "2026-04-01"
+        "end_date": "2026-05-01"
       }
     ],
     "tenors": [
       {
-        "date": "2026-04-01",
-        "market_count": 90,
-        "total_volume": 12085401.51,
-        "median": 69144.84,
-        "p10": 67069.77,
-        "p25": 68277.54,
-        "p75": 70030.3,
-        "p90": 71329.0,
-        "median_vs_spot": 0.0,
-        "key_levels": [],
-        "narrative": "Prediction markets show minimal near-term directional conviction, with the median at $69,145 essentially flat to spot across 90 markets with $12.1M in volume. The interquartile range of $68,278-$70,030 reflects tight uncertainty, with 80% of outcomes bounded between $67,070 and $71,329."
-      },
-      {
         "date": "2026-04-02",
-        "market_count": 90,
-        "total_volume": 12085401.51,
-        "median": 69130.43,
-        "p10": 66177.78,
-        "p25": 67511.11,
-        "p75": 70785.85,
-        "p90": 71964.64,
-        "median_vs_spot": -0.0,
+        "market_count": 64,
+        "total_volume": 3211674.65,
+        "median": 66779.92,
+        "p10": 64627.91,
+        "p25": 66007.72,
+        "p75": 67552.12,
+        "p90": 68100.5,
+        "median_vs_spot": 0.2,
         "key_levels": [],
-        "narrative": "Markets maintain flat positioning at $69,130 median, suggesting one-day price forecasts are anchored to current levels with similar distribution width as April 1st. The 10th-90th range expands modestly to $66,178-$71,965, indicating marginally increased tail risk."
+        "narrative": "Prediction markets show minimal upside expectation for April 2, with the median at $66,780 (+0.2%), suggesting near-flat consolidation from current levels. The interquartile range ($66,008-$67,552) indicates 50% of probability mass within \u00b11.2% of spot, though the 10th percentile at $64,628 reflects meaningful downside tail risk."
       },
       {
         "date": "2026-04-03",
-        "market_count": 90,
-        "total_volume": 12085401.51,
-        "median": 69214.29,
-        "p10": 65375.0,
-        "p25": 67219.51,
-        "p75": 71217.39,
-        "p90": 73121.5,
-        "median_vs_spot": 0.1,
+        "market_count": 64,
+        "total_volume": 3211674.65,
+        "median": 66657.89,
+        "p10": 63580.84,
+        "p25": 65029.13,
+        "p75": 67973.68,
+        "p90": 69418.09,
+        "median_vs_spot": 0.0,
         "key_levels": [],
-        "narrative": "A modest upside bias emerges with the median rising to $69,214 (+0.1%), though conviction remains limited as the interquartile range ($67,220-$71,217) shows comparable dispersion. The expanded 90th percentile to $73,122 suggests some market participants pricing in larger rallies within this short window."
+        "narrative": "Markets assign virtually no directional bias for April 3, with the median flat at $66,658 and the widest range distribution of the three tenors. The 90th percentile reaches $69,418 while the 10th percentile drops to $63,581, indicating elevated uncertainty with tail probabilities distributed across a ~$5,837 range."
       },
       {
         "date": "2026-04-04",
-        "market_count": 90,
-        "total_volume": 12085401.51,
-        "median": 69224.49,
-        "p10": 64491.23,
-        "p25": 66596.49,
-        "p75": 70000.0,
-        "p90": 70000.0,
+        "market_count": 64,
+        "total_volume": 3211674.65,
+        "median": 66677.42,
+        "p10": 62712.87,
+        "p25": 64739.13,
+        "p75": 68439.02,
+        "p90": 69902.44,
         "median_vs_spot": 0.1,
         "key_levels": [],
-        "narrative": "Markets show near-flat expectations at $69,224 median with a notably compressed upper bound, as the 75th and 90th percentiles both anchor at $70,000. This suggests diminishing probability of significant upside moves and potential technical resistance at the $70K level."
-      },
-      {
-        "date": "2026-12-31",
-        "market_count": 0,
-        "total_volume": 0,
-        "median": 47142.86,
-        "p10": 40000.0,
-        "p25": 40000.0,
-        "p75": 58500.0,
-        "p90": 109999.0,
-        "median_vs_spot": -31.8,
-        "key_levels": [],
-        "narrative": "Year-end 2026 forecasts show sharply bearish positioning with a median of $47,143 (-31.8% from spot) and significant fragmentation\u2014the 25th percentile at $40,000 implies roughly 25% tail risk to sub-$40K levels, while the 90th percentile extends to $109,999, indicating bifurcated market views on longer-term outcomes. Note: zero markets reported for this tenor despite inclusion, warranting caution on the reliability of this projection."
+        "narrative": "April 4 shows similar rangebound sentiment to prior dates, with the median at $66,677 (+0.1%), though the 90th percentile expands to $69,902 and the 10th percentile contracts to $62,713. Across all three tenors, markets are pricing in low volatility and no clear directional conviction over the 2-4 day window."
       }
     ]
   },
   "OIL": {
     "label": "Crude Oil (WTI)",
     "unit": "$",
-    "current_price": 97.142,
+    "current_price": 105.98,
     "spot_prices": [
-      {
-        "date": "2026-03-02",
-        "open": 72.052,
-        "high": 73.393,
-        "low": 69.406,
-        "close": 70.984,
-        "volume": 1542333.991
-      },
       {
         "date": "2026-03-03",
         "open": 70.984,
@@ -1815,9 +1387,17 @@
         "date": "2026-04-01",
         "open": 101.38,
         "high": 103.19,
-        "low": 96.539,
-        "close": 97.142,
-        "volume": 1886234.282
+        "low": 96.386,
+        "close": 98.825,
+        "volume": 8431588.74
+      },
+      {
+        "date": "2026-04-02",
+        "open": 98.77,
+        "high": 106.66,
+        "low": 97.47,
+        "close": 105.98,
+        "volume": 3605485.044
       }
     ],
     "band_step": 5,
@@ -1833,8 +1413,8 @@
           "level": 40.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.0165,
-              "vol": 39186.44,
+              "prob": 0.0255,
+              "vol": 39245.89,
               "sources": 1,
               "type": "below"
             }
@@ -1844,8 +1424,8 @@
           "level": 45.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.021,
-              "vol": 10364.86,
+              "prob": 0.019,
+              "vol": 11185.4,
               "sources": 1,
               "type": "below"
             }
@@ -1856,13 +1436,24 @@
           "dates": {
             "2026-04-30": {
               "prob": 0.007,
-              "vol": 16448.55,
+              "vol": 18942.22,
               "sources": 1,
               "type": "below"
             },
             "2026-06-30": {
-              "prob": 0.0445,
-              "vol": 5125.22,
+              "prob": 0.0335,
+              "vol": 5771.25,
+              "sources": 1,
+              "type": "below"
+            }
+          }
+        },
+        {
+          "level": 52.0,
+          "dates": {
+            "2026-06-30": {
+              "prob": 0.045,
+              "vol": 6471.61,
               "sources": 1,
               "type": "below"
             }
@@ -1872,8 +1463,8 @@
           "level": 55.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.085,
-              "vol": 5130.77,
+              "prob": 0.07,
+              "vol": 5115.76,
               "sources": 1,
               "type": "below"
             }
@@ -1883,8 +1474,8 @@
           "level": 60.0,
           "dates": {
             "2026-04-30": {
-              "prob": 0.0225,
-              "vol": 9802.96,
+              "prob": 0.0095,
+              "vol": 31216.5,
               "sources": 1,
               "type": "below"
             }
@@ -1894,8 +1485,8 @@
           "level": 70.0,
           "dates": {
             "2026-04-30": {
-              "prob": 0.105,
-              "vol": 33990.05,
+              "prob": 0.065,
+              "vol": 81494.93,
               "sources": 1,
               "type": "below"
             }
@@ -1905,8 +1496,14 @@
           "level": 80.0,
           "dates": {
             "2026-04-30": {
-              "prob": 0.295,
-              "vol": 16364.52,
+              "prob": 0.2,
+              "vol": 39790.35,
+              "sources": 1,
+              "type": "below"
+            },
+            "2026-06-30": {
+              "prob": 0.54,
+              "vol": 5693.01,
               "sources": 1,
               "type": "below"
             }
@@ -1916,32 +1513,10 @@
           "level": 85.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.685,
-              "vol": 8530.24,
+              "prob": 0.625,
+              "vol": 10262.49,
               "sources": 1,
               "type": "below"
-            }
-          }
-        },
-        {
-          "level": 90.0,
-          "dates": {
-            "2026-04-30": {
-              "prob": 0.9985,
-              "vol": 87196.35,
-              "sources": 1,
-              "type": "above"
-            }
-          }
-        },
-        {
-          "level": 100.0,
-          "dates": {
-            "2026-04-30": {
-              "prob": 0.9885,
-              "vol": 186592.91,
-              "sources": 1,
-              "type": "above"
             }
           }
         },
@@ -1949,8 +1524,8 @@
           "level": 105.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.735,
-              "vol": 21969.49,
+              "prob": 0.954,
+              "vol": 33649.94,
               "sources": 1,
               "type": "above"
             }
@@ -1960,14 +1535,14 @@
           "level": 110.0,
           "dates": {
             "2026-04-30": {
-              "prob": 0.585,
-              "vol": 57209.58,
+              "prob": 0.835,
+              "vol": 118804.84,
               "sources": 1,
               "type": "above"
             },
             "2026-06-30": {
-              "prob": 0.685,
-              "vol": 12676.41,
+              "prob": 0.855,
+              "vol": 18135.28,
               "sources": 1,
               "type": "above"
             }
@@ -1977,8 +1552,8 @@
           "level": 115.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.625,
-              "vol": 5217.46,
+              "prob": 0.695,
+              "vol": 7061.27,
               "sources": 1,
               "type": "above"
             }
@@ -1988,14 +1563,14 @@
           "level": 120.0,
           "dates": {
             "2026-04-30": {
-              "prob": 0.395,
-              "vol": 55115.09,
+              "prob": 0.495,
+              "vol": 105271.31,
               "sources": 1,
               "type": "above"
             },
             "2026-06-30": {
-              "prob": 0.46,
-              "vol": 11696.82,
+              "prob": 0.57,
+              "vol": 13735.49,
               "sources": 1,
               "type": "above"
             }
@@ -2005,14 +1580,14 @@
           "level": 130.0,
           "dates": {
             "2026-04-30": {
-              "prob": 0.21,
-              "vol": 51715.95,
+              "prob": 0.32,
+              "vol": 76131.19,
               "sources": 1,
               "type": "above"
             },
             "2026-06-30": {
-              "prob": 0.345,
-              "vol": 13898.01,
+              "prob": 0.44,
+              "vol": 15420.96,
               "sources": 1,
               "type": "above"
             }
@@ -2022,14 +1597,14 @@
           "level": 140.0,
           "dates": {
             "2026-04-30": {
-              "prob": 0.13,
-              "vol": 64524.93,
+              "prob": 0.165,
+              "vol": 106140.64,
               "sources": 1,
               "type": "above"
             },
             "2026-06-30": {
-              "prob": 0.26,
-              "vol": 12274.65,
+              "prob": 0.3,
+              "vol": 16333.76,
               "sources": 1,
               "type": "above"
             }
@@ -2039,14 +1614,36 @@
           "level": 150.0,
           "dates": {
             "2026-04-30": {
-              "prob": 0.085,
-              "vol": 118285.17,
+              "prob": 0.105,
+              "vol": 199271.55,
               "sources": 1,
               "type": "above"
             },
             "2026-06-30": {
-              "prob": 0.19,
-              "vol": 75821.22,
+              "prob": 0.235,
+              "vol": 127356.63,
+              "sources": 1,
+              "type": "above"
+            }
+          }
+        },
+        {
+          "level": 160.0,
+          "dates": {
+            "2026-04-30": {
+              "prob": 0.056,
+              "vol": 31323.41,
+              "sources": 1,
+              "type": "above"
+            }
+          }
+        },
+        {
+          "level": 170.0,
+          "dates": {
+            "2026-04-30": {
+              "prob": 0.03,
+              "vol": 20626.15,
               "sources": 1,
               "type": "above"
             }
@@ -2056,8 +1653,8 @@
           "level": 175.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.13,
-              "vol": 51873.62,
+              "prob": 0.095,
+              "vol": 52368.68,
               "sources": 1,
               "type": "above"
             }
@@ -2067,14 +1664,14 @@
           "level": 200.0,
           "dates": {
             "2026-04-30": {
-              "prob": 0.0165,
-              "vol": 14239.22,
+              "prob": 0.015,
+              "vol": 64510.84,
               "sources": 1,
               "type": "above"
             },
             "2026-06-30": {
-              "prob": 0.095,
-              "vol": 278121.19,
+              "prob": 0.075,
+              "vol": 286594.21,
               "sources": 1,
               "type": "above"
             }
@@ -2084,243 +1681,215 @@
     },
     "fan": {
       "2026-04-30": {
-        "p10": 69.39,
-        "p25": 77.63,
-        "p50": 114.47,
-        "p75": 127.84,
-        "p90": 146.67
+        "p10": 72.59,
+        "p25": 112.5,
+        "p50": 119.85,
+        "p75": 134.52,
+        "p90": 151.02
       },
       "2026-06-30": {
-        "p10": 55.75,
-        "p25": 63.25,
-        "p50": 75.75,
-        "p75": 141.43,
-        "p90": 196.43
+        "p10": 56.6,
+        "p25": 64.57,
+        "p50": 77.87,
+        "p75": 147.69,
+        "p90": 174.11
       }
     },
-    "market_count": 32,
+    "market_count": 28,
     "markets": [
       {
-        "question": "Will the WTI front-month settle oil price  be >99.99 on Apr 1, 2026?",
-        "price": 0,
-        "volume_7d": 588346.25,
-        "venue": "kalshi",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the maximum WTI front month settle price reach $200.01 by Dec 31, 2026?",
-        "price": 0,
-        "volume_7d": 350689.05,
-        "venue": "kalshi",
-        "end_date": "2026-12-31"
-      },
-      {
         "question": "Will Crude Oil (CL) hit (HIGH) $200 by end of June?",
-        "price": 0.095,
-        "volume_7d": 278121.19,
+        "price": 0.075,
+        "volume_7d": 286594.21,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
-        "question": "Will WTI Crude Oil (WTI) hit (HIGH) $100 in April?",
-        "price": 0.9885,
-        "volume_7d": 186592.91,
-        "venue": "polymarket",
-        "end_date": "2026-05-01"
-      },
-      {
         "question": "Will WTI Crude Oil (WTI) hit (HIGH) $150 in April?",
-        "price": 0.085,
-        "volume_7d": 118285.17,
-        "venue": "polymarket",
-        "end_date": "2026-05-01"
-      },
-      {
-        "question": "Will WTI Crude Oil (WTI) hit (HIGH) $90 in April?",
-        "price": 0.9985,
-        "volume_7d": 87196.35,
+        "price": 0.105,
+        "volume_7d": 199271.55,
         "venue": "polymarket",
         "end_date": "2026-05-01"
       },
       {
         "question": "Will Crude Oil (CL) hit (HIGH) $150 by end of June?",
-        "price": 0.19,
-        "volume_7d": 75821.22,
+        "price": 0.235,
+        "volume_7d": 127356.63,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
-        "question": "Will the WTI front-month settle oil price  be <94.00 on Apr 3, 2026?",
-        "price": 0,
-        "volume_7d": 66171.93,
-        "venue": "kalshi",
-        "end_date": "2026-04-03"
-      },
-      {
-        "question": "Will WTI Crude Oil (WTI) hit (HIGH) $140 in April?",
-        "price": 0.13,
-        "volume_7d": 64524.93,
+        "question": "Will WTI Crude Oil (WTI) hit (HIGH) $110 in April?",
+        "price": 0.835,
+        "volume_7d": 118804.84,
         "venue": "polymarket",
         "end_date": "2026-05-01"
       },
       {
-        "question": "Will WTI Crude Oil (WTI) hit (HIGH) $110 in April?",
-        "price": 0.585,
-        "volume_7d": 57209.58,
+        "question": "Will WTI Crude Oil (WTI) hit (HIGH) $140 in April?",
+        "price": 0.165,
+        "volume_7d": 106140.64,
         "venue": "polymarket",
         "end_date": "2026-05-01"
       },
       {
         "question": "Will WTI Crude Oil (WTI) hit (HIGH) $120 in April?",
-        "price": 0.395,
-        "volume_7d": 55115.09,
+        "price": 0.495,
+        "volume_7d": 105271.31,
         "venue": "polymarket",
         "end_date": "2026-05-01"
-      },
-      {
-        "question": "Will Crude Oil (CL) hit (HIGH) $175 by end of June?",
-        "price": 0.13,
-        "volume_7d": 51873.62,
-        "venue": "polymarket",
-        "end_date": "2026-06-30"
-      },
-      {
-        "question": "Will WTI Crude Oil (WTI) hit (HIGH) $130 in April?",
-        "price": 0.21,
-        "volume_7d": 51715.95,
-        "venue": "polymarket",
-        "end_date": "2026-05-01"
-      },
-      {
-        "question": "Will the brent crude oil close price be above $99.99 on Apr 3, 2026 at 5pm EDT?",
-        "price": 0,
-        "volume_7d": 48443.52,
-        "venue": "kalshi",
-        "end_date": "2026-04-03"
-      },
-      {
-        "question": "Will the WTI front-month settle oil price  be >99.99 on Apr 2, 2026?",
-        "price": 0,
-        "volume_7d": 45999.74,
-        "venue": "kalshi",
-        "end_date": "2026-04-02"
-      },
-      {
-        "question": "Will Crude Oil (CL) hit (LOW) $40 by end of June?",
-        "price": 0.0165,
-        "volume_7d": 39186.44,
-        "venue": "polymarket",
-        "end_date": "2026-06-30"
       },
       {
         "question": "Will WTI Crude Oil (WTI) hit (LOW) $70 in April?",
-        "price": 0.105,
-        "volume_7d": 33990.05,
+        "price": 0.065,
+        "volume_7d": 81494.93,
         "venue": "polymarket",
         "end_date": "2026-05-01"
       },
       {
-        "question": "Will the brent crude oil close price be above $121.50 on Apr 1, 2026 at 5pm EDT?",
-        "price": 0,
-        "volume_7d": 25955.25,
-        "venue": "kalshi",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will Crude Oil (CL) hit (HIGH) $105 by end of June?",
-        "price": 0.735,
-        "volume_7d": 21969.49,
-        "venue": "polymarket",
-        "end_date": "2026-06-30"
-      },
-      {
-        "question": "Will WTI Crude Oil (WTI) hit (LOW) $50 in April?",
-        "price": 0.007,
-        "volume_7d": 16448.55,
-        "venue": "polymarket",
-        "end_date": "2026-05-01"
-      },
-      {
-        "question": "Will WTI Crude Oil (WTI) hit (LOW) $80 in April?",
-        "price": 0.295,
-        "volume_7d": 16364.52,
+        "question": "Will WTI Crude Oil (WTI) hit (HIGH) $130 in April?",
+        "price": 0.32,
+        "volume_7d": 76131.19,
         "venue": "polymarket",
         "end_date": "2026-05-01"
       },
       {
         "question": "Will WTI Crude Oil (WTI) hit (HIGH) $200 in April?",
-        "price": 0.0165,
-        "volume_7d": 14239.22,
+        "price": 0.015,
+        "volume_7d": 64510.84,
         "venue": "polymarket",
         "end_date": "2026-05-01"
       },
       {
-        "question": "Will Crude Oil (CL) hit (HIGH) $130 by end of June?",
-        "price": 0.345,
-        "volume_7d": 13898.01,
+        "question": "Will Crude Oil (CL) hit (HIGH) $175 by end of June?",
+        "price": 0.095,
+        "volume_7d": 52368.68,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
+        "question": "Will WTI Crude Oil (WTI) hit (LOW) $80 in April?",
+        "price": 0.2,
+        "volume_7d": 39790.35,
+        "venue": "polymarket",
+        "end_date": "2026-05-01"
+      },
+      {
+        "question": "Will Crude Oil (CL) hit (LOW) $40 by end of June?",
+        "price": 0.0255,
+        "volume_7d": 39245.89,
+        "venue": "polymarket",
+        "end_date": "2026-06-30"
+      },
+      {
+        "question": "Will Crude Oil (CL) hit (HIGH) $105 by end of June?",
+        "price": 0.954,
+        "volume_7d": 33649.94,
+        "venue": "polymarket",
+        "end_date": "2026-06-30"
+      },
+      {
+        "question": "Will WTI Crude Oil (WTI) hit (HIGH) $160 in April?",
+        "price": 0.056,
+        "volume_7d": 31323.41,
+        "venue": "polymarket",
+        "end_date": "2026-05-01"
+      },
+      {
+        "question": "Will WTI Crude Oil (WTI) hit (LOW) $60 in April?",
+        "price": 0.0095,
+        "volume_7d": 31216.5,
+        "venue": "polymarket",
+        "end_date": "2026-05-01"
+      },
+      {
+        "question": "Will WTI Crude Oil (WTI) hit (HIGH) $170 in April?",
+        "price": 0.03,
+        "volume_7d": 20626.15,
+        "venue": "polymarket",
+        "end_date": "2026-05-01"
+      },
+      {
+        "question": "Will WTI Crude Oil (WTI) hit (LOW) $50 in April?",
+        "price": 0.007,
+        "volume_7d": 18942.22,
+        "venue": "polymarket",
+        "end_date": "2026-05-01"
+      },
+      {
         "question": "Will Crude Oil (CL) hit (HIGH) $110 by end of June?",
-        "price": 0.685,
-        "volume_7d": 12676.41,
+        "price": 0.855,
+        "volume_7d": 18135.28,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Crude Oil (CL) hit (HIGH) $140 by end of June?",
-        "price": 0.26,
-        "volume_7d": 12274.65,
+        "price": 0.3,
+        "volume_7d": 16333.76,
+        "venue": "polymarket",
+        "end_date": "2026-06-30"
+      },
+      {
+        "question": "Will Crude Oil (CL) hit (HIGH) $130 by end of June?",
+        "price": 0.44,
+        "volume_7d": 15420.96,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Crude Oil (CL) hit (HIGH) $120 by end of June?",
-        "price": 0.46,
-        "volume_7d": 11696.82,
+        "price": 0.57,
+        "volume_7d": 13735.49,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Crude Oil (CL) hit (LOW) $45 by end of June?",
-        "price": 0.021,
-        "volume_7d": 10364.86,
+        "price": 0.019,
+        "volume_7d": 11185.4,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
-        "question": "Will WTI Crude Oil (WTI) hit (LOW) $60 in April?",
-        "price": 0.0225,
-        "volume_7d": 9802.96,
-        "venue": "polymarket",
-        "end_date": "2026-05-01"
-      },
-      {
         "question": "Will Crude Oil (CL) hit (LOW) $85 by end of June?",
-        "price": 0.685,
-        "volume_7d": 8530.24,
+        "price": 0.625,
+        "volume_7d": 10262.49,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Crude Oil (CL) hit (HIGH) $115 by end of June?",
-        "price": 0.625,
-        "volume_7d": 5217.46,
+        "price": 0.695,
+        "volume_7d": 7061.27,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
-        "question": "Will Crude Oil (CL) hit (LOW) $55 by end of June?",
-        "price": 0.085,
-        "volume_7d": 5130.77,
+        "question": "Will Crude Oil (CL) hit (LOW) $52 by end of June?",
+        "price": 0.045,
+        "volume_7d": 6471.61,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Crude Oil (CL) hit (LOW) $50 by end of June?",
-        "price": 0.0445,
-        "volume_7d": 5125.22,
+        "price": 0.0335,
+        "volume_7d": 5771.25,
+        "venue": "polymarket",
+        "end_date": "2026-06-30"
+      },
+      {
+        "question": "Will Crude Oil (CL) hit (LOW) $80 by end of June?",
+        "price": 0.54,
+        "volume_7d": 5693.01,
+        "venue": "polymarket",
+        "end_date": "2026-06-30"
+      },
+      {
+        "question": "Will Crude Oil (CL) hit (LOW) $55 by end of June?",
+        "price": 0.07,
+        "volume_7d": 5115.76,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       }
@@ -2328,45 +1897,37 @@
     "tenors": [
       {
         "date": "2026-04-30",
-        "market_count": 5,
-        "total_volume": 774916.69,
-        "median": 114.47,
-        "p10": 69.39,
-        "p25": 77.63,
-        "p75": 127.84,
-        "p90": 146.67,
-        "median_vs_spot": 17.8,
+        "market_count": 0,
+        "total_volume": 0,
+        "median": 119.85,
+        "p10": 72.59,
+        "p25": 112.5,
+        "p75": 134.52,
+        "p90": 151.02,
+        "median_vs_spot": 13.1,
         "key_levels": [],
-        "narrative": "Prediction markets expect WTI to rally to a median of $114 (+17.8%) by end-April 2026, with relatively tight consensus across 5 markets ($774.9M volume). The 25th-75th percentile range of $78-$128 suggests moderate conviction around a near-term recovery, though tail risks extend to $147 on the upside and $69 on the downside."
+        "narrative": "With minimal market activity, prediction markets suggest a median WTI price of $120 (+13.1%), indicating modest upside over the 16-month horizon. The wide distribution (10th percentile at $73, 90th at $151) reflects substantial uncertainty, with roughly equal tail risk to both significantly higher and lower prices."
       },
       {
         "date": "2026-06-30",
-        "market_count": 14,
-        "total_volume": 551886.4,
-        "median": 75.75,
-        "p10": 55.75,
-        "p25": 63.25,
-        "p75": 141.43,
-        "p90": 196.43,
-        "median_vs_spot": -22.0,
+        "market_count": 16,
+        "total_volume": 654401.63,
+        "median": 77.87,
+        "p10": 56.6,
+        "p25": 64.57,
+        "p75": 147.69,
+        "p90": 174.11,
+        "median_vs_spot": -26.5,
         "key_levels": [],
-        "narrative": "By end-June 2026, prediction markets show a dramatic shift lower to a median of $76 (-22.0% from spot) across 14 markets ($551.9M volume), indicating expected normalization after the April peak. The wide 25th-75th range of $63-$141 and extreme tail scenarios ($56-$196) reveal substantial disagreement about mean reversion dynamics two quarters out."
+        "narrative": "Despite $654k in trading volume across 16 markets, this tenor shows a sharp divergence with a median forecast of $78 (-26.5% from spot), suggesting material downside risk. The extremely wide interquartile range ($65-$148) signals deep disagreement among participants, with the 90th percentile reaching $174 offset by a 10th percentile floor at just $57."
       }
     ]
   },
   "GOLD": {
     "label": "Gold",
     "unit": "$",
-    "current_price": 4712.9,
+    "current_price": 4603.7,
     "spot_prices": [
-      {
-        "date": "2026-03-02",
-        "open": 5385.9,
-        "high": 5417.1,
-        "low": 5254.5,
-        "close": 5338.9,
-        "volume": 35882.7508
-      },
       {
         "date": "2026-03-03",
         "open": 5338.9,
@@ -2602,10 +2163,18 @@
       {
         "date": "2026-04-01",
         "open": 4694.6,
-        "high": 4727.9,
+        "high": 4814.6,
         "low": 4664.0,
-        "close": 4712.9,
-        "volume": 3558.1289
+        "close": 4779.5,
+        "volume": 22459.1139
+      },
+      {
+        "date": "2026-04-02",
+        "open": 4779.4,
+        "high": 4797.0,
+        "low": 4556.7,
+        "close": 4603.7,
+        "volume": 22891.194
       }
     ],
     "band_step": 200,
@@ -2620,8 +2189,8 @@
           "level": 3400.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.084,
-              "vol": 149377.03,
+              "prob": 0.052,
+              "vol": 152380.65,
               "sources": 1,
               "type": "below"
             }
@@ -2631,9 +2200,9 @@
           "level": 3800.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.0981,
-              "vol": 78349.95,
-              "sources": 2,
+              "prob": 0.1175,
+              "vol": 5895.85,
+              "sources": 1,
               "type": "below"
             }
           }
@@ -2642,8 +2211,8 @@
           "level": 4200.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.435,
-              "vol": 28534.27,
+              "prob": 0.375,
+              "vol": 31213.58,
               "sources": 1,
               "type": "below"
             }
@@ -2653,8 +2222,8 @@
           "level": 5500.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.334,
-              "vol": 141212.39,
+              "prob": 0.3565,
+              "vol": 102861.38,
               "sources": 1,
               "type": "above"
             }
@@ -2664,10 +2233,10 @@
           "level": 6000.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.0715,
-              "vol": 90473.1,
-              "sources": 2,
-              "type": "range"
+              "prob": 0.095,
+              "vol": 13371.73,
+              "sources": 1,
+              "type": "above"
             }
           }
         },
@@ -2675,8 +2244,8 @@
           "level": 7000.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.0315,
-              "vol": 85840.49,
+              "prob": 0.03,
+              "vol": 88992.89,
               "sources": 1,
               "type": "above"
             }
@@ -2686,8 +2255,8 @@
           "level": 8000.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.0295,
-              "vol": 33001.15,
+              "prob": 0.0255,
+              "vol": 32987.82,
               "sources": 1,
               "type": "above"
             }
@@ -2697,8 +2266,8 @@
           "level": 10000.0,
           "dates": {
             "2026-06-30": {
-              "prob": 0.0205,
-              "vol": 9662.01,
+              "prob": 0.0125,
+              "vol": 10825.64,
               "sources": 1,
               "type": "above"
             }
@@ -2708,103 +2277,68 @@
     },
     "fan": {
       "2026-06-30": {
-        "p10": 3800.0,
-        "p25": 3928.94,
-        "p50": 4565.8,
-        "p75": 5668.67,
-        "p90": 5969.88
+        "p10": 3693.13,
+        "p25": 4005.83,
+        "p50": 4805.21,
+        "p75": 5703.63,
+        "p90": 5990.44
       }
     },
-    "market_count": 13,
+    "market_count": 8,
     "markets": [
       {
         "question": "Will Gold (GC) hit (LOW) $3,400 by end of June?",
-        "price": 0.084,
-        "volume_7d": 149377.03,
+        "price": 0.052,
+        "volume_7d": 152380.65,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Gold (GC) hit (HIGH) $5,500 by end of June?",
-        "price": 0.334,
-        "volume_7d": 141212.39,
+        "price": 0.3565,
+        "volume_7d": 102861.38,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Gold (GC) hit (HIGH) $7,000 by end of June?",
-        "price": 0.0315,
-        "volume_7d": 85840.49,
-        "venue": "polymarket",
-        "end_date": "2026-06-30"
-      },
-      {
-        "question": "Will Gold (GC) settle at $5,800-$6,200 in June?",
-        "price": 0.07,
-        "volume_7d": 81308.86,
-        "venue": "polymarket",
-        "end_date": "2026-06-30"
-      },
-      {
-        "question": "Will Gold (GC) settle at <$3,800 in June?",
-        "price": 0.0935,
-        "volume_7d": 73059.6,
-        "venue": "polymarket",
-        "end_date": "2026-06-30"
-      },
-      {
-        "question": "Will the gold close price be above $4760 on Apr 1, 2026 at 5pm EDT?",
-        "price": 0,
-        "volume_7d": 70215.04,
-        "venue": "kalshi",
-        "end_date": "2026-04-01"
-      },
-      {
-        "question": "Will the gold open price be above $4779.99 on Apr 3, 2026 at 5pm EDT?",
-        "price": 0,
-        "volume_7d": 36827.7,
-        "venue": "kalshi",
-        "end_date": "2026-04-03"
-      },
-      {
-        "question": "Will Gold (GC) settle at >$6,200 in June?",
-        "price": 0.0925,
-        "volume_7d": 34184.19,
+        "price": 0.03,
+        "volume_7d": 88992.89,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Gold (GC) hit (HIGH) $8,000 by end of June?",
-        "price": 0.0295,
-        "volume_7d": 33001.15,
+        "price": 0.0255,
+        "volume_7d": 32987.82,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Gold (GC) hit (LOW) $4,200 by end of June?",
-        "price": 0.435,
-        "volume_7d": 28534.27,
-        "venue": "polymarket",
-        "end_date": "2026-06-30"
-      },
-      {
-        "question": "Will Gold (GC) hit (HIGH) $10,000 by end of June?",
-        "price": 0.0205,
-        "volume_7d": 9662.01,
+        "price": 0.375,
+        "volume_7d": 31213.58,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Gold (GC) hit (HIGH) $6,000 by end of June?",
-        "price": 0.085,
-        "volume_7d": 9164.24,
+        "price": 0.095,
+        "volume_7d": 13371.73,
+        "venue": "polymarket",
+        "end_date": "2026-06-30"
+      },
+      {
+        "question": "Will Gold (GC) hit (HIGH) $10,000 by end of June?",
+        "price": 0.0125,
+        "volume_7d": 10825.64,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       },
       {
         "question": "Will Gold (GC) hit (LOW) $3,800 by end of June?",
-        "price": 0.162,
-        "volume_7d": 5290.35,
+        "price": 0.1175,
+        "volume_7d": 5895.85,
         "venue": "polymarket",
         "end_date": "2026-06-30"
       }
@@ -2812,18 +2346,18 @@
     "tenors": [
       {
         "date": "2026-06-30",
-        "market_count": 11,
-        "total_volume": 650634.58,
-        "median": 4565.8,
-        "p10": 3800.0,
-        "p25": 3928.94,
-        "p75": 5668.67,
-        "p90": 5969.88,
-        "median_vs_spot": -3.1,
+        "market_count": 8,
+        "total_volume": 438529.54,
+        "median": 4805.21,
+        "p10": 3693.13,
+        "p25": 4005.83,
+        "p75": 5703.63,
+        "p90": 5990.44,
+        "median_vs_spot": 4.4,
         "key_levels": [],
-        "narrative": "Markets are pricing a modest 3.1% decline in gold over the next 18 months, with a median expectation of $4,566/oz. The wide interquartile range ($3,929-$5,669) reflects significant uncertainty, with the 10th-90th percentile spanning $3,800-$5,970, suggesting institutional participants see meaningful tail risks in both directions despite the bearish central scenario."
+        "narrative": "Prediction markets suggest gold will appreciate 4.4% to a median of $4,805 by mid-2026, with modest consensus for continued strength. The wide interquartile range ($4,006 to $5,704) reflects significant uncertainty, though the 90th percentile at $5,990 indicates a meaningful tail risk for substantially higher prices. Downside protection appears limited with the 10th percentile at $3,693, representing a 20% drawdown scenario that markets assign non-trivial probability."
       }
     ]
   },
-  "generated_at": "2026-04-01T07:16:40Z"
+  "generated_at": "2026-04-02T07:07:25Z"
 }
