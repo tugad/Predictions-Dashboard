@@ -20,22 +20,28 @@ import urllib.parse
 import requests
 
 PORT = int(os.environ.get("PORT", 8091))
-ALLIUM_API_KEY = "47lh6ohmjsMWFl8znEqjFXCKP53Qsg0-e9O47Djmk6NCnMcvj52TZPp6h5ljwmUnhkrkRXuV4hp9gCsd9xJmgg"
+ALLIUM_API_KEY = os.environ.get("ALLIUM_API_KEY")
 ALLIUM_BASE = "https://api.allium.so/api/v1/explorer/queries"
-ALLIUM_HEADERS = {"X-API-Key": ALLIUM_API_KEY, "Content-Type": "application/json"}
+
+
+def allium_headers():
+    """Build Allium headers from the runtime environment."""
+    if not ALLIUM_API_KEY:
+        raise RuntimeError("ALLIUM_API_KEY environment variable is required for enrichment")
+    return {"X-API-Key": ALLIUM_API_KEY, "Content-Type": "application/json"}
 
 
 def allium_query(sql, title="query", limit=200):
     """Run an Allium SQL query. Returns list of dicts."""
     for attempt in range(3):
         try:
-            resp = requests.post(ALLIUM_BASE, headers=ALLIUM_HEADERS, json={
+            resp = requests.post(ALLIUM_BASE, headers=allium_headers(), json={
                 "config": {"sql": sql, "limit": limit}, "title": title,
             }, timeout=30)
             query_id = resp.json()["query_id"]
             result = requests.post(
                 f"{ALLIUM_BASE}/{query_id}/run",
-                headers=ALLIUM_HEADERS, json={}, timeout=180
+                headers=allium_headers(), json={}, timeout=180
             )
             if result.status_code != 200:
                 time.sleep(3)

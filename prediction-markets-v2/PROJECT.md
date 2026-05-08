@@ -102,7 +102,11 @@ python3 extract_themes.py
 python3 fetch_btc_data.py
 
 # 4. Serve dashboard
+# Basic static view:
 python3 -m http.server 8091
+
+# Live Allium enrichment endpoint:
+ALLIUM_API_KEY=... python3 serve.py
 ```
 
 Steps 1 and 3 can run in parallel. Step 2 depends on step 1's output.
