@@ -10,12 +10,44 @@ See PROJECT.md sections 4.1–4.4 for full specification.
 
 import json
 import re
+import sys
 import requests
 import time
 from collections import defaultdict
 
 POLY_BASE = "https://gamma-api.polymarket.com"
 KALSHI_BASE = "https://api.elections.kalshi.com/trade-api/v2"
+
+# Browser-like headers: both APIs sit behind WAFs that intermittently
+# reject the default python-requests user agent (esp. from CI runner IPs).
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36",
+    "Accept": "application/json",
+}
+
+
+def get_json(url, params=None, expect=list, retries=3):
+    """GET a URL, return parsed JSON of the expected type, or None.
+
+    Retries with backoff on network errors, non-200 status, unparseable
+    bodies, and unexpected JSON shapes (e.g. a WAF error object where a
+    list is expected) — previously those shapes crashed the script.
+    """
+    for attempt in range(1, retries + 1):
+        try:
+            resp = requests.get(url, params=params, headers=HEADERS, timeout=30)
+            if resp.status_code != 200:
+                print(f"  HTTP {resp.status_code} from {url.split('?')[0]}: {resp.text[:200]}")
+            else:
+                data = resp.json()
+                if isinstance(data, expect):
+                    return data
+                print(f"  Unexpected {type(data).__name__} response: {str(data)[:200]}")
+        except Exception as e:
+            print(f"  Request error ({type(e).__name__}): {e}")
+        if attempt < retries:
+            time.sleep(3 * attempt)
+    return None
 
 
 # ============================================================
@@ -31,15 +63,13 @@ def fetch_polymarket():
     page = 0
 
     while True:
-        try:
-            resp = requests.get(
-                f"{POLY_BASE}/events",
-                params={"active": "true", "closed": "false", "limit": 100, "offset": offset},
-                timeout=30,
-            )
-            events = resp.json()
-        except Exception as e:
-            print(f"  Error at offset {offset}: {e}")
+        events = get_json(
+            f"{POLY_BASE}/events",
+            params={"active": "true", "closed": "false", "limit": 100, "offset": offset},
+            expect=list,
+        )
+        if events is None:
+            print(f"  Giving up at offset {offset} after retries.")
             break
 
         if not events:
@@ -132,14 +162,12 @@ def fetch_kalshi():
     page = 0
 
     while True:
-        try:
-            url = f"{KALSHI_BASE}/markets?status=open&limit=1000"
-            if cursor:
-                url += f"&cursor={cursor}"
-            resp = requests.get(url, timeout=30)
-            data = resp.json()
-        except Exception as e:
-            print(f"  Error at page {page}: {e}")
+        url = f"{KALSHI_BASE}/markets?status=open&limit=1000"
+        if cursor:
+            url += f"&cursor={cursor}"
+        data = get_json(url, expect=dict)
+        if data is None:
+            print(f"  Giving up at page {page} after retries.")
             break
 
         batch = data.get("markets", [])
@@ -392,6 +420,16 @@ def main():
 
     size_mb = len(json.dumps(output)) / 1024 / 1024
     print(f"\n  Saved markets_raw.json ({size_mb:.1f} MB)")
+
+    # Sanity guard: never let a bad fetch propagate near-empty data into
+    # the dashboard. Fail the workflow instead so stale (but usable) data
+    # stays deployed.
+    if len(all_markets) < 100:
+        print(f"  ERROR: only {len(all_markets)} markets fetched — aborting so bad data isn't committed.")
+        sys.exit(1)
+    if len(kalshi_markets) < 50:
+        print(f"  WARNING: only {len(kalshi_markets)} Kalshi markets — Kalshi API may be blocking this environment.")
+
     print("  Done.")
 
 

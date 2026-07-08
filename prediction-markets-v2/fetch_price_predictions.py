@@ -141,9 +141,70 @@ def parse_price(s):
     return float(s.replace(",", ""))
 
 
+MONTHS = {
+    "january": 1, "jan": 1, "february": 2, "feb": 2, "march": 3, "mar": 3,
+    "april": 4, "apr": 4, "may": 5, "june": 6, "jun": 6, "july": 7, "jul": 7,
+    "august": 8, "aug": 8, "september": 9, "sep": 9, "sept": 9,
+    "october": 10, "oct": 10, "november": 11, "nov": 11, "december": 12, "dec": 12,
+}
+MONTH_DAYS = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+_MONTH_RE = "|".join(MONTHS.keys())
+
+
+def _resolve_year(month, year=None):
+    """Pick the year for a month with no explicit year: current year, or next
+    year if that month is more than one month in the past (markets resolve in
+    the future)."""
+    if year:
+        return int(year)
+    now = time.localtime()
+    return now.tm_year + 1 if month < now.tm_mon - 1 else now.tm_year
+
+
+def extract_date_generic(question):
+    """Parse natural date mentions so the pipeline doesn't go stale when the
+    hardcoded per-asset date_patterns stop matching newly listed markets."""
+    q = question.lower()
+
+    # "on/by/before March 28(, 2027)?" or bare "March 28, 2027"
+    m = re.search(rf"\b({_MONTH_RE})\.?\s+(\d{{1,2}})(?:st|nd|rd|th)?(?:,?\s*(\d{{4}}))?", q)
+    if m:
+        month = MONTHS[m.group(1)]
+        day = min(int(m.group(2)), MONTH_DAYS[month] + (1 if month == 2 else 0))
+        return f"{_resolve_year(month, m.group(3))}-{month:02d}-{day:02d}"
+
+    # "end of March( 2027)?" / "in March 2027"
+    m = re.search(rf"\b(?:end of|in|during)\s+({_MONTH_RE})\.?(?:\s+(\d{{4}}))?\b", q)
+    if m:
+        month = MONTHS[m.group(1)]
+        year = _resolve_year(month, m.group(2))
+        return f"{year}-{month:02d}-{MONTH_DAYS[month]:02d}"
+
+    # "end of 2026" / "in 2026" / "this year"
+    m = re.search(r"\b(?:end of|in|by end of|by)\s+(\d{4})\b", q)
+    if m:
+        return f"{int(m.group(1))}-12-31"
+
+    # "before 2027" → Dec 31 of the prior year
+    m = re.search(r"\bbefore\s+(\d{4})\b", q)
+    if m:
+        return f"{int(m.group(1)) - 1}-12-31"
+
+    return None
+
+
 def extract_date(question, patterns):
-    """Extract resolution date from question text."""
-    ql = question.lower()
+    """Extract resolution date from question text.
+
+    Generic natural-language parsing first (handles any month/day/year, so
+    the pipeline doesn't go stale), then the explicit per-asset patterns as
+    fallback for phrasings the generic parser misses. The explicit patterns
+    hardcode 2026 dates, so they must not shadow questions that carry an
+    explicit other year.
+    """
+    date = extract_date_generic(question)
+    if date:
+        return date
     for pattern, date in patterns:
         if re.search(pattern, question, re.IGNORECASE):
             return date
