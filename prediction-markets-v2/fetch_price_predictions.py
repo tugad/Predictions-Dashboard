@@ -28,12 +28,14 @@ ASSETS = {
             r"bitcoin", r"\bbtc\b",
         ],
         "price_extractors": {
-            "hit_high": r"hit \(HIGH\) \$(\d[\d,]*)",
-            "hit_low": r"hit \(LOW\) \$(\d[\d,]*)",
-            "above": r"above \$(\d[\d,]*)",
-            "below": r"below \$(\d[\d,]*)",
-            "settle_range": r"settle at \$(\d[\d,]*)-\$(\d[\d,]*)",
-            "settle_over": r"settle over \$(\d[\d,]*)",
+            "hit_high": r"hit \(HIGH\) \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "hit_low": r"hit \(LOW\) \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "above": r"above \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "below": r"below \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "settle_range": r"settle at \$?([\d,]+(?:\.\d+)?[kK]?)-\$?([\d,]+(?:\.\d+)?[kK]?)",
+            "settle_over": r"settle over \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "reach": r"reach \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "dip": r"dip to \$?([\d,]+(?:\.\d+)?[kK]?)",
         },
         "date_patterns": [
             (r"on March 28", "2026-03-28"),
@@ -62,12 +64,13 @@ ASSETS = {
             r"crude oil", r"\bwti\b", r"oil \(cl\)",
         ],
         "price_extractors": {
-            "hit_high": r"hit \(HIGH\) \$(\d[\d,]*)",
-            "hit_low": r"hit \(LOW\) \$(\d[\d,]*)",
-            "settle_range": r"settle at \$(\d[\d,]*)-\$(\d[\d,]*)",
-            "settle_over": r"settle over \$(\d[\d,]*)",
-            "above": r"above[^\$]*\$(\d[\d,]*)",
-            "below": r"below[^\$]*\$(\d[\d,]*)",
+            "hit_high": r"hit \(HIGH\) \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "hit_low": r"hit \(LOW\) \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "settle_range": r"settle at \$?([\d,]+(?:\.\d+)?[kK]?)-\$?([\d,]+(?:\.\d+)?[kK]?)",
+            "settle_over": r"settle over \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "above": r"above \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "below": r"below \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "reach": r"reach \$?([\d,]+(?:\.\d+)?[kK]?)",
         },
         "date_patterns": [
             (r"on Mar 30", "2026-03-30"),
@@ -86,16 +89,17 @@ ASSETS = {
         "band_min": 3000,
         "band_max": 10000,
         "question_patterns": [
-            r"gold", r"\bgc\b", r"\bxau\b",
+            r"\bgold\b", r"\bgc\b", r"\bxau\b",
         ],
         "price_extractors": {
-            "hit_high": r"hit \(HIGH\) \$(\d[\d,]*)",
-            "hit_low": r"hit \(LOW\) \$(\d[\d,]*)",
-            "settle_range": r"settle at[^\$]*\$(\d[\d,]*)-\$(\d[\d,]*)",
-            "settle_over": r"settle over \$(\d[\d,]*)",
-            "settle_under": r"settle at <\$(\d[\d,]*)",
-            "above": r"above[^\$]*\$(\d[\d,]*)",
-            "below": r"below[^\$]*\$(\d[\d,]*)",
+            "hit_high": r"hit \(HIGH\) \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "hit_low": r"hit \(LOW\) \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "settle_range": r"settle at[^\$\d]*\$?([\d,]+(?:\.\d+)?[kK]?)-\$?([\d,]+(?:\.\d+)?[kK]?)",
+            "settle_over": r"settle over \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "settle_under": r"settle at <\$?([\d,]+(?:\.\d+)?[kK]?)",
+            "above": r"above \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "below": r"below \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "reach": r"reach \$?([\d,]+(?:\.\d+)?[kK]?)",
         },
         "date_patterns": [
             (r"on Mar 30", "2026-03-30"),
@@ -137,8 +141,11 @@ def fetch_hyperliquid_candles(coin, days=30):
 
 
 def parse_price(s):
-    """Parse a price string like '100' or '3,600' to float."""
-    return float(s.replace(",", ""))
+    """Parse a price string like '100', '3,600', '76.99', or '150k' to float."""
+    s = s.replace(",", "").strip()
+    if s.lower().endswith("k"):
+        return float(s[:-1]) * 1000
+    return float(s)
 
 
 MONTHS = {
@@ -232,12 +239,12 @@ def build_scenario_table(markets, asset_config):
             if not match:
                 continue
 
-            if mtype in ("hit_high", "above"):
+            if mtype in ("hit_high", "above", "reach"):
                 price = parse_price(match.group(1))
                 levels[price][date].append({
                     "type": "above", "prob": prob, "vol": vol, "venue": venue, "question": q,
                 })
-            elif mtype in ("hit_low", "below"):
+            elif mtype in ("hit_low", "below", "dip"):
                 price = parse_price(match.group(1))
                 levels[price][date].append({
                     "type": "below", "prob": prob, "vol": vol, "venue": venue, "question": q,
@@ -310,10 +317,10 @@ def compute_fan(asset_markets, config, scenarios):
             match = re.search(pattern, q, re.IGNORECASE)
             if not match:
                 continue
-            if mtype in ("hit_high", "above", "settle_over"):
+            if mtype in ("hit_high", "above", "settle_over", "reach"):
                 price = parse_price(match.group(1))
                 cdf_by_date.setdefault(date, []).append((price, prob))
-            elif mtype in ("hit_low", "below", "settle_under"):
+            elif mtype in ("hit_low", "below", "settle_under", "dip"):
                 price = parse_price(match.group(1))
                 cdf_by_date.setdefault(date, []).append((price, 1 - prob))
             break
