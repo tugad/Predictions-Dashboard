@@ -63,6 +63,9 @@ ASSETS = {
         "question_patterns": [
             r"crude oil", r"\bwti\b", r"oil \(cl\)",
         ],
+        "exclude_patterns": [
+            r"brent",  # Brent trades ~$4-8 over WTI; mixing it skews the fan
+        ],
         "price_extractors": {
             "hit_high": r"hit \(HIGH\) \$?([\d,]+(?:\.\d+)?[kK]?)",
             "hit_low": r"hit \(LOW\) \$?([\d,]+(?:\.\d+)?[kK]?)",
@@ -303,6 +306,27 @@ def compute_fan(asset_markets, config, scenarios):
     cdf_by_date = {}
     for m in asset_markets:
         q = m["question"]
+
+        # Collapsed Kalshi price-range events carry the full per-band
+        # distribution. "-T" threshold bands already price P(above strike)
+        # (a CDF) — use directly. "-B" bucket bands are a histogram —
+        # accumulate into a CDF.
+        bands = m.get("bands") or []
+        if len(bands) >= 4:
+            date = (m.get("end_date") or "")[:10] or extract_date(q, date_patterns)
+            if date:
+                t_pts = [(b["strike"], b["prob"]) for b in bands if b.get("kind") == "T"]
+                if len(t_pts) >= 4:
+                    cdf_by_date.setdefault(date, []).extend(t_pts)
+                else:
+                    total = sum(b["prob"] for b in bands)
+                    if total > 0:
+                        running = 0.0
+                        for b in sorted(bands, key=lambda x: -x["strike"]):
+                            running += b["prob"] / total
+                            cdf_by_date.setdefault(date, []).append((b["strike"], min(running, 1.0)))
+            continue
+
         prob = m.get("price") or 0
         if prob <= 0:
             continue
@@ -376,9 +400,12 @@ def main():
 
         # Find prediction markets for this asset
         asset_markets = []
+        excludes = config.get("exclude_patterns", [])
         for m in all_markets:
             ql = m["question"].lower()
             if any(re.search(p, ql) for p in config["question_patterns"]):
+                if excludes and any(re.search(p, ql) for p in excludes):
+                    continue
                 if any(k in ql for k in ["hit", "above", "below", "price", "settle", "reach"]):
                     asset_markets.append(m)
 
