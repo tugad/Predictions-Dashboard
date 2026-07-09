@@ -72,7 +72,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git fetch origin main
-          git reset --soft origin/main
+          # Mixed reset (NOT --soft): --soft kept the stale checkout's index,
+          # so when a run raced a code push, the commit silently reverted the
+          # newly pushed code. Mixed reset re-points the index at origin/main
+          # and only the data files staged below get committed.
+          git reset origin/main
           git add -f prediction-markets-v2/explorer_data.json
           git add -f prediction-markets-v2/price_predictions.json
           git add -f prediction-markets-v2/theme_overrides.json
