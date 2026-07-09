@@ -2166,10 +2166,13 @@ function renderPriceMarkets(d, assetKey) {
 let themeContextsDate = '';
 let explorerGenAt = '';
 
+// Cache-buster: browsers heuristically cached these JSONs for days after
+// deploys (no Cache-Control header historically), showing stale data.
+const NOCACHE = '?v=' + Date.now();
 Promise.all([
-    fetch('explorer_data.json').then(r => r.json()),
-    fetch('price_predictions.json').then(r => r.json()).catch(() => null),
-    fetch('theme_contexts.json').then(r => r.json()),
+    fetch('explorer_data.json' + NOCACHE).then(r => r.json()),
+    fetch('price_predictions.json' + NOCACHE).then(r => r.json()).catch(() => null),
+    fetch('theme_contexts.json' + NOCACHE).then(r => r.json()),
 ]).then(([explorer, prices, contexts]) => {
     themeContexts = contexts.themes || {};
     themeContextsDate = contexts.updated_at || '';

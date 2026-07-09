@@ -238,6 +238,13 @@ def enrich_market(question, venue):
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        # SimpleHTTPRequestHandler sends no Cache-Control, so browsers
+        # heuristically cache old JSON for days (10% of file age) and the
+        # dashboard silently shows stale data after a deploy.
+        self.send_header("Cache-Control", "no-cache, must-revalidate")
+        super().end_headers()
+
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
 
