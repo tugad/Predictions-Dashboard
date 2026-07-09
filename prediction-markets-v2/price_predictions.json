@@ -2,7 +2,7 @@
   "BTC": {
     "label": "Bitcoin",
     "unit": "$",
-    "current_price": 62402.0,
+    "current_price": 61935.0,
     "spot_prices": [
       {
         "date": "2026-06-09",
@@ -248,9 +248,9 @@
         "date": "2026-07-09",
         "open": 62283.0,
         "high": 62628.0,
-        "low": 62035.0,
-        "close": 62402.0,
-        "volume": 2576.91616
+        "low": 61802.0,
+        "close": 61935.0,
+        "volume": 4047.92712
       }
     ],
     "band_step": 2000,
@@ -266,8 +266,8 @@
           "level": 40000.0,
           "dates": {
             "2027-01-01": {
-              "prob": 0.33,
-              "vol": 12528.28,
+              "prob": 0.36,
+              "vol": 14344.22,
               "sources": 1,
               "type": "below"
             }
@@ -277,8 +277,8 @@
           "level": 50000.0,
           "dates": {
             "2027-01-01": {
-              "prob": 0.54,
-              "vol": 8965.71,
+              "prob": 0.51,
+              "vol": 7984.77,
               "sources": 1,
               "type": "below"
             }
@@ -289,7 +289,7 @@
           "dates": {
             "2027-01-01": {
               "prob": 0.7,
-              "vol": 7390.28,
+              "vol": 6492.74,
               "sources": 1,
               "type": "below"
             }
@@ -299,8 +299,8 @@
           "level": 57500.0,
           "dates": {
             "2026-07-31": {
-              "prob": 0.43,
-              "vol": 22075.34,
+              "prob": 0.4,
+              "vol": 18733.34,
               "sources": 1,
               "type": "below"
             }
@@ -310,8 +310,8 @@
           "level": 65000.0,
           "dates": {
             "2026-07-31": {
-              "prob": 0.56,
-              "vol": 108149.04,
+              "prob": 0.59,
+              "vol": 128735.73,
               "sources": 1,
               "type": "above"
             }
@@ -321,8 +321,8 @@
           "level": 67500.0,
           "dates": {
             "2026-07-31": {
-              "prob": 0.35,
-              "vol": 120611.91,
+              "prob": 0.36,
+              "vol": 122434.98,
               "sources": 1,
               "type": "above"
             }
@@ -332,8 +332,8 @@
           "level": 70000.0,
           "dates": {
             "2026-07-31": {
-              "prob": 0.19,
-              "vol": 46440.5,
+              "prob": 0.18,
+              "vol": 43688.46,
               "sources": 1,
               "type": "above"
             }
@@ -356,89 +356,89 @@
       "2026-07-31": {
         "p10": 57500.0,
         "p25": 57500.0,
-        "p50": 65714.29,
-        "p75": 69062.5,
-        "p90": 72250.0
+        "p50": 65978.26,
+        "p75": 69027.78,
+        "p90": 72222.22
       }
     },
-    "market_count": 30,
+    "market_count": 29,
     "markets": [
+      {
+        "question": "Bitcoin price on Jul 8, 2026?",
+        "price": 0,
+        "volume_7d": 7071540.22,
+        "venue": "kalshi",
+        "end_date": "2026-07-09"
+      },
       {
         "question": "Bitcoin price on Jul 10, 2026?",
         "price": 0,
-        "volume_7d": 1486254.84,
+        "volume_7d": 1483544.68,
         "venue": "kalshi",
         "end_date": "2026-07-10"
       },
       {
         "question": "Bitcoin price on Jul 9, 2026?",
         "price": 0,
-        "volume_7d": 693602.03,
+        "volume_7d": 884148.73,
         "venue": "kalshi",
         "end_date": "2026-07-09"
       },
       {
-        "question": "Will BTC trimmed mean be above $67500.00 by 11:59 PM ET on Jul 31, 2026?",
-        "price": 0.35,
-        "volume_7d": 120611.91,
+        "question": "Will BTC trimmed mean be above $65000.00 by 11:59 PM ET on Jul 31, 2026?",
+        "price": 0.59,
+        "volume_7d": 128735.73,
         "venue": "kalshi",
         "end_date": "2026-08-01"
       },
       {
-        "question": "Will BTC trimmed mean be above $65000.00 by 11:59 PM ET on Jul 31, 2026?",
-        "price": 0.56,
-        "volume_7d": 108149.04,
+        "question": "Will BTC trimmed mean be above $67500.00 by 11:59 PM ET on Jul 31, 2026?",
+        "price": 0.36,
+        "volume_7d": 122434.98,
         "venue": "kalshi",
         "end_date": "2026-08-01"
       },
       {
         "question": "Will BTC trimmed mean be above $70000.00 by 11:59 PM ET on Jul 31, 2026?",
-        "price": 0.19,
-        "volume_7d": 46440.5,
+        "price": 0.18,
+        "volume_7d": 43688.46,
         "venue": "kalshi",
         "end_date": "2026-08-01"
       },
       {
         "question": "BTC price  on Jan 1, 2027?",
         "price": 0,
-        "volume_7d": 30855.54,
+        "volume_7d": 31124.88,
         "venue": "kalshi",
         "end_date": "2027-01-01"
       },
       {
         "question": "Will Bitcoin reach $100,000 by December 31, 2026?",
         "price": 0.1,
-        "volume_7d": 26851.74,
+        "volume_7d": 26600.63,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
         "question": "Will Bitcoin reach $500,000 by December 31, 2026?",
         "price": 0.0125,
-        "volume_7d": 23524.67,
+        "volume_7d": 23473.9,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
         "question": "Will bitcoin hit $1m before GTA VI?",
         "price": 0.4965,
-        "volume_7d": 23377.13,
+        "volume_7d": 23098.35,
         "venue": "polymarket",
         "end_date": "2026-07-31"
       },
       {
         "question": "Will Bitcoin reach $1,000,000 by December 31, 2026?",
         "price": 0.0095,
-        "volume_7d": 23120.06,
+        "volume_7d": 23025.5,
         "venue": "polymarket",
         "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will BTC trimmed mean be below $57500.00 by 11:59 PM ET on Jul 31, 2026?",
-        "price": 0.43,
-        "volume_7d": 22075.34,
-        "venue": "kalshi",
-        "end_date": "2026-08-01"
       },
       {
         "question": "Will BTC trimmed mean be above $72500.00 by 11:59 PM ET on Jul 31, 2026?",
@@ -448,16 +448,30 @@
         "end_date": "2026-08-01"
       },
       {
+        "question": "Will BTC trimmed mean be below $57500.00 by 11:59 PM ET on Jul 31, 2026?",
+        "price": 0.4,
+        "volume_7d": 18733.34,
+        "venue": "kalshi",
+        "end_date": "2026-08-01"
+      },
+      {
+        "question": "Bitcoin price range on Jul 8, 2026?",
+        "price": 0,
+        "volume_7d": 17088.73,
+        "venue": "kalshi",
+        "end_date": "2026-07-09"
+      },
+      {
         "question": "Will Bitcoin reach $200,000 by December 31, 2026?",
         "price": 0.0205,
-        "volume_7d": 16421.65,
+        "volume_7d": 16306.36,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
         "question": "Will Bitcoin reach $250,000 by December 31, 2026?",
         "price": 0.0135,
-        "volume_7d": 15804.3,
+        "volume_7d": 15783.84,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
@@ -469,6 +483,13 @@
         "end_date": "2027-01-01"
       },
       {
+        "question": "Will Bitcoin be below $40000.00 by Jan 1, 2027 at 12:00am ET?",
+        "price": 0.36,
+        "volume_7d": 14344.22,
+        "venue": "kalshi",
+        "end_date": "2027-01-01"
+      },
+      {
         "question": "Will Bitcoin reach $75,000 by December 31, 2026?",
         "price": 0.475,
         "volume_7d": 12657.0,
@@ -476,31 +497,24 @@
         "end_date": "2027-01-01"
       },
       {
-        "question": "Will Bitcoin be below $40000.00 by Jan 1, 2027 at 12:00am ET?",
-        "price": 0.33,
-        "volume_7d": 12528.28,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
         "question": "Bitcoin price range on Jul 10, 2026?",
         "price": 0,
-        "volume_7d": 9647.44,
+        "volume_7d": 9333.92,
         "venue": "kalshi",
         "end_date": "2026-07-10"
-      },
-      {
-        "question": "Will Bitcoin be below $50000.00 by Jan 1, 2027 at 12:00am ET?",
-        "price": 0.54,
-        "volume_7d": 8965.71,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
       },
       {
         "question": "Will Bitcoin reach $80,000 by December 31, 2026?",
         "price": 0.325,
         "volume_7d": 8309.19,
         "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin be below $50000.00 by Jan 1, 2027 at 12:00am ET?",
+        "price": 0.51,
+        "volume_7d": 7984.77,
+        "venue": "kalshi",
         "end_date": "2027-01-01"
       },
       {
@@ -513,7 +527,7 @@
       {
         "question": "Will Bitcoin be below $55000.00 by Jan 1, 2027 at 12:00am ET?",
         "price": 0.7,
-        "volume_7d": 7390.28,
+        "volume_7d": 6492.74,
         "venue": "kalshi",
         "end_date": "2027-01-01"
       },
@@ -521,13 +535,6 @@
         "question": "Will Bitcoin reach $85,000 by December 31, 2026?",
         "price": 0.225,
         "volume_7d": 6016.66,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $95,000 by December 31, 2026?",
-        "price": 0.125,
-        "volume_7d": 5871.3,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
@@ -541,7 +548,7 @@
       {
         "question": "Will Bitcoin reach $150,000 by December 31, 2026?",
         "price": 0.0325,
-        "volume_7d": 5405.54,
+        "volume_7d": 5408.7,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
@@ -555,21 +562,7 @@
       {
         "question": "Bitcoin price range on Jul 9, 2026?",
         "price": 0,
-        "volume_7d": 3236.9,
-        "venue": "kalshi",
-        "end_date": "2026-07-09"
-      },
-      {
-        "question": "Bitcoin price range on Jul 8, 2026?",
-        "price": 0,
-        "volume_7d": 0,
-        "venue": "kalshi",
-        "end_date": "2026-07-09"
-      },
-      {
-        "question": "Bitcoin price on Jul 8, 2026?",
-        "price": 0,
-        "volume_7d": 0,
+        "volume_7d": 4403.29,
         "venue": "kalshi",
         "end_date": "2026-07-09"
       }
@@ -578,22 +571,22 @@
       {
         "date": "2026-07-31",
         "market_count": 7,
-        "total_volume": 2216118.34,
-        "median": 65714.29,
+        "total_volume": 9493157.92,
+        "median": 65978.26,
         "p10": 57500.0,
         "p25": 57500.0,
-        "p75": 69062.5,
-        "p90": 72250.0,
-        "median_vs_spot": 5.3,
+        "p75": 69027.78,
+        "p90": 72222.22,
+        "median_vs_spot": 6.5,
         "key_levels": [],
-        "narrative": "Prediction markets expect Bitcoin to appreciate 5.3% to $65,714 by mid-2026, with a tight interquartile range between $57,500-$69,062 suggesting moderate consensus. The 10th-90th percentile spread ($57,500-$72,250) indicates markets price in meaningful volatility, with roughly 80% of outcomes contained within an 25.6% band around current spot."
+        "narrative": "Prediction markets expect Bitcoin to appreciate 6.5% to a median of $65,978 by July 2026, with moderate conviction across $9.5M in volume. The interquartile range of $57,500\u2013$69,028 suggests roughly balanced positioning, though the 90th percentile at $72,222 indicates a meaningful tail of bullish outcomes."
       }
     ]
   },
   "OIL": {
     "label": "Crude Oil (WTI)",
     "unit": "$",
-    "current_price": 74.293,
+    "current_price": 74.117,
     "spot_prices": [
       {
         "date": "2026-06-09",
@@ -838,10 +831,10 @@
       {
         "date": "2026-07-09",
         "open": 74.388,
-        "high": 74.429,
+        "high": 74.524,
         "low": 73.843,
-        "close": 74.293,
-        "volume": 183530.024
+        "close": 74.117,
+        "volume": 229931.48
       }
     ],
     "band_step": 5,
@@ -857,91 +850,91 @@
       {
         "question": "Will the WTI crude oil settlement price be above 76.99 USD/Bbl on Jul 9, 2026?",
         "price": 0,
-        "volume_7d": 803681.29,
+        "volume_7d": 815037.91,
         "venue": "kalshi",
         "end_date": "2026-07-09"
       },
       {
         "question": "Will the WTI crude oil settlement price be above 80.99 USD/Bbl on Jul 10, 2026?",
         "price": 0,
-        "volume_7d": 595706.76,
+        "volume_7d": 763655.43,
         "venue": "kalshi",
         "end_date": "2026-07-10"
       },
       {
         "question": "Will the brent crude oil close price be above 89.99 USD/Bbl on July 10, 2026 at 5:00 PM EDT?",
         "price": 0,
-        "volume_7d": 142995.55,
+        "volume_7d": 145263.76,
         "venue": "kalshi",
         "end_date": "2026-07-10"
       },
       {
         "question": "Will the maximum WTI front month settle price reach $200.01 by Dec 31, 2026?",
         "price": 0,
-        "volume_7d": 125563.39,
+        "volume_7d": 124095.37,
         "venue": "kalshi",
         "end_date": "2026-12-31"
       },
       {
         "question": "Will the brent crude oil close price be above 82.50 USD/Bbl on July 09, 2026 at 5:00 PM EDT?",
         "price": 0,
-        "volume_7d": 104362.34,
+        "volume_7d": 106909.23,
         "venue": "kalshi",
         "end_date": "2026-07-09"
       },
       {
-        "question": "Will the maximum WTI front month settle price reach $82 by Jul 31, 2026?",
-        "price": 0,
-        "volume_7d": 83983.27,
-        "venue": "kalshi",
-        "end_date": "2026-07-31"
-      },
-      {
         "question": "Will the WTI crude oil settlement price be above 75.99 USD/Bbl on Jul 10, 2026?",
         "price": 0,
-        "volume_7d": 67943.76,
+        "volume_7d": 85265.5,
         "venue": "kalshi",
         "end_date": "2026-07-10"
       },
       {
+        "question": "Will the maximum WTI front month settle price reach $82 by Jul 31, 2026?",
+        "price": 0,
+        "volume_7d": 79621.15,
+        "venue": "kalshi",
+        "end_date": "2026-07-31"
+      },
+      {
         "question": "Will Crude Oil reach a new all-time high by September 30?",
         "price": 0.0515,
-        "volume_7d": 35258.59,
+        "volume_7d": 35157.53,
         "venue": "polymarket",
         "end_date": "2026-09-30"
       },
       {
         "question": "Will Crude Oil reach a new all-time high by December 31?",
         "price": 0.105,
-        "volume_7d": 26953.52,
+        "volume_7d": 26958.07,
         "venue": "polymarket",
         "end_date": "2026-12-31"
       },
       {
         "question": "Will the brent crude oil close price be above 88.99 USD/Bbl on July 31, 2026 at 5:00 PM EDT?",
         "price": 0,
-        "volume_7d": 24641.28,
+        "volume_7d": 24567.67,
         "venue": "kalshi",
         "end_date": "2026-07-31"
       },
       {
         "question": "Will the minimum WTI front month settle price reach $56 by Dec 31, 2026?",
         "price": 0,
-        "volume_7d": 11948.5,
+        "volume_7d": 11943.84,
         "venue": "kalshi",
         "end_date": "2026-12-31"
       },
       {
         "question": "Will the WTI front-month settle oil price  be >72.99 on Nov 3, 2026?",
         "price": 0,
-        "volume_7d": 3765.05,
+        "volume_7d": 3634.45,
         "venue": "kalshi",
         "end_date": "2026-11-03"
       },
       {
         "question": "Will the minimum WTI front month settle price reach $67 by Jul 31, 2026?",
         "price": 0,
-        "volume_7d": 1399.45,
+        "volume_7d": 1552.84,
         "venue": "kalshi",
         "end_date": "2026-07-31"
       },
@@ -958,7 +951,7 @@
   "GOLD": {
     "label": "Gold",
     "unit": "$",
-    "current_price": 4077.1,
+    "current_price": 4075.1,
     "spot_prices": [
       {
         "date": "2026-06-09",
@@ -1204,9 +1197,9 @@
         "date": "2026-07-09",
         "open": 4078.4,
         "high": 4091.1,
-        "low": 4067.6,
-        "close": 4077.1,
-        "volume": 329.4248
+        "low": 4064.6,
+        "close": 4075.1,
+        "volume": 405.0482
       }
     ],
     "band_step": 200,
@@ -1222,7 +1215,7 @@
           "dates": {
             "2026-12-31": {
               "prob": 0.095,
-              "vol": 20149.82,
+              "vol": 14474.37,
               "sources": 1,
               "type": "above"
             }
@@ -1233,7 +1226,7 @@
           "dates": {
             "2026-12-31": {
               "prob": 0.031,
-              "vol": 9988.88,
+              "vol": 10006.38,
               "sources": 1,
               "type": "above"
             }
@@ -1247,28 +1240,28 @@
       {
         "question": "Will the gold close price be above 4254 USD/t.oz on July 09, 2026 at 5:00 PM EDT?",
         "price": 0,
-        "volume_7d": 174568.76,
+        "volume_7d": 172849.91,
         "venue": "kalshi",
         "end_date": "2026-07-09"
       },
       {
         "question": "Will the gold close price be above 4506.99 USD/t.oz on July 10, 2026 at 5:00 PM EDT?",
         "price": 0,
-        "volume_7d": 54374.3,
+        "volume_7d": 52836.99,
         "venue": "kalshi",
         "end_date": "2026-07-10"
       },
       {
         "question": "Will Gold (GC) hit (HIGH) $6,000 by end of December?",
         "price": 0.095,
-        "volume_7d": 20149.82,
+        "volume_7d": 14474.37,
         "venue": "polymarket",
         "end_date": "2026-12-31"
       },
       {
         "question": "Will Gold (GC) hit (HIGH) $10,000 by end of December?",
         "price": 0.031,
-        "volume_7d": 9988.88,
+        "volume_7d": 10006.38,
         "venue": "polymarket",
         "end_date": "2026-12-31"
       },
@@ -1282,7 +1275,7 @@
       {
         "question": "Will the gold close price be above 4871.99 USD/t.oz on July 31, 2026 at 5:00 PM EDT?",
         "price": 0,
-        "volume_7d": 3935.93,
+        "volume_7d": 924.35,
         "venue": "kalshi",
         "end_date": "2026-07-31"
       },
@@ -1296,5 +1289,5 @@
     ],
     "tenors": []
   },
-  "generated_at": "2026-07-09T01:13:00Z"
+  "generated_at": "2026-07-09T01:51:21Z"
 }
