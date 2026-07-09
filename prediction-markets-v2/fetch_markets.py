@@ -243,7 +243,6 @@ def fetch_kalshi():
                     "consensus_price": consensus["consensus_price"],
                     "peak_band": consensus["peak_band"],
                     "peak_prob": consensus["peak_prob"],
-                    "bands": consensus["bands"],
                     "spot_price": spot,
                     "themes": None,
                     "sub_tags": None,
@@ -303,16 +302,7 @@ def fetch_kalshi():
 
 
 def compute_consensus_price(band_markets):
-    """Compute a consensus price from a set of band markets.
-
-    Two Kalshi structures exist:
-    - "-T<strike>" threshold ladders: each market prices P(settle ABOVE
-      strike) — cumulative, i.e. a ready-made CDF. Consensus = the median
-      (strike where the CDF crosses 0.5). Treating these as histogram
-      weights (the old behavior) biased consensus far below spot.
-    - "-B<strike>" bucket bands: each market prices P(settle IN bucket) —
-      a histogram; consensus = probability-weighted average strike.
-    """
+    """Compute probability-weighted average price from a set of band markets."""
     bands = []
     for m in band_markets:
         ticker = m.get("ticker", "")
@@ -321,63 +311,42 @@ def compute_consensus_price(band_markets):
             continue
 
         # Parse strike from ticker: -B65750 or -T79199.99
-        kind, strike = None, None
+        strike = None
         if "-B" in ticker:
-            kind, strike = "B", ticker.split("-B")[-1]
+            try:
+                strike = float(ticker.split("-B")[-1])
+            except ValueError:
+                pass
         elif "-T" in ticker:
-            kind, strike = "T", ticker.split("-T")[-1]
-        try:
-            strike = float(strike)
-        except (TypeError, ValueError):
-            continue
-        bands.append({"strike": strike, "prob": price, "kind": kind})
+            try:
+                strike = float(ticker.split("-T")[-1])
+            except ValueError:
+                pass
+
+        if strike is not None:
+            bands.append({"strike": strike, "prob": price})
 
     if len(bands) < 2:
         return None
 
-    t_bands = sorted((b for b in bands if b["kind"] == "T"), key=lambda b: b["strike"])
+    total_prob = sum(b["prob"] for b in bands)
+    if total_prob <= 0:
+        return None
 
-    if len(t_bands) >= 3:
-        # CDF ladder: median = strike where P(above) crosses 0.5
-        consensus = t_bands[0]["strike"] if t_bands[0]["prob"] < 0.5 else t_bands[-1]["strike"]
-        for lo, hi in zip(t_bands, t_bands[1:]):
-            p1, p2 = lo["prob"], hi["prob"]
-            if p1 >= 0.5 >= p2:
-                t = (p1 - 0.5) / (p1 - p2) if p1 != p2 else 0.5
-                consensus = lo["strike"] + t * (hi["strike"] - lo["strike"])
-                break
-        # Peak bucket = largest CDF drop between adjacent strikes
-        drops = [(lo["strike"], max(lo["prob"] - hi["prob"], 0.0))
-                 for lo, hi in zip(t_bands, t_bands[1:])]
-        peak_strike, peak_prob = max(drops, key=lambda x: x[1])
-    else:
-        total_prob = sum(b["prob"] for b in bands)
-        if total_prob <= 0:
-            return None
-        consensus = sum(b["strike"] * b["prob"] for b in bands) / total_prob
-        pk = max(bands, key=lambda b: b["prob"])
-        peak_strike, peak_prob = pk["strike"], pk["prob"]
-
-    avg_price = sum(b["prob"] for b in bands) / len(bands)
+    consensus = sum(b["strike"] * b["prob"] for b in bands) / total_prob
+    peak = max(bands, key=lambda b: b["prob"])
+    avg_price = total_prob / len(bands)
 
     # Build a readable title from the event
     title = band_markets[0].get("title") or band_markets[0].get("ticker", "")
 
     return {
         "consensus_price": round(consensus, 2),
-        "peak_band": round(peak_strike, 2),
-        "peak_prob": round(peak_prob, 4),
+        "peak_band": round(peak["strike"], 2),
+        "peak_prob": round(peak["prob"], 4),
         "avg_price": avg_price,
         "num_bands": len(bands),
         "title": title,
-        # Full per-band distribution — consumed by fetch_price_predictions.py
-        # to build probability fans (previously discarded here, which left
-        # OIL/GOLD with no distribution data).
-        "bands": sorted(
-            [{"strike": round(b["strike"], 2), "prob": round(b["prob"], 4), "kind": b["kind"]}
-             for b in bands],
-            key=lambda b: b["strike"],
-        ),
     }
 
 

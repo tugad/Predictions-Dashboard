@@ -28,14 +28,12 @@ ASSETS = {
             r"bitcoin", r"\bbtc\b",
         ],
         "price_extractors": {
-            "hit_high": r"hit \(HIGH\) \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "hit_low": r"hit \(LOW\) \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "above": r"above \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "below": r"below \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "settle_range": r"settle at \$?([\d,]+(?:\.\d+)?[kK]?)-\$?([\d,]+(?:\.\d+)?[kK]?)",
-            "settle_over": r"settle over \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "reach": r"reach \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "dip": r"dip to \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "hit_high": r"hit \(HIGH\) \$(\d[\d,]*)",
+            "hit_low": r"hit \(LOW\) \$(\d[\d,]*)",
+            "above": r"above \$(\d[\d,]*)",
+            "below": r"below \$(\d[\d,]*)",
+            "settle_range": r"settle at \$(\d[\d,]*)-\$(\d[\d,]*)",
+            "settle_over": r"settle over \$(\d[\d,]*)",
         },
         "date_patterns": [
             (r"on March 28", "2026-03-28"),
@@ -63,17 +61,13 @@ ASSETS = {
         "question_patterns": [
             r"crude oil", r"\bwti\b", r"oil \(cl\)",
         ],
-        "exclude_patterns": [
-            r"brent",  # Brent trades ~$4-8 over WTI; mixing it skews the fan
-        ],
         "price_extractors": {
-            "hit_high": r"hit \(HIGH\) \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "hit_low": r"hit \(LOW\) \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "settle_range": r"settle at \$?([\d,]+(?:\.\d+)?[kK]?)-\$?([\d,]+(?:\.\d+)?[kK]?)",
-            "settle_over": r"settle over \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "above": r"above \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "below": r"below \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "reach": r"reach \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "hit_high": r"hit \(HIGH\) \$(\d[\d,]*)",
+            "hit_low": r"hit \(LOW\) \$(\d[\d,]*)",
+            "settle_range": r"settle at \$(\d[\d,]*)-\$(\d[\d,]*)",
+            "settle_over": r"settle over \$(\d[\d,]*)",
+            "above": r"above[^\$]*\$(\d[\d,]*)",
+            "below": r"below[^\$]*\$(\d[\d,]*)",
         },
         "date_patterns": [
             (r"on Mar 30", "2026-03-30"),
@@ -92,17 +86,16 @@ ASSETS = {
         "band_min": 3000,
         "band_max": 10000,
         "question_patterns": [
-            r"\bgold\b", r"\bgc\b", r"\bxau\b",
+            r"gold", r"\bgc\b", r"\bxau\b",
         ],
         "price_extractors": {
-            "hit_high": r"hit \(HIGH\) \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "hit_low": r"hit \(LOW\) \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "settle_range": r"settle at[^\$\d]*\$?([\d,]+(?:\.\d+)?[kK]?)-\$?([\d,]+(?:\.\d+)?[kK]?)",
-            "settle_over": r"settle over \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "settle_under": r"settle at <\$?([\d,]+(?:\.\d+)?[kK]?)",
-            "above": r"above \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "below": r"below \$?([\d,]+(?:\.\d+)?[kK]?)",
-            "reach": r"reach \$?([\d,]+(?:\.\d+)?[kK]?)",
+            "hit_high": r"hit \(HIGH\) \$(\d[\d,]*)",
+            "hit_low": r"hit \(LOW\) \$(\d[\d,]*)",
+            "settle_range": r"settle at[^\$]*\$(\d[\d,]*)-\$(\d[\d,]*)",
+            "settle_over": r"settle over \$(\d[\d,]*)",
+            "settle_under": r"settle at <\$(\d[\d,]*)",
+            "above": r"above[^\$]*\$(\d[\d,]*)",
+            "below": r"below[^\$]*\$(\d[\d,]*)",
         },
         "date_patterns": [
             (r"on Mar 30", "2026-03-30"),
@@ -144,11 +137,8 @@ def fetch_hyperliquid_candles(coin, days=30):
 
 
 def parse_price(s):
-    """Parse a price string like '100', '3,600', '76.99', or '150k' to float."""
-    s = s.replace(",", "").strip()
-    if s.lower().endswith("k"):
-        return float(s[:-1]) * 1000
-    return float(s)
+    """Parse a price string like '100' or '3,600' to float."""
+    return float(s.replace(",", ""))
 
 
 MONTHS = {
@@ -242,12 +232,12 @@ def build_scenario_table(markets, asset_config):
             if not match:
                 continue
 
-            if mtype in ("hit_high", "above", "reach"):
+            if mtype in ("hit_high", "above"):
                 price = parse_price(match.group(1))
                 levels[price][date].append({
                     "type": "above", "prob": prob, "vol": vol, "venue": venue, "question": q,
                 })
-            elif mtype in ("hit_low", "below", "dip"):
+            elif mtype in ("hit_low", "below"):
                 price = parse_price(match.group(1))
                 levels[price][date].append({
                     "type": "below", "prob": prob, "vol": vol, "venue": venue, "question": q,
@@ -306,27 +296,6 @@ def compute_fan(asset_markets, config, scenarios):
     cdf_by_date = {}
     for m in asset_markets:
         q = m["question"]
-
-        # Collapsed Kalshi price-range events carry the full per-band
-        # distribution. "-T" threshold bands already price P(above strike)
-        # (a CDF) — use directly. "-B" bucket bands are a histogram —
-        # accumulate into a CDF.
-        bands = m.get("bands") or []
-        if len(bands) >= 4:
-            date = (m.get("end_date") or "")[:10] or extract_date(q, date_patterns)
-            if date:
-                t_pts = [(b["strike"], b["prob"]) for b in bands if b.get("kind") == "T"]
-                if len(t_pts) >= 4:
-                    cdf_by_date.setdefault(date, []).extend(t_pts)
-                else:
-                    total = sum(b["prob"] for b in bands)
-                    if total > 0:
-                        running = 0.0
-                        for b in sorted(bands, key=lambda x: -x["strike"]):
-                            running += b["prob"] / total
-                            cdf_by_date.setdefault(date, []).append((b["strike"], min(running, 1.0)))
-            continue
-
         prob = m.get("price") or 0
         if prob <= 0:
             continue
@@ -341,10 +310,10 @@ def compute_fan(asset_markets, config, scenarios):
             match = re.search(pattern, q, re.IGNORECASE)
             if not match:
                 continue
-            if mtype in ("hit_high", "above", "settle_over", "reach"):
+            if mtype in ("hit_high", "above", "settle_over"):
                 price = parse_price(match.group(1))
                 cdf_by_date.setdefault(date, []).append((price, prob))
-            elif mtype in ("hit_low", "below", "settle_under", "dip"):
+            elif mtype in ("hit_low", "below", "settle_under"):
                 price = parse_price(match.group(1))
                 cdf_by_date.setdefault(date, []).append((price, 1 - prob))
             break
@@ -400,12 +369,9 @@ def main():
 
         # Find prediction markets for this asset
         asset_markets = []
-        excludes = config.get("exclude_patterns", [])
         for m in all_markets:
             ql = m["question"].lower()
             if any(re.search(p, ql) for p in config["question_patterns"]):
-                if excludes and any(re.search(p, ql) for p in excludes):
-                    continue
                 if any(k in ql for k in ["hit", "above", "below", "price", "settle", "reach"]):
                     asset_markets.append(m)
 
