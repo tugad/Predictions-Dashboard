@@ -2,16 +2,8 @@
   "BTC": {
     "label": "Bitcoin",
     "unit": "$",
-    "current_price": 75699.0,
+    "current_price": 77187.0,
     "spot_prices": [
-      {
-        "date": "2026-07-22",
-        "open": 66526.0,
-        "high": 66714.0,
-        "low": 65534.0,
-        "close": 66086.0,
-        "volume": 29966.73257
-      },
       {
         "date": "2026-07-23",
         "open": 66086.0,
@@ -247,10 +239,18 @@
       {
         "date": "2026-08-21",
         "open": 73001.0,
-        "high": 75816.0,
+        "high": 79584.0,
         "low": 73001.0,
-        "close": 75699.0,
-        "volume": 33471.64294
+        "close": 78383.0,
+        "volume": 102197.76664
+      },
+      {
+        "date": "2026-08-22",
+        "open": 78382.0,
+        "high": 78885.0,
+        "low": 76600.0,
+        "close": 77187.0,
+        "volume": 16710.79379
       }
     ],
     "band_step": 2000,
@@ -259,6 +259,7 @@
     "scenarios": {
       "dates": [
         "2026-08-31",
+        "2026-09-01",
         "2026-10-01",
         "2026-12-01",
         "2026-12-31",
@@ -269,8 +270,8 @@
           "level": 40000.0,
           "dates": {
             "2027-01-01": {
-              "prob": 0.16,
-              "vol": 13442.31,
+              "prob": 0.14,
+              "vol": 47929.09,
               "sources": 1,
               "type": "below"
             }
@@ -280,8 +281,8 @@
           "level": 45000.0,
           "dates": {
             "2027-01-01": {
-              "prob": 0.23,
-              "vol": 26102.17,
+              "prob": 0.21,
+              "vol": 24033.47,
               "sources": 1,
               "type": "below"
             }
@@ -291,8 +292,8 @@
           "level": 50000.0,
           "dates": {
             "2027-01-01": {
-              "prob": 0.3,
-              "vol": 64751.15,
+              "prob": 0.25,
+              "vol": 104648.67,
               "sources": 1,
               "type": "below"
             }
@@ -302,8 +303,8 @@
           "level": 55000.0,
           "dates": {
             "2027-01-01": {
-              "prob": 0.37,
-              "vol": 112428.97,
+              "prob": 0.33,
+              "vol": 275307.46,
               "sources": 1,
               "type": "below"
             }
@@ -314,20 +315,9 @@
           "dates": {
             "2026-08-31": {
               "prob": 0.03,
-              "vol": 7401.16,
+              "vol": 12515.74,
               "sources": 1,
               "type": "below"
-            }
-          }
-        },
-        {
-          "level": 77500.0,
-          "dates": {
-            "2026-08-31": {
-              "prob": 0.72,
-              "vol": 637899.95,
-              "sources": 1,
-              "type": "above"
             }
           }
         },
@@ -335,14 +325,14 @@
           "level": 80000.0,
           "dates": {
             "2026-08-31": {
-              "prob": 0.44,
-              "vol": 364632.95,
+              "prob": 0.65,
+              "vol": 1171635.6,
               "sources": 1,
               "type": "above"
             },
             "2026-12-31": {
-              "prob": 0.735,
-              "vol": 111344.85,
+              "prob": 0.84,
+              "vol": 178374.26,
               "sources": 1,
               "type": "above"
             }
@@ -352,8 +342,8 @@
           "level": 82500.0,
           "dates": {
             "2026-08-31": {
-              "prob": 0.25,
-              "vol": 153082.32,
+              "prob": 0.42,
+              "vol": 656652.88,
               "sources": 1,
               "type": "above"
             }
@@ -362,9 +352,37 @@
         {
           "level": 85000.0,
           "dates": {
+            "2026-08-31": {
+              "prob": 0.23,
+              "vol": 46560.57,
+              "sources": 1,
+              "type": "above"
+            },
             "2026-12-31": {
-              "prob": 0.535,
-              "vol": 61001.64,
+              "prob": 0.595,
+              "vol": 102638.65,
+              "sources": 1,
+              "type": "above"
+            }
+          }
+        },
+        {
+          "level": 87500.0,
+          "dates": {
+            "2026-08-31": {
+              "prob": 0.19,
+              "vol": 6240.39,
+              "sources": 1,
+              "type": "above"
+            }
+          }
+        },
+        {
+          "level": 90000.0,
+          "dates": {
+            "2026-08-31": {
+              "prob": 0.1,
+              "vol": 12022.89,
               "sources": 1,
               "type": "above"
             }
@@ -374,8 +392,8 @@
           "level": 95000.0,
           "dates": {
             "2026-12-31": {
-              "prob": 0.285,
-              "vol": 16684.01,
+              "prob": 0.325,
+              "vol": 34643.74,
               "sources": 1,
               "type": "above"
             }
@@ -385,8 +403,8 @@
           "level": 99999.99,
           "dates": {
             "2026-12-31": {
-              "prob": 0.24,
-              "vol": 30375.29,
+              "prob": 0.28,
+              "vol": 34043.0,
               "sources": 1,
               "type": "above"
             }
@@ -395,38 +413,39 @@
         {
           "level": 100000.0,
           "dates": {
+            "2026-08-31": {
+              "prob": 0.03,
+              "vol": 9270.21,
+              "sources": 1,
+              "type": "above"
+            },
+            "2026-09-01": {
+              "prob": 0.03,
+              "vol": 33722.51,
+              "sources": 1,
+              "type": "above"
+            },
             "2026-10-01": {
-              "prob": 0.07,
-              "vol": 38611.95,
+              "prob": 0.13,
+              "vol": 39420.44,
               "sources": 1,
               "type": "above"
             },
             "2026-12-01": {
-              "prob": 0.2,
-              "vol": 5295.6,
+              "prob": 0.29,
+              "vol": 8443.97,
               "sources": 1,
               "type": "above"
             },
             "2026-12-31": {
-              "prob": 0.205,
-              "vol": 87884.23,
+              "prob": 0.245,
+              "vol": 145928.28,
               "sources": 1,
               "type": "above"
             },
             "2027-01-01": {
-              "prob": 0.23,
-              "vol": 34220.97,
-              "sources": 1,
-              "type": "above"
-            }
-          }
-        },
-        {
-          "level": 109999.99,
-          "dates": {
-            "2026-12-31": {
-              "prob": 0.2,
-              "vol": 5865.89,
+              "prob": 0.3,
+              "vol": 23342.57,
               "sources": 1,
               "type": "above"
             }
@@ -436,19 +455,8 @@
           "level": 110000.0,
           "dates": {
             "2026-12-31": {
-              "prob": 0.135,
-              "vol": 60125.4,
-              "sources": 1,
-              "type": "above"
-            }
-          }
-        },
-        {
-          "level": 119999.99,
-          "dates": {
-            "2026-12-31": {
-              "prob": 0.1,
-              "vol": 5335.1,
+              "prob": 0.175,
+              "vol": 74611.52,
               "sources": 1,
               "type": "above"
             }
@@ -458,8 +466,8 @@
           "level": 120000.0,
           "dates": {
             "2026-12-31": {
-              "prob": 0.085,
-              "vol": 141097.03,
+              "prob": 0.115,
+              "vol": 161183.83,
               "sources": 1,
               "type": "above"
             }
@@ -469,8 +477,8 @@
           "level": 130000.0,
           "dates": {
             "2026-12-31": {
-              "prob": 0.0415,
-              "vol": 19372.88,
+              "prob": 0.076,
+              "vol": 37374.9,
               "sources": 1,
               "type": "above"
             }
@@ -480,8 +488,19 @@
           "level": 140000.0,
           "dates": {
             "2026-12-31": {
-              "prob": 0.0415,
-              "vol": 15147.83,
+              "prob": 0.048,
+              "vol": 23782.32,
+              "sources": 1,
+              "type": "above"
+            }
+          }
+        },
+        {
+          "level": 149999.99,
+          "dates": {
+            "2026-12-31": {
+              "prob": 0.06,
+              "vol": 11623.84,
               "sources": 1,
               "type": "above"
             }
@@ -491,8 +510,19 @@
           "level": 150000.0,
           "dates": {
             "2026-12-31": {
-              "prob": 0.029,
-              "vol": 6764.82,
+              "prob": 0.035,
+              "vol": 16329.76,
+              "sources": 1,
+              "type": "above"
+            }
+          }
+        },
+        {
+          "level": 160000.0,
+          "dates": {
+            "2026-12-31": {
+              "prob": 0.0415,
+              "vol": 9527.65,
               "sources": 1,
               "type": "above"
             }
@@ -502,14 +532,14 @@
           "level": 200000.0,
           "dates": {
             "2026-12-31": {
-              "prob": 0.0195,
-              "vol": 20422.34,
+              "prob": 0.0205,
+              "vol": 17767.4,
               "sources": 1,
               "type": "above"
             },
             "2027-01-01": {
-              "prob": 0.04,
-              "vol": 61247.0,
+              "prob": 0.05,
+              "vol": 33311.55,
               "sources": 1,
               "type": "above"
             }
@@ -519,14 +549,14 @@
           "level": 250000.0,
           "dates": {
             "2026-12-31": {
-              "prob": 0.0155,
-              "vol": 11058.41,
+              "prob": 0.0135,
+              "vol": 17251.11,
               "sources": 1,
               "type": "above"
             },
             "2027-01-01": {
               "prob": 0.02,
-              "vol": 5995.24,
+              "vol": 13971.8,
               "sources": 1,
               "type": "above"
             }
@@ -536,8 +566,8 @@
           "level": 1000000.0,
           "dates": {
             "2026-12-31": {
-              "prob": 0.0085,
-              "vol": 123904.86,
+              "prob": 0.0075,
+              "vol": 29764.5,
               "sources": 1,
               "type": "above"
             }
@@ -546,358 +576,412 @@
       ]
     },
     "fan": {
-      "2026-08-21": {
-        "p10": 61248.46,
-        "p25": 66242.93,
-        "p50": 72748.27,
-        "p75": 75735.26,
-        "p90": 75845.26
+      "2026-08-22": {
+        "p10": 75249.99,
+        "p25": 76494.63,
+        "p50": 77286.83,
+        "p75": 77499.99,
+        "p90": 77677.27
+      },
+      "2026-08-28": {
+        "p10": 68344.86,
+        "p25": 73999.99,
+        "p50": 77428.93,
+        "p75": 81999.99,
+        "p90": 86953.6
       },
       "2026-08-31": {
-        "p10": 64900.0,
-        "p25": 75400.0,
-        "p50": 79464.29,
-        "p75": 82500.0,
-        "p90": 82500.0
+        "p10": 64375.0,
+        "p25": 73750.0,
+        "p50": 81630.43,
+        "p75": 84736.84,
+        "p90": 90000.0
       },
       "2026-12-31": {
         "p10": 80000.0,
-        "p25": 80000.0,
-        "p50": 86400.0,
-        "p75": 98888.88,
-        "p90": 119999.99
+        "p25": 81836.73,
+        "p50": 88518.52,
+        "p75": 100000.0,
+        "p90": 123846.15
       },
       "2027-01-01": {
-        "p10": 38648.3,
-        "p25": 49341.82,
-        "p50": 76104.17,
-        "p75": 90840.16,
-        "p90": 112475.0
+        "p10": 39096.72,
+        "p25": 50000.0,
+        "p50": 82234.51,
+        "p75": 95976.56,
+        "p90": 115937.5
       }
     },
-    "market_count": 36,
+    "market_count": 42,
     "markets": [
       {
-        "question": "Bitcoin price on Aug 21, 2026?",
-        "price": 0,
-        "volume_7d": 9108244.37,
-        "venue": "kalshi",
-        "end_date": "2026-08-21"
-      },
-      {
-        "question": "Bitcoin price on Aug 21, 2026?",
-        "price": 0,
-        "volume_7d": 3141550.25,
-        "venue": "kalshi",
-        "end_date": "2026-08-21"
-      },
-      {
         "question": "BTC price up in next 15 mins?",
-        "price": 0.79,
-        "volume_7d": 846519.4,
+        "price": 0.945,
+        "volume_7d": 4885085.62,
         "venue": "kalshi",
-        "end_date": "2026-08-21"
+        "end_date": "2026-08-22"
       },
       {
-        "question": "Will BTC trimmed mean be above $77500.00 by 11:59 PM ET on Aug 31, 2026?",
-        "price": 0.72,
-        "volume_7d": 637899.95,
+        "question": "Bitcoin price on Aug 22, 2026?",
+        "price": 0,
+        "volume_7d": 2932514.64,
         "venue": "kalshi",
-        "end_date": "2026-09-01"
+        "end_date": "2026-08-22"
+      },
+      {
+        "question": "Bitcoin price on Aug 22, 2026?",
+        "price": 0,
+        "volume_7d": 1664122.81,
+        "venue": "kalshi",
+        "end_date": "2026-08-22"
       },
       {
         "question": "Will BTC trimmed mean be above $80000.00 by 11:59 PM ET on Aug 31, 2026?",
-        "price": 0.44,
-        "volume_7d": 364632.95,
+        "price": 0.65,
+        "volume_7d": 1171635.6,
         "venue": "kalshi",
         "end_date": "2026-09-01"
+      },
+      {
+        "question": "Bitcoin price on Aug 28, 2026?",
+        "price": 0,
+        "volume_7d": 1103448.43,
+        "venue": "kalshi",
+        "end_date": "2026-08-28"
       },
       {
         "question": "Will BTC trimmed mean be above $82500.00 by 11:59 PM ET on Aug 31, 2026?",
-        "price": 0.25,
-        "volume_7d": 153082.32,
+        "price": 0.42,
+        "volume_7d": 656652.88,
         "venue": "kalshi",
         "end_date": "2026-09-01"
       },
       {
-        "question": "Will Bitcoin reach $120,000 by December 31, 2026?",
-        "price": 0.085,
-        "volume_7d": 141097.03,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $1,000,000 by December 31, 2026?",
-        "price": 0.0085,
-        "volume_7d": 123904.86,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
         "question": "Will Bitcoin be below $55000.00 by Jan 1, 2027 at 12:00am ET?",
-        "price": 0.37,
-        "volume_7d": 112428.97,
+        "price": 0.33,
+        "volume_7d": 275307.46,
         "venue": "kalshi",
         "end_date": "2027-01-01"
       },
       {
         "question": "Will Bitcoin reach $80,000 by December 31, 2026?",
-        "price": 0.735,
-        "volume_7d": 111344.85,
+        "price": 0.84,
+        "volume_7d": 178374.26,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $120,000 by December 31, 2026?",
+        "price": 0.115,
+        "volume_7d": 161183.83,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
         "question": "Will Bitcoin reach $100,000 by December 31, 2026?",
-        "price": 0.205,
-        "volume_7d": 87884.23,
+        "price": 0.245,
+        "volume_7d": 145928.28,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will BTC hit $50,000 before $100,000 by Dec 31, 2026?",
+        "price": 0.27,
+        "volume_7d": 128941.28,
+        "venue": "kalshi",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin be below $50000.00 by Jan 1, 2027 at 12:00am ET?",
+        "price": 0.25,
+        "volume_7d": 104648.67,
+        "venue": "kalshi",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $85,000 by December 31, 2026?",
+        "price": 0.595,
+        "volume_7d": 102638.65,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
         "question": "BTC price  on Jan 1, 2027?",
         "price": 0,
-        "volume_7d": 87620.1,
+        "volume_7d": 78386.9,
         "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will BTC hit $50,000 before $100,000 by Dec 31, 2026?",
-        "price": 0.35,
-        "volume_7d": 67926.79,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be below $50000.00 by Jan 1, 2027 at 12:00am ET?",
-        "price": 0.3,
-        "volume_7d": 64751.15,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be above $200000 by Jan 1, 2027 at 11:59PM ET?",
-        "price": 0.04,
-        "volume_7d": 61247.0,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $85,000 by December 31, 2026?",
-        "price": 0.535,
-        "volume_7d": 61001.64,
-        "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
         "question": "Will Bitcoin reach $110,000 by December 31, 2026?",
-        "price": 0.135,
-        "volume_7d": 60125.4,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be above $100000 by October 1, 2026 at 12:00AM ET?",
-        "price": 0.07,
-        "volume_7d": 38611.95,
-        "venue": "kalshi",
-        "end_date": "2026-10-01"
-      },
-      {
-        "question": "Will Bitcoin be above $100000.00 by Jan 1, 2027 at 12:00AM ET?",
-        "price": 0.23,
-        "volume_7d": 34220.97,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be above $99,999.99 by Dec 31, 2026 at 11:59 PM ET?",
-        "price": 0.24,
-        "volume_7d": 30375.29,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin hit $150k by December 31, 2026?",
-        "price": 0.0335,
-        "volume_7d": 27631.01,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be below $45000.00 by Jan 1, 2027 at 12:00am ET?",
-        "price": 0.23,
-        "volume_7d": 26102.17,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $200,000 by December 31, 2026?",
-        "price": 0.0195,
-        "volume_7d": 20422.34,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $130,000 by December 31, 2026?",
-        "price": 0.0415,
-        "volume_7d": 19372.88,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Bitcoin price range on Aug 21, 2026?",
-        "price": 0,
-        "volume_7d": 17932.4,
-        "venue": "kalshi",
-        "end_date": "2026-08-21"
-      },
-      {
-        "question": "Will Bitcoin reach $95,000 by December 31, 2026?",
-        "price": 0.285,
-        "volume_7d": 16684.01,
-        "venue": "polymarket",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin reach $140,000 by December 31, 2026?",
-        "price": 0.0415,
-        "volume_7d": 15147.83,
+        "price": 0.175,
+        "volume_7d": 74611.52,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
         "question": "Will Bitcoin be below $40000.00 by Jan 1, 2027 at 12:00am ET?",
-        "price": 0.16,
-        "volume_7d": 13442.31,
+        "price": 0.14,
+        "volume_7d": 47929.09,
         "venue": "kalshi",
         "end_date": "2027-01-01"
       },
       {
-        "question": "Will Bitcoin reach $250,000 by December 31, 2026?",
-        "price": 0.0155,
-        "volume_7d": 11058.41,
+        "question": "Will BTC trimmed mean be above $85000.00 by 11:59 PM ET on Aug 31, 2026?",
+        "price": 0.23,
+        "volume_7d": 46560.57,
+        "venue": "kalshi",
+        "end_date": "2026-09-01"
+      },
+      {
+        "question": "Will Bitcoin be above $100000 by October 1, 2026 at 12:00AM ET?",
+        "price": 0.13,
+        "volume_7d": 39420.44,
+        "venue": "kalshi",
+        "end_date": "2026-10-01"
+      },
+      {
+        "question": "Will Bitcoin reach $130,000 by December 31, 2026?",
+        "price": 0.076,
+        "volume_7d": 37374.9,
         "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $95,000 by December 31, 2026?",
+        "price": 0.325,
+        "volume_7d": 34643.74,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin be above $99,999.99 by Dec 31, 2026 at 11:59 PM ET?",
+        "price": 0.28,
+        "volume_7d": 34043.0,
+        "venue": "kalshi",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin be above $100000.00 by Sep 1, 2026 at 12:00AMET?",
+        "price": 0.03,
+        "volume_7d": 33722.51,
+        "venue": "kalshi",
+        "end_date": "2026-09-01"
+      },
+      {
+        "question": "Will Bitcoin be above $200000 by Jan 1, 2027 at 11:59PM ET?",
+        "price": 0.05,
+        "volume_7d": 33311.55,
+        "venue": "kalshi",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $1,000,000 by December 31, 2026?",
+        "price": 0.0075,
+        "volume_7d": 29764.5,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin hit $150k by December 31, 2026?",
+        "price": 0.03,
+        "volume_7d": 27669.99,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin be below $45000.00 by Jan 1, 2027 at 12:00am ET?",
+        "price": 0.21,
+        "volume_7d": 24033.47,
+        "venue": "kalshi",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $140,000 by December 31, 2026?",
+        "price": 0.048,
+        "volume_7d": 23782.32,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin be above $100000.00 by Jan 1, 2027 at 12:00AM ET?",
+        "price": 0.3,
+        "volume_7d": 23342.57,
+        "venue": "kalshi",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $200,000 by December 31, 2026?",
+        "price": 0.0205,
+        "volume_7d": 17767.4,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $250,000 by December 31, 2026?",
+        "price": 0.0135,
+        "volume_7d": 17251.11,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin reach $150,000 by December 31, 2026?",
+        "price": 0.035,
+        "volume_7d": 16329.76,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will Bitcoin be above $250000 by Jan 1, 2027 at 12:00AM ET?",
+        "price": 0.02,
+        "volume_7d": 13971.8,
+        "venue": "kalshi",
         "end_date": "2027-01-01"
       },
       {
         "question": "Will BTC trimmed mean be below $60000.00 by 11:59 PM ET on Aug 31, 2026?",
         "price": 0.03,
-        "volume_7d": 7401.16,
+        "volume_7d": 12515.74,
         "venue": "kalshi",
         "end_date": "2026-09-01"
       },
       {
-        "question": "Will Bitcoin reach $150,000 by December 31, 2026?",
-        "price": 0.029,
-        "volume_7d": 6764.82,
+        "question": "Will BTC trimmed mean be above $90000.00 by 11:59 PM ET on Aug 31, 2026?",
+        "price": 0.1,
+        "volume_7d": 12022.89,
+        "venue": "kalshi",
+        "end_date": "2026-09-01"
+      },
+      {
+        "question": "Will Bitcoin be above $149999.99 by Dec 31, 2026 at 11:59PM ET?",
+        "price": 0.06,
+        "volume_7d": 11623.84,
+        "venue": "kalshi",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Bitcoin price range on Aug 22, 2026?",
+        "price": 0,
+        "volume_7d": 11242.15,
+        "venue": "kalshi",
+        "end_date": "2026-08-22"
+      },
+      {
+        "question": "Will Bitcoin reach $160,000 by December 31, 2026?",
+        "price": 0.0415,
+        "volume_7d": 9527.65,
         "venue": "polymarket",
         "end_date": "2027-01-01"
       },
       {
-        "question": "Bitcoin price range on Aug 21, 2026?",
-        "price": 0,
-        "volume_7d": 6376.12,
+        "question": "Will BTC trimmed mean be above $100000.00 by 11:59 PM ET on Aug 31, 2026?",
+        "price": 0.03,
+        "volume_7d": 9270.21,
         "venue": "kalshi",
-        "end_date": "2026-08-21"
-      },
-      {
-        "question": "Will Bitcoin be above $250000 by Jan 1, 2027 at 12:00AM ET?",
-        "price": 0.02,
-        "volume_7d": 5995.24,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be above $109,999.99 by Dec 31, 2026 at 11:59 PM ET?",
-        "price": 0.2,
-        "volume_7d": 5865.89,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
-      },
-      {
-        "question": "Will Bitcoin be above $119,999.99 by Dec 31, 2026 at 11:59 PM ET?",
-        "price": 0.1,
-        "volume_7d": 5335.1,
-        "venue": "kalshi",
-        "end_date": "2027-01-01"
+        "end_date": "2026-09-01"
       },
       {
         "question": "Will Bitcoin be above $100000 by December 1, 2026 at 12:00AM ET?",
-        "price": 0.2,
-        "volume_7d": 5295.6,
+        "price": 0.29,
+        "volume_7d": 8443.97,
         "venue": "kalshi",
         "end_date": "2026-12-01"
+      },
+      {
+        "question": "Will BTC trimmed mean be above $87500.00 by 11:59 PM ET on Aug 31, 2026?",
+        "price": 0.19,
+        "volume_7d": 6240.39,
+        "venue": "kalshi",
+        "end_date": "2026-09-01"
+      },
+      {
+        "question": "Bitcoin price range on Aug 28, 2026?",
+        "price": 0,
+        "volume_7d": 3778.29,
+        "venue": "kalshi",
+        "end_date": "2026-08-28"
+      },
+      {
+        "question": "Bitcoin price range on Aug 22, 2026?",
+        "price": 0,
+        "volume_7d": 2490.73,
+        "venue": "kalshi",
+        "end_date": "2026-08-22"
       }
     ],
     "tenors": [
       {
-        "date": "2026-08-21",
-        "market_count": 5,
-        "total_volume": 13120622.54,
-        "median": 72748.27,
-        "p10": 61248.46,
-        "p25": 66242.93,
-        "p75": 75735.26,
-        "p90": 75845.26,
-        "median_vs_spot": -3.9,
+        "date": "2026-08-22",
+        "market_count": 7,
+        "total_volume": 10602682.67,
+        "median": 77286.83,
+        "p10": 75249.99,
+        "p25": 76494.63,
+        "p75": 77499.99,
+        "p90": 77677.27,
+        "median_vs_spot": 0.1,
         "key_levels": [],
-        "narrative": "Prediction markets expect a modest pullback to $72,748 (\u22123.9%) by late August 2026, with 50% of probability mass between $66,243 and $75,735. The tight 75th/90th percentile clustering ($75,735\u2013$75,845) suggests limited upside conviction near-term despite $13.1M in aggregate volume."
+        "narrative": "Prediction markets show minimal near-term upside, with a median of $77,287 (+0.1%) suggesting consensus for price consolidation. The interquartile range of $76,495\u2013$77,500 reflects tight conviction around current spot levels, with 80% of outcomes contained within just 1.5% of current price."
+      },
+      {
+        "date": "2026-08-28",
+        "market_count": 7,
+        "total_volume": 10602682.67,
+        "median": 77428.93,
+        "p10": 68344.86,
+        "p25": 73999.99,
+        "p75": 81999.99,
+        "p90": 86953.6,
+        "median_vs_spot": 0.3,
+        "key_levels": [],
+        "narrative": "Markets show modest drift higher to $77,429 (+0.3%) by late August, but with substantially widened uncertainty\u2014the 10th to 90th percentile spans $68,345\u2013$86,954, indicating material divergence in near-term outcomes across the week."
       },
       {
         "date": "2026-08-31",
-        "market_count": 5,
-        "total_volume": 13120622.54,
-        "median": 79464.29,
-        "p10": 64900.0,
-        "p25": 75400.0,
-        "p75": 82500.0,
-        "p90": 82500.0,
-        "median_vs_spot": 5.0,
+        "market_count": 7,
+        "total_volume": 10602682.67,
+        "median": 81630.43,
+        "p10": 64375.0,
+        "p25": 73750.0,
+        "p75": 84736.84,
+        "p90": 90000.0,
+        "median_vs_spot": 5.8,
         "key_levels": [],
-        "narrative": "Markets show a modest recovery to $79,464 (+5.0%) by August month-end, with 50% of traders positioned between $75,400 and $82,500. The $13.1M volume and symmetric distribution around spot suggest equilibrium pricing with gentle bullish bias over the 10-day period."
+        "narrative": "By month-end, conviction shifts notably bullish with a median of $81,630 (+5.8%), suggesting markets price in positive catalysts over the final days of August. The 75th percentile reaches $84,737, though downside risk to $64,375 (10th percentile) remains meaningful."
       },
       {
         "date": "2026-12-31",
         "market_count": 1,
-        "total_volume": 5295.6,
-        "median": 86400.0,
+        "total_volume": 8443.97,
+        "median": 88518.52,
         "p10": 80000.0,
-        "p25": 80000.0,
-        "p75": 98888.88,
-        "p90": 119999.99,
-        "median_vs_spot": 14.1,
+        "p25": 81836.73,
+        "p75": 100000.0,
+        "p90": 123846.15,
+        "median_vs_spot": 14.7,
         "key_levels": [],
-        "narrative": "Year-end 2026 pricing reaches $86,400 (+14.1%), with wide dispersion reflecting elevated uncertainty; the 90th percentile extends to $120,000 while the 10th sits at $80,000. Limited liquidity ($5.3K volume) on this single market warrants caution, though the median implies steady appreciation through year-end."
+        "narrative": "Year-end 2026 sees the strongest bullish lean, with a $88,519 median (+14.7% from spot) and 75th percentile at $100,000, though this forecast rests on thin liquidity ($8.4k volume) and should be weighted cautiously against higher-volume tenors."
       },
       {
         "date": "2027-01-01",
         "market_count": 25,
-        "total_volume": 1217750.29,
-        "median": 76104.17,
-        "p10": 38648.3,
-        "p25": 49341.82,
-        "p75": 90840.16,
-        "p90": 112475.0,
-        "median_vs_spot": 0.5,
+        "total_volume": 1652387.54,
+        "median": 82234.51,
+        "p10": 39096.72,
+        "p25": 50000.0,
+        "p75": 95976.56,
+        "p90": 115937.5,
+        "median_vs_spot": 6.5,
         "key_levels": [],
-        "narrative": "New Year 2027 expectations remain anchored near spot at $76,104 (+0.5%), but with extremely wide confidence intervals ($38,648\u2013$112,475) indicating significant structural uncertainty. The 25-market, $1.2M volume set suggests polarized views on longer-term Bitcoin fundamentals entering 2027."
+        "narrative": "The New Year outlook shows a $82,235 median (+6.5%) with significantly wider dispersion than earlier tenors, as the 90th percentile approaches $115,938 while the 10th percentile drops to $39,097, reflecting high uncertainty for outcomes beyond the six-month horizon."
       }
     ]
   },
   "OIL": {
     "label": "Crude Oil (WTI)",
     "unit": "$",
-    "current_price": 86.319,
+    "current_price": 86.871,
     "spot_prices": [
-      {
-        "date": "2026-07-22",
-        "open": 84.776,
-        "high": 88.553,
-        "low": 84.475,
-        "close": 87.767,
-        "volume": 4090357.781
-      },
       {
         "date": "2026-07-23",
         "open": 87.767,
@@ -1133,10 +1217,18 @@
       {
         "date": "2026-08-21",
         "open": 86.182,
-        "high": 86.9,
-        "low": 86.059,
-        "close": 86.319,
-        "volume": 117305.233
+        "high": 87.47,
+        "low": 85.812,
+        "close": 86.658,
+        "volume": 1206293.299
+      },
+      {
+        "date": "2026-08-22",
+        "open": 86.65,
+        "high": 87.01,
+        "low": 86.35,
+        "close": 86.871,
+        "volume": 86204.332
       }
     ],
     "band_step": 5,
@@ -1144,8 +1236,9 @@
     "band_max": 220,
     "scenarios": {
       "dates": [
-        "2026-08-21",
         "2026-08-24",
+        "2026-08-25",
+        "2026-08-28",
         "2026-08-31",
         "2026-11-03",
         "2026-12-31"
@@ -1156,7 +1249,7 @@
           "dates": {
             "2026-12-31": {
               "prob": 0.0,
-              "vol": 1466.65,
+              "vol": 940.49,
               "sources": 1,
               "type": "above"
             }
@@ -1167,7 +1260,7 @@
           "dates": {
             "2026-11-03": {
               "prob": 0.0,
-              "vol": 11315.05,
+              "vol": 2119.57,
               "sources": 1,
               "type": "above"
             }
@@ -1178,29 +1271,7 @@
           "dates": {
             "2026-08-31": {
               "prob": 0.0,
-              "vol": 151.48,
-              "sources": 1,
-              "type": "above"
-            }
-          }
-        },
-        {
-          "level": 88.09,
-          "dates": {
-            "2026-08-21": {
-              "prob": 0.0,
-              "vol": 931.04,
-              "sources": 1,
-              "type": "above"
-            }
-          }
-        },
-        {
-          "level": 90.99,
-          "dates": {
-            "2026-08-21": {
-              "prob": 0.0,
-              "vol": 369803.37,
+              "vol": 157.24,
               "sources": 1,
               "type": "above"
             }
@@ -1209,15 +1280,15 @@
         {
           "level": 93.99,
           "dates": {
-            "2026-08-21": {
+            "2026-08-24": {
               "prob": 0.0,
-              "vol": 27505.01,
+              "vol": 168937.0,
               "sources": 1,
               "type": "above"
             },
-            "2026-08-24": {
+            "2026-08-25": {
               "prob": 0.0,
-              "vol": 3975.98,
+              "vol": 1917.64,
               "sources": 1,
               "type": "above"
             }
@@ -1228,13 +1299,24 @@
           "dates": {
             "2026-08-31": {
               "prob": 0.0,
-              "vol": 3390.78,
+              "vol": 4248.22,
               "sources": 1,
               "type": "above"
             },
             "2026-12-31": {
               "prob": 0.0,
-              "vol": 3660.8,
+              "vol": 293.65,
+              "sources": 1,
+              "type": "above"
+            }
+          }
+        },
+        {
+          "level": 99.99,
+          "dates": {
+            "2026-08-28": {
+              "prob": 0.0,
+              "vol": 5162.94,
               "sources": 1,
               "type": "above"
             }
@@ -1245,7 +1327,7 @@
           "dates": {
             "2026-12-31": {
               "prob": 0.0,
-              "vol": 99273.23,
+              "vol": 17382.53,
               "sources": 1,
               "type": "above"
             }
@@ -1254,170 +1336,175 @@
       ]
     },
     "fan": {
-      "2026-08-21": {
-        "p10": 81.5,
-        "p25": 85.19,
-        "p50": 86.25,
-        "p75": 86.99,
-        "p90": 86.99
-      },
       "2026-08-24": {
-        "p10": 82.82,
-        "p25": 84.36,
-        "p50": 86.22,
+        "p10": 83.49,
+        "p25": 85.32,
+        "p50": 86.84,
         "p75": 88.49,
-        "p90": 90.36
+        "p90": 90.49
+      },
+      "2026-08-25": {
+        "p10": 82.99,
+        "p25": 84.99,
+        "p50": 86.45,
+        "p75": 88.93,
+        "p90": 89.99
+      },
+      "2026-08-28": {
+        "p10": 85.26,
+        "p25": 86.32,
+        "p50": 88.1,
+        "p75": 90.25,
+        "p90": 92.18
       },
       "2026-11-03": {
-        "p10": 66.34,
-        "p25": 63.24,
+        "p10": 63.86,
+        "p25": 63.61,
         "p50": 66.82,
-        "p75": 89.24,
+        "p75": 90.99,
         "p90": 114.99
       }
     },
-    "market_count": 12,
+    "market_count": 11,
     "markets": [
-      {
-        "question": "Will the WTI crude oil settlement price be above 90.99 USD/Bbl on Aug 21, 2026?",
-        "price": 0,
-        "volume_7d": 369803.37,
-        "venue": "kalshi",
-        "end_date": "2026-08-21"
-      },
-      {
-        "question": "Will the maximum WTI front month settle price reach $200.01 by Dec 31, 2026?",
-        "price": 0,
-        "volume_7d": 99273.23,
-        "venue": "kalshi",
-        "end_date": "2026-12-31"
-      },
-      {
-        "question": "Will Crude Oil reach a new all-time high by September 30?",
-        "price": 0.0295,
-        "volume_7d": 32196.13,
-        "venue": "polymarket",
-        "end_date": "2026-09-30"
-      },
-      {
-        "question": "Will Crude Oil reach a new all-time high by December 31?",
-        "price": 0.135,
-        "volume_7d": 30047.69,
-        "venue": "polymarket",
-        "end_date": "2026-12-31"
-      },
-      {
-        "question": "Will the WTI crude oil settlement price be above 93.99 USD/Bbl on Aug 21, 2026?",
-        "price": 0,
-        "volume_7d": 27505.01,
-        "venue": "kalshi",
-        "end_date": "2026-08-21"
-      },
-      {
-        "question": "Will the WTI crude oil settlement price be above 62.99 USD/Bbl on Nov 3, 2026?",
-        "price": 0,
-        "volume_7d": 11315.05,
-        "venue": "kalshi",
-        "end_date": "2026-11-03"
-      },
       {
         "question": "Will the WTI crude oil settlement price be above 93.99 USD/Bbl on Aug 24, 2026?",
         "price": 0,
-        "volume_7d": 3975.98,
+        "volume_7d": 168937.0,
         "venue": "kalshi",
         "end_date": "2026-08-24"
       },
       {
-        "question": "Will the price of WTI oil be above 95 on December 31, 2026 at 02:30 PM EST?",
+        "question": "Will Crude Oil reach a new all-time high by September 30?",
+        "price": 0.02,
+        "volume_7d": 43031.84,
+        "venue": "polymarket",
+        "end_date": "2026-10-01"
+      },
+      {
+        "question": "Will Crude Oil reach a new all-time high by December 31?",
+        "price": 0.135,
+        "volume_7d": 33167.78,
+        "venue": "polymarket",
+        "end_date": "2027-01-01"
+      },
+      {
+        "question": "Will the maximum WTI front month settle price reach $200.01 by Dec 31, 2026?",
         "price": 0,
-        "volume_7d": 3660.8,
+        "volume_7d": 17382.53,
         "venue": "kalshi",
         "end_date": "2026-12-31"
+      },
+      {
+        "question": "Will the WTI crude oil settlement price be above 99.99 USD/Bbl on Aug 28, 2026?",
+        "price": 0,
+        "volume_7d": 5162.94,
+        "venue": "kalshi",
+        "end_date": "2026-08-28"
       },
       {
         "question": "Will the maximum WTI front month settle price reach $95.00 by Aug 31, 2026?",
         "price": 0,
-        "volume_7d": 3390.78,
+        "volume_7d": 4248.22,
         "venue": "kalshi",
         "end_date": "2026-08-31"
       },
       {
+        "question": "Will the WTI crude oil settlement price be above 62.99 USD/Bbl on Nov 3, 2026?",
+        "price": 0,
+        "volume_7d": 2119.57,
+        "venue": "kalshi",
+        "end_date": "2026-11-03"
+      },
+      {
+        "question": "Will the WTI crude oil settlement price be above 93.99 USD/Bbl on Aug 25, 2026?",
+        "price": 0,
+        "volume_7d": 1917.64,
+        "venue": "kalshi",
+        "end_date": "2026-08-25"
+      },
+      {
         "question": "Will the minimum WTI front month settle price reach $56 by Dec 31, 2026?",
         "price": 0,
-        "volume_7d": 1466.65,
+        "volume_7d": 940.49,
         "venue": "kalshi",
         "end_date": "2026-12-31"
       },
       {
-        "question": "Will the WTI Oil close price be above 88.09 USD/barrel on August 21, 2026 at 3:00 AM ET?",
+        "question": "Will the price of WTI oil be above 95 on December 31, 2026 at 02:30 PM EST?",
         "price": 0,
-        "volume_7d": 931.04,
+        "volume_7d": 293.65,
         "venue": "kalshi",
-        "end_date": "2026-08-21"
+        "end_date": "2026-12-31"
       },
       {
         "question": "Will the minimum WTI front month settle price reach $75.00 by Aug 31, 2026?",
         "price": 0,
-        "volume_7d": 151.48,
+        "volume_7d": 157.24,
         "venue": "kalshi",
         "end_date": "2026-08-31"
       }
     ],
     "tenors": [
       {
-        "date": "2026-08-21",
-        "market_count": 6,
-        "total_volume": 405757.66,
-        "median": 86.25,
-        "p10": 81.5,
-        "p25": 85.19,
-        "p75": 86.99,
-        "p90": 86.99,
-        "median_vs_spot": -0.1,
+        "date": "2026-08-24",
+        "market_count": 5,
+        "total_volume": 180423.04,
+        "median": 86.84,
+        "p10": 83.49,
+        "p25": 85.32,
+        "p75": 88.49,
+        "p90": 90.49,
+        "median_vs_spot": -0.0,
         "key_levels": [],
-        "narrative": "Prediction markets expect WTI to remain essentially flat near $86/bbl by late August 2026, with tight consensus across six markets totaling $405.8k in volume. The 10th-90th percentile range of $82-$87 reflects minimal expected volatility, suggesting market participants anticipate stable crude conditions in the near term."
+        "narrative": "Markets expect WTI to remain essentially flat near $87/bbl, with tight consensus across 5 markets ($180k volume). The interquartile range of $85-$88 reflects minimal expected volatility over the next day."
       },
       {
-        "date": "2026-08-24",
-        "market_count": 6,
-        "total_volume": 405757.66,
-        "median": 86.22,
-        "p10": 82.82,
-        "p25": 84.36,
-        "p75": 88.49,
-        "p90": 90.36,
-        "median_vs_spot": -0.1,
+        "date": "2026-08-25",
+        "market_count": 5,
+        "total_volume": 180423.04,
+        "median": 86.45,
+        "p10": 82.99,
+        "p25": 84.99,
+        "p75": 88.93,
+        "p90": 89.99,
+        "median_vs_spot": -0.5,
         "key_levels": [],
-        "narrative": "Three days later, markets maintain the $86 median but show slightly wider dispersion, with the 90th percentile rising to $90/bbl versus $87 on August 21st. This modest widening suggests emerging tail risk for modest upside moves by late August, though the core $84-$88 range (25th-75th percentile) remains the consensus outcome."
+        "narrative": "Prediction markets show a slight 0.5% decline to $86/bbl by August 25th, maintaining the near-term stability seen in overnight markets. The $85-$89 IQR suggests continued consolidation with limited directional conviction."
+      },
+      {
+        "date": "2026-08-28",
+        "market_count": 5,
+        "total_volume": 180423.04,
+        "median": 88.1,
+        "p10": 85.26,
+        "p25": 86.32,
+        "p75": 90.25,
+        "p90": 92.18,
+        "median_vs_spot": 1.4,
+        "key_levels": [],
+        "narrative": "By late August, markets price in a modest 1.4% upside move to $88/bbl with moderating consensus. The widening range ($86-$90 IQR) and 90th percentile at $92 indicate emerging upside risk as the market extends the forecast horizon."
       },
       {
         "date": "2026-11-03",
         "market_count": 1,
-        "total_volume": 11315.05,
+        "total_volume": 2119.57,
         "median": 66.82,
-        "p10": 66.34,
-        "p25": 63.24,
-        "p75": 89.24,
+        "p10": 63.86,
+        "p25": 63.61,
+        "p75": 90.99,
         "p90": 114.99,
-        "median_vs_spot": -22.6,
+        "median_vs_spot": -23.1,
         "key_levels": [],
-        "narrative": "A dramatic divergence emerges by November, with the median plummeting to $67/bbl (-22.6% from spot) on limited market depth ($11.3k volume), signaling significant structural headwinds expected by Q4 2026. However, the 75th-90th percentile range of $89-$115 indicates material tail risk for supply disruptions or demand surprises, suggesting elevated uncertainty in this longer-dated contract."
+        "narrative": "Prediction markets show extreme uncertainty and divergence for Q4 2026, with a median of $67/bbl implying 23% downside but a wide $64-$115 range (10th-90th percentiles). The stark split between the 75th percentile at $91 and lower quartile at $64 suggests this single market carries little conviction."
       }
     ]
   },
   "GOLD": {
     "label": "Gold",
     "unit": "$",
-    "current_price": 4566.5,
+    "current_price": 4603.8,
     "spot_prices": [
-      {
-        "date": "2026-07-22",
-        "open": 4083.1,
-        "high": 4167.5,
-        "low": 4079.9,
-        "close": 4133.7,
-        "volume": 17435.644
-      },
       {
         "date": "2026-07-23",
         "open": 4133.7,
@@ -1653,10 +1740,18 @@
       {
         "date": "2026-08-21",
         "open": 4527.5,
-        "high": 4566.9,
-        "low": 4510.2,
-        "close": 4566.5,
-        "volume": 4263.4842
+        "high": 4631.5,
+        "low": 4487.9,
+        "close": 4613.2,
+        "volume": 18102.7353
+      },
+      {
+        "date": "2026-08-22",
+        "open": 4613.2,
+        "high": 4613.8,
+        "low": 4591.1,
+        "close": 4603.8,
+        "volume": 1908.8206
       }
     ],
     "band_step": 200,
@@ -1664,28 +1759,29 @@
     "band_max": 10000,
     "scenarios": {
       "dates": [
-        "2026-08-21",
+        "2026-08-24",
+        "2026-08-28",
         "2026-08-31",
         "2026-12-31"
       ],
       "levels": [
         {
-          "level": 4577.99,
+          "level": 4788.0,
           "dates": {
-            "2026-08-21": {
+            "2026-08-24": {
               "prob": 0.0,
-              "vol": 8815.35,
+              "vol": 34991.9,
               "sources": 1,
               "type": "above"
             }
           }
         },
         {
-          "level": 4735.99,
+          "level": 4976.99,
           "dates": {
-            "2026-08-21": {
+            "2026-08-28": {
               "prob": 0.0,
-              "vol": 113174.73,
+              "vol": 2371.25,
               "sources": 1,
               "type": "above"
             }
@@ -1696,7 +1792,7 @@
           "dates": {
             "2026-08-31": {
               "prob": 0.0,
-              "vol": 19272.38,
+              "vol": 56479.42,
               "sources": 1,
               "type": "above"
             }
@@ -1707,7 +1803,7 @@
           "dates": {
             "2026-12-31": {
               "prob": 0.0,
-              "vol": 20391.05,
+              "vol": 14582.39,
               "sources": 1,
               "type": "above"
             }
@@ -1717,8 +1813,8 @@
           "level": 6000.0,
           "dates": {
             "2026-12-31": {
-              "prob": 0.105,
-              "vol": 20080.4,
+              "prob": 0.125,
+              "vol": 46962.67,
               "sources": 1,
               "type": "above"
             }
@@ -1729,7 +1825,7 @@
           "dates": {
             "2026-12-31": {
               "prob": 0.055,
-              "vol": 7735.76,
+              "vol": 7686.1,
               "sources": 1,
               "type": "above"
             }
@@ -1738,26 +1834,33 @@
       ]
     },
     "fan": {
-      "2026-08-21": {
-        "p10": 4233.49,
-        "p25": 4535.55,
-        "p50": 4555.99,
-        "p75": 4559.32,
-        "p90": 4566.39
+      "2026-08-24": {
+        "p10": 4528.0,
+        "p25": 4563.0,
+        "p50": 4604.67,
+        "p75": 4663.83,
+        "p90": 4691.33
+      },
+      "2026-08-28": {
+        "p10": 4381.61,
+        "p25": 4473.91,
+        "p50": 4609.49,
+        "p75": 4704.99,
+        "p90": 4829.93
       },
       "2026-08-31": {
         "p10": 3264.4,
         "p25": 3285.09,
-        "p50": 4551.99,
-        "p75": 4630.81,
-        "p90": 4718.66
+        "p50": 4611.99,
+        "p75": 4758.66,
+        "p90": 4835.52
       },
       "2026-12-31": {
         "p10": 4300.0,
         "p25": 4300.0,
-        "p50": 4700.0,
-        "p75": 5260.0,
-        "p90": 6100.0
+        "p50": 4730.0,
+        "p75": 5383.33,
+        "p90": 6357.14
       },
       "2027-01-01": {
         "p10": 2472727.27,
@@ -1767,56 +1870,49 @@
         "p90": 700000000.0
       }
     },
-    "market_count": 8,
+    "market_count": 7,
     "markets": [
-      {
-        "question": "Will the gold close price be above 4735.99 USD/t.oz on August 21, 2026 at 5:00 PM EDT?",
-        "price": 0,
-        "volume_7d": 113174.73,
-        "venue": "kalshi",
-        "end_date": "2026-08-21"
-      },
-      {
-        "question": "Gold price up in next 15 mins?",
-        "price": 0.8,
-        "volume_7d": 46264.23,
-        "venue": "kalshi",
-        "end_date": "2026-08-21"
-      },
-      {
-        "question": "Will the price of Gold be above 5500 on December 31, 2026 at 05:00 PM EST?",
-        "price": 0,
-        "volume_7d": 20391.05,
-        "venue": "kalshi",
-        "end_date": "2026-12-31"
-      },
-      {
-        "question": "Will Gold (GC) hit (HIGH) $6,000 by end of December?",
-        "price": 0.105,
-        "volume_7d": 20080.4,
-        "venue": "polymarket",
-        "end_date": "2026-12-31"
-      },
       {
         "question": "Will the gold close price be above 5211.99 USD/t.oz on August 31, 2026 at 5:00 PM EDT?",
         "price": 0,
-        "volume_7d": 19272.38,
+        "volume_7d": 56479.42,
         "venue": "kalshi",
         "end_date": "2026-08-31"
       },
       {
-        "question": "Will the gold close price be above 4577.99 USD/ounce on August 21, 2026 at 3:00 AM ET?",
+        "question": "Will Gold (GC) hit (HIGH) $6,000 by end of December?",
+        "price": 0.125,
+        "volume_7d": 46962.67,
+        "venue": "polymarket",
+        "end_date": "2026-12-31"
+      },
+      {
+        "question": "Will the gold close price be above 4788 USD/t.oz on August 24, 2026 at 5:00 PM EDT?",
         "price": 0,
-        "volume_7d": 8815.35,
+        "volume_7d": 34991.9,
         "venue": "kalshi",
-        "end_date": "2026-08-21"
+        "end_date": "2026-08-24"
+      },
+      {
+        "question": "Will the price of Gold be above 5500 on December 31, 2026 at 05:00 PM EST?",
+        "price": 0,
+        "volume_7d": 14582.39,
+        "venue": "kalshi",
+        "end_date": "2026-12-31"
       },
       {
         "question": "Will Gold (GC) hit (HIGH) $7,000 by end of December?",
         "price": 0.055,
-        "volume_7d": 7735.76,
+        "volume_7d": 7686.1,
         "venue": "polymarket",
         "end_date": "2026-12-31"
+      },
+      {
+        "question": "Will the gold close price be above 4976.99 USD/t.oz on August 28, 2026 at 5:00 PM EDT?",
+        "price": 0,
+        "volume_7d": 2371.25,
+        "venue": "kalshi",
+        "end_date": "2026-08-28"
       },
       {
         "question": "Will the total amount of Department of Commerce gifts and bequests receipts, including Trump Gold Card Program receipts be above 6000000000 for fiscal year 2026?",
@@ -1828,43 +1924,56 @@
     ],
     "tenors": [
       {
-        "date": "2026-08-21",
-        "market_count": 4,
-        "total_volume": 187526.69,
-        "median": 4555.99,
-        "p10": 4233.49,
-        "p25": 4535.55,
-        "p75": 4559.32,
-        "p90": 4566.39,
-        "median_vs_spot": -0.2,
+        "date": "2026-08-24",
+        "market_count": 3,
+        "total_volume": 93842.57,
+        "median": 4604.67,
+        "p10": 4528.0,
+        "p25": 4563.0,
+        "p75": 4663.83,
+        "p90": 4691.33,
+        "median_vs_spot": 0.0,
         "key_levels": [],
-        "narrative": "Prediction markets show minimal price movement by late August 2026, with a median of $4,556 representing a slight 0.2% decline from spot. The tight 25th-75th percentile range ($4,536-$4,559) indicates strong consensus around current levels, though tail risks extend downward to $4,233."
+        "narrative": "Prediction markets show gold trading essentially flat through late August, with a median forecast of $4,605 (+0.0%). The 80% confidence interval spans $4,528\u2013$4,691, suggesting limited expected volatility over the near term."
+      },
+      {
+        "date": "2026-08-28",
+        "market_count": 3,
+        "total_volume": 93842.57,
+        "median": 4609.49,
+        "p10": 4381.61,
+        "p25": 4473.91,
+        "p75": 4704.99,
+        "p90": 4829.93,
+        "median_vs_spot": 0.1,
+        "key_levels": [],
+        "narrative": "Four days later, markets project a modest +0.1% uptick to $4,609, with a notably wider distribution ($4,382\u2013$4,830 between 10th and 90th percentiles) indicating increased uncertainty by end-of-month."
       },
       {
         "date": "2026-08-31",
-        "market_count": 4,
-        "total_volume": 187526.69,
-        "median": 4551.99,
+        "market_count": 3,
+        "total_volume": 93842.57,
+        "median": 4611.99,
         "p10": 3264.4,
         "p25": 3285.09,
-        "p75": 4630.81,
-        "p90": 4718.66,
-        "median_vs_spot": -0.3,
+        "p75": 4758.66,
+        "p90": 4835.52,
+        "median_vs_spot": 0.2,
         "key_levels": [],
-        "narrative": "Markets predict essentially flat gold prices at $4,552 (\u22120.3% from spot) by month-end, with the middle 50% of outcomes clustering between $3,285 and $4,631. The wide dispersion between 10th percentile ($3,264) and 90th percentile ($4,719) reflects significant uncertainty over this short 2.5-week window."
+        "narrative": "Month-end expectations show gold at $4,612 (+0.2%), though the 10th percentile at $3,264 suggests a small tail risk of sharp weakness; the 90th percentile at $4,836 represents ~5% upside."
       },
       {
         "date": "2026-12-31",
         "market_count": 3,
-        "total_volume": 48207.21,
-        "median": 4700.0,
+        "total_volume": 69231.16,
+        "median": 4730.0,
         "p10": 4300.0,
         "p25": 4300.0,
-        "p75": 5260.0,
-        "p90": 6100.0,
-        "median_vs_spot": 2.9,
+        "p75": 5383.33,
+        "p90": 6357.14,
+        "median_vs_spot": 2.7,
         "key_levels": [],
-        "narrative": "Year-end 2026 shows more constructive sentiment, with markets pricing a +2.9% upside to $4,700 and moderately bullish tail risk extending to $6,100 at the 90th percentile. The 25th-75th range of $4,300-$5,260 suggests a meaningful but not consensus-driven rally over the 8-month horizon."
+        "narrative": "Year-end 2026 forecasts turn materially constructive with a +2.7% median of $4,730. The interquartile range ($4,300\u2013$5,383) and 90th percentile at $6,357 indicate meaningful upside optionality into year-end."
       },
       {
         "date": "2027-01-01",
@@ -1875,11 +1984,11 @@
         "p25": 4927272.73,
         "p75": 200000000.0,
         "p90": 700000000.0,
-        "median_vs_spot": 197385.6,
+        "median_vs_spot": 195785.6,
         "key_levels": [],
-        "narrative": "This single-market contract shows extreme outlier pricing with a $9M+ median and $700M 90th percentile, indicating data quality issues or a distressed/illiquid market; results should be disregarded as unreliable for portfolio guidance."
+        "narrative": "This data point appears corrupted and should be disregarded; the astronomical median of $9M+ and zero volume indicate a data anomaly rather than legitimate market pricing."
       }
     ]
   },
-  "generated_at": "2026-08-21T06:40:27Z"
+  "generated_at": "2026-08-22T06:32:32Z"
 }
